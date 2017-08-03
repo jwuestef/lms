@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 
-//Modules
+// Modules
 import { BrowserModule } from '@angular/platform-browser';
-import { CalendarModule } from "ap-angular2-fullcalendar";
 
-//Components
+// Components
 import { AppComponent } from './app.component';
-import { CalendarComponent } from './calendar.component';
+import { CalendarComponent } from 'ap-angular2-fullcalendar';
+import { ClassCalendarComponent } from './class-calendar/class-calendar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    CalendarComponent,
+    ClassCalendarComponent
 
   ],
   imports: [
-    BrowserModule,
-    CalendarModule
+    BrowserModule
   ],
   providers: [],
   bootstrap: [AppComponent]

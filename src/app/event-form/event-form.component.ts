@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-event-form',
@@ -6,11 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./event-form.component.css']
 })
 export class EventFormComponent {
+  @Input() eventsArray = [];
   eventName: string;
   eventDate: string;
+  eventType = 'Event Type';
 
-  addEvent(){
-    console.log(this.eventName);
-    console.log(this.eventDate);
+
+  addEvent() {
+    this.eventsArray.push({
+      title: this.eventName,
+      start: this.eventDate
+    })
   }
 }

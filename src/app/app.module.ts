@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -39,7 +40,8 @@ import { ClassCalendarComponent } from './class-calendar/class-calendar.componen
   ],
   providers: [
     FirebaseService,
-    AngularFireAuth
+    AngularFireAuth,
+    AngularFireDatabase
    ],
   bootstrap: [ AppComponent ]
 })

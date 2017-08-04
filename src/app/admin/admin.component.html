@@ -1,23 +1,9 @@
 <app-navbar></app-navbar>
 
-<div class="col-sm-4 col-sm-offset-4">
-	<h1>Create New Student</h1>
-	<form (ngSubmit)="onSubmit()" #signupForm="ngForm">
-		<div class="form-group">
-			<label for="email">Username</label>
-			<input type="text" class="form-control" id="email" id="email" name="email" [(ngModel)]="model.email">
-			<p *ngIf="errors.email" class="validation">{{errors.email}}</p>
-		</div>
-		<div class="form-group">
-			<label for="password">Password</label>
-			<input type="password" class="form-control" id="password" name="pass" [(ngModel)]="model.pass">
-			<p *ngIf="errors.pass" class="validation">{{errors.pass}}</p>
-		</div>
-		<div class="form-group">
-			<label for="confpass">Confirm Password</label>
-			<input type="password" class="form-control" id="confpass" name="confpass" [(ngModel)]="model.confpass">
-			<p *ngIf="errors.confpass">{{errors.confpass}}</p>
-		</div>
-		<button type="submit" class="btn btn-success">Submit</button>
-	</form>
+<div class="col-xs-3" style="background-color: 'pink'">
+  <p>This is the sidebar that will allow admins to add events to the calendar!</p>
+</div>
+
+<div class="col-xs-9" style="background-color: 'lightgreen'">
+  <p>This is the main calendar section of the page! This will display our calendar, thanks to the awesome <span style="color: 'blue'; font-size: 2rem"><strong><em>Harrison</em></strong></span></p>
 </div>

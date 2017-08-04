@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
 
 @Component({
@@ -8,6 +8,7 @@ import { NgModel } from '@angular/forms';
 })
 export class EventFormComponent {
   @Input() eventsArray = [];
+  @Output() change = new EventEmitter<Array<Object>>();
   eventName: string;
   eventDate: string;
   eventType = 'Event Type';
@@ -17,6 +18,8 @@ export class EventFormComponent {
     this.eventsArray.push({
       title: this.eventName,
       start: this.eventDate
-    })
+    });
+    this.change.emit(this.eventsArray);
+    console.log(this.eventsArray);
   }
 }

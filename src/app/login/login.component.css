@@ -1,0 +1,36 @@
+.container {
+  margin-top: -10px;
+  height: 95vh;
+  width: 100%;
+  text-align: center;
+  background-color: #78171c;
+}
+#login {
+  display: inline-block;
+  margin-top: 25vh;
+  padding-top: 5vh;
+  width: 350px;
+  height: 200px;
+  border: 0px solid white;
+  border-radius: 15px;
+  background-color: white;
+}
+#pw {
+ width: 300px;
+ margin: 0 auto;
+}
+#un {
+ width: 300px;
+ margin: 0 auto;
+}
+#login-btn {
+  width: 70px;
+}
+#background-logo {
+  position: absolute;
+  height: 80vh;
+  opacity: 0.4;
+  left: 0;
+  margin: 5vh;
+}
+

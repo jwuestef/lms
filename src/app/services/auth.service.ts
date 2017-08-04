@@ -31,9 +31,23 @@ export class FirebaseService {
             console.log(e);
         });
     }
+
+    signout() {
+        this.af.auth.signOut()
+        .then(() => {
+            localStorage.clear();
+            this.router.navigateByUrl('/');
+        })
+        .catch((e) => {
+            console.log('Error in signout function inside auth.service.ts: ');
+            console.log(e);
+        });
+    }
+
     isAuthed() {
         return !!this.authState;
     }
+
     constructor(private af: AngularFireAuth, private router: Router){
         this.af.authState.subscribe((authState) => {
             this.authState = authState;

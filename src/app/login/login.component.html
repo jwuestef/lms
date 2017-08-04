@@ -1,10 +1,13 @@
 <div class="container">
   <img id="background-logo" src="./assets/efalogo.png" />
   <div id="login">
-    <input class="form-control" id="un" type="text" placeholder="Username">
+    <input class="form-control" id="un" type="text" placeholder="Email" [(ngModel)]="model.email">
+    <p *ngIf="errors.email" class="validation">{{errors.email}}</p>
     <br>
-    <input class="form-control" id="pw" type="text" placeholder="Password">
+    <input class="form-control" id="pw" type="text" placeholder="Password" [(ngModel)]="model.pass">
+    <p *ngIf="errors.pass" class="validation">{{errors.pass}}</p>
     <br>
-    <button id="login-btn" class="btn btn-primary">Login</button>
+    <button id="login-btn" class="btn btn-primary" (click)="onSubmit()">Login</button>
   </div>
 </div>
+

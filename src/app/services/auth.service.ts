@@ -15,6 +15,7 @@ export class FirebaseService {
             this.router.navigateByUrl('/admin');
         })
         .catch((e) => {
+            console.log('Error in signup function inside auth.service.ts: ');
             console.log(e);
         });
         console.log(this.isAuthed());
@@ -26,6 +27,7 @@ export class FirebaseService {
             this.router.navigateByUrl('/student');
         })
         .catch((e) => {
+            console.log('Error in signin function inside auth.service.ts: ');
             console.log(e);
         });
     }

@@ -1,0 +1,11 @@
+<form class="container eventForm" onsubmit='addEvent()'>
+  <input id="eventName" type='text' placeholder="Event Name" value={{eventName}} required>
+  <select id='eventType'>
+    <option selected disabled>Event Type</option>
+    <option value="assignment">Assignment</option>
+    <option value='topic'>Topic</option>
+    <option value='workshop'>Workshop</option>
+</select>
+  <input id="eventDate" type="date" value={{eventDate}}>
+  <button id="addEvent"type="submit" class='btn btn-success'>Add</button>
+</form>

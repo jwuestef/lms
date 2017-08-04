@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-class-calendar',
-  templateUrl: './class-calendar.component.html',
-  styleUrls: ['./class-calendar.component.css']
+  templateUrl: 'class-calendar.component.html',
+  styleUrls: ['class-calendar.component.css']
 })
 export class ClassCalendarComponent {
   calendarOptions: Object = {
-    // height: 'parent',
+    //height: 'auto',
     fixedWeekCount: false,
     defaultDate: '2016-09-12',
     editable: true,

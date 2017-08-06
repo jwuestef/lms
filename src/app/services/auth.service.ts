@@ -11,7 +11,8 @@ export class FirebaseService {
     authState;
 
     signup(user: User) {
-        this.afa.auth.createUserWithEmailAndPassword(user.email, user.password)
+        user.username = user.username + '@elevenfifty.org';
+        this.afa.auth.createUserWithEmailAndPassword(user.username, user.password)
         .then(() => {
             this.router.navigateByUrl('/admin');
         })
@@ -23,13 +24,14 @@ export class FirebaseService {
     }
 
     signin(user: User) {
-        this.afa.auth.signInWithEmailAndPassword(user.email, user.password)
+        this.afa.auth.signInWithEmailAndPassword(user.username, user.password)
         .then(() => {
             const thisSaved = this;
             this.afd.database.ref('/isAdmin').once('value').then(function(isAdminTable) {
               const arrayOfAdmins = isAdminTable.val();
-              const atSign = user.email.search('@');
-              const userToCheckIfAdmin = user.email.slice(0, atSign);
+              const authData = thisSaved.afa.auth.currentUser.email;
+              const atSign = authData.search('@');
+              const userToCheckIfAdmin = authData.slice(0, atSign);
               const isAdmin = arrayOfAdmins.hasOwnProperty(userToCheckIfAdmin);
               if (isAdmin) {
                 thisSaved.router.navigateByUrl('/admin');

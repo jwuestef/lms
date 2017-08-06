@@ -9,29 +9,33 @@ import { User } from '../models/user';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  public errors = {email: '', pass: ''};  // This one is public so that angular can access it
-  model = {email: '', pass: ''};  // Model that angular will store data in
+  public errors = {username: '', pass: ''};  // This one is public so that angular can access it
+  model = {username: '', pass: ''};  // Model that angular will store data in
   user: User; // User that we will send to the database
+  userUsername: string;  // Just the student10, no @elevenfifty.org
+  usernameToSend: string;  // The username that gets sent to Firebase, includes @elevenfifty.org
   fbs: FirebaseService;
 
   validate() {
-    this.errors = {email: '', pass: ''};
-    if (!this.model.email) {
-      this.errors.email = 'Please provide an email';
+    this.errors = {username: '', pass: ''};
+    if (!this.model.username) {
+      this.errors.username = 'Please provide an username';
     }
     if (!this.model.pass) {
       this.errors.pass = 'Please provide a password';
     }
-    return(this.errors.email || this.errors.pass);  // Returns true if there are errors
+    return(this.errors.username || this.errors.pass);  // Returns true if there are errors
   }
 
   onSubmit() {
     if (this.validate()) { // If there are errors, do not submit the form
       return;
     }
-    this.user = new User(this.model.email, this.model.pass);
+    this.userUsername = this.model.username;
+    this.usernameToSend = this.model.username + '@elevenfifty.org';
+    this.user = new User(this.usernameToSend, this.model.pass);
     this.fbs.signin(this.user);
-    localStorage.setItem('userEmail', this.user.email);
+    localStorage.setItem('navbarUsername', this.userUsername);
   }
 
   constructor(private firebase: FirebaseService) {

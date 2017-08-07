@@ -31,6 +31,7 @@ export class NavbarComponent {
     this.afd.database.ref('/calendars/' + event.target.innerText).once('value').then(function(selectedCalender) {
       thisSaved.es.currentCalender = selectedCalender.val();
     });
+    this.changeCalendar.emit(null);
   }
 
 

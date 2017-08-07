@@ -35,8 +35,8 @@ export class AdminComponent {
    this.calendar.renderEvents();
   }
 
-    loadEvents(eventData){
-      this.events.eventArray = eventData;
+    loadEvents(){
+      this.events.eventArray = this.events.currentCalender.events;
       this.calendar.loadCalendar();
     }
 

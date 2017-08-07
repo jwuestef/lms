@@ -76,10 +76,19 @@ export class ClassCalendarComponent {
   //$('angular2-fullcalendar').fullcalendar('renderEvents', this.events.currentEvents);
   renderEvents() {
     console.log('renderEvents called');
-    $('#calendar').fullCalendar('renderEvent', this.events.eventArray[this.events.eventArray.length - 1]);
+    const currentEvent = this.events.eventArray[this.events.eventArray.length - 1];
+    $('#calendar').fullCalendar('renderEvent', currentEvent);
+
   }
-  loadCalendar(){
+  loadCalendar() {
     $('#calendar').fullCalendar('renderEvents', this.events.eventArray);
+  }
+  onCalendarInit() {
+    console.log('calendar init');
+     jQuery('#calendar').on( 'click', '.fc-event', function(e){
+    e.preventDefault();
+    window.open( jQuery(this).attr('href'), '_blank' );
+});
   }
 
 

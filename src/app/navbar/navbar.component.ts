@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgModel } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -21,6 +21,7 @@ export class NavbarComponent {
   listOfCalendars;
   arrayOfCalendars = [0];
   isAdmin: boolean;
+  @Output() changeCalendar =  new EventEmitter<Object>();
 
 
   createNewCalendar() {

@@ -11,6 +11,7 @@ export class EventFormComponent {
   @Output() clickSubmit = new EventEmitter<Array<Object>>();
   eventName: string;
   eventDate: string;
+  eventLink: string;
   eventType = 'Event Type';
 
   constructor(private events: EventService){}
@@ -18,7 +19,9 @@ export class EventFormComponent {
   addEvent() {
     this.events.eventArray.push({
       title: this.eventName,
-      start: this.eventDate
+      start: this.eventDate,
+      color: this.eventType,
+      url: this.eventLink
     });
     this.clickSubmit.emit(null);
   }

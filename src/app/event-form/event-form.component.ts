@@ -8,7 +8,7 @@ import { NgModel } from '@angular/forms';
 })
 export class EventFormComponent {
   @Input() eventsArray = [];
-  @Output() change = new EventEmitter<Array<Object>>();
+  @Output() clickSubmit = new EventEmitter<Array<Object>>();
   eventName: string;
   eventDate: string;
   eventType = 'Event Type';
@@ -19,7 +19,7 @@ export class EventFormComponent {
       title: this.eventName,
       start: this.eventDate
     });
-    this.change.emit(this.eventsArray);
+    this.clickSubmit.emit(this.eventsArray);
     console.log(this.eventsArray);
   }
 }

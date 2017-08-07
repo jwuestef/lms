@@ -16,7 +16,8 @@ import { StudentService } from '../services/student.service';
 
 export class AdminComponent {
  @ViewChild('classCalendar') calendar: ClassCalendarComponent;
-
+isEvent= true;
+isStudent = false;
   constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, private events: EventService) {
         const thisSaved = this;
         this.afd.database.ref('/isAdmin').once('value').then(function(isAdminTable) {
@@ -37,5 +38,13 @@ export class AdminComponent {
       this.calendar.renderEvents();
   }
 
+  showEventForm(){
+    this.isStudent = false;
+    this.isEvent = true;
+  }
+  showStudentForm(){
+    this.isEvent = false;
+    this.isStudent = true;
 
+  }
 }

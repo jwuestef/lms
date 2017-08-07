@@ -1,9 +1,9 @@
 <app-navbar></app-navbar>
 <div class="col-xs-3">
-    <button id="student" class="btn btn-primary">Students</button>
-    <button id="event" class="btn btn-primary" onclick="">Events</button>
-    <app-event-form (clickSubmit)='addEvents($event)'></app-event-form>
-    <app-student-management></app-student-management>
+    <button id="student" class="btn btn-primary" (click) = 'showStudentForm()'>Students</button>
+    <button id="event" class="btn btn-primary" (click)="showEventForm()">Events</button>
+    <app-event-form *ngIf="isEvent"(clickSubmit)='addEvents($event)'></app-event-form>
+    <app-student-management *ngIf = 'isStudent'></app-student-management>
 </div>
 <div class="col-xs-9" style="background-color: 'lightgreen'">
   <app-class-calendar #classCalendar></app-class-calendar>

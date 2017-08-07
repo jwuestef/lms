@@ -1,8 +1,8 @@
 <app-navbar></app-navbar>
 <div class="col-xs-3">
   <app-event-form [eventsArray]='events' (clickSubmit)='addEvents($event)'></app-event-form>
+  <app-student-management></app-student-management>
 </div>
-
 <div class="col-xs-9" style="background-color: 'lightgreen'">
   <app-class-calendar></app-class-calendar>
 </div>

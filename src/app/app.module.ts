@@ -20,6 +20,7 @@ import { firebaseConfig } from '../environments/firebase.config';
 import { CalendarComponent } from 'ap-angular2-fullcalendar';
 import { ClassCalendarComponent } from './class-calendar/class-calendar.component';
 import { EventFormComponent } from './event-form/event-form.component';
+import { StudentManagementComponent } from './student-management/student-management.component';
 
 
 
@@ -32,7 +33,8 @@ import { EventFormComponent } from './event-form/event-form.component';
     NavbarComponent,
     CalendarComponent,
     ClassCalendarComponent,
-    EventFormComponent
+    EventFormComponent,
+    StudentManagementComponent
   ],
   imports: [
     BrowserModule,

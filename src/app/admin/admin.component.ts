@@ -1,5 +1,6 @@
 import { Component, Output, ViewChild } from '@angular/core';
 import { EventFormComponent } from '../event-form/event-form.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { ClassCalendarComponent } from '../class-calendar/class-calendar.component';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -35,8 +36,10 @@ export class AdminComponent {
    this.calendar.renderEvents();
   }
 
-    loadEvents(){
-      //this.events.eventArray = this.events.currentCalender.events;
+    loadEvents() {
+      console.log('loadEvents Calles');
+      console.log(this.events.currentCalender);
+      this.events.eventArray = this.events.currentCalender.events;
       this.calendar.loadCalendar();
     }
 

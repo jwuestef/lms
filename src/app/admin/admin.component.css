@@ -1,0 +1,21 @@
+#buttons {
+  border-bottom: .5px solid #ddd;
+  text-align: center;
+}
+
+#student {
+  color: white;
+  background-color: #971d23;
+  border-radius: 0 !important;
+  border-bottom: none !important;
+  border-color: #ddd !important;
+}
+
+#event {
+  color: white;
+  background-color: #971d23;
+  width: 83px;
+  border-radius: 0 !important;
+  border-bottom: none !important;
+  border-color: #ddd !important;
+}

@@ -39,7 +39,16 @@ export class AdminComponent {
     loadEvents() {
       console.log('loadEvents Calles');
       console.log(this.events.currentCalender);
-      this.events.eventArray = this.events.currentCalender.events;
+      // this.events.eventArray = this.events.currentCalender.events;
+      const thisSaved = this;
+      let counterOfEvents = 0;
+      Object.keys(thisSaved.events.currentCalender.events).forEach(function(key) {
+          // console.log(key, thisSaved.listOfCalendars[key]);
+          thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
+          counterOfEvents++;
+          console.log(thisSaved.events.eventArray);
+      });
+
       this.calendar.loadCalendar();
     }
 

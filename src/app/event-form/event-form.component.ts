@@ -19,12 +19,12 @@ export class EventFormComponent {
   constructor(private es: EventService, private afd: AngularFireDatabase) {}
 
   addEvent() {
-    const currentEvent ={
+    const currentEvent = {
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,
       url: this.eventLink
-    }
+    };
     this.es.eventArray.push(currentEvent);
     this.clickSubmit.emit(null);
     // Save it to Firebase

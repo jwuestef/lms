@@ -7,6 +7,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from '../models/user';
 import { LoginComponent } from '../login/login.component';
 import { FirebaseService } from '../services/auth.service';
+import { EventService } from '../services/event.service';
 
 
 @Component({
@@ -22,12 +23,18 @@ export class NavbarComponent {
   arrayOfCalendars = [0];
   isAdmin: boolean;
   @Output() changeCalendar =  new EventEmitter<Object>();
+  thisSaved;
+
+
+  selectCalender(event) {
+    const thisSaved = this;
+    this.afd.database.ref('/calendars/' + event.target.innerText).once('value').then(function(selectedCalender) {
+      thisSaved.es.currentCalender = selectedCalender.val();
+    });
+  }
 
 
   createNewCalendar() {
-    // console.log('createNewCalendar called!');
-    // console.log('this.newCalendarTitle is:');
-    // console.log(this.newCalendarTitle);
     const creatorWithAtSign = this.afa.auth.currentUser.email;
     const atSign = creatorWithAtSign.search('@');
     const creator = creatorWithAtSign.slice(0, atSign);
@@ -61,7 +68,8 @@ export class NavbarComponent {
               private FirebaseService: FirebaseService,
               private router: Router,
               private afa: AngularFireAuth,
-              private afd: AngularFireDatabase
+              private afd: AngularFireDatabase,
+              private es: EventService
   ) {
     this.FirebaseService = FirebaseService;
     this.navbarUsername = localStorage.getItem('navbarUsername');

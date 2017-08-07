@@ -20,12 +20,8 @@ import { firebaseConfig } from '../environments/firebase.config';
 import { CalendarComponent } from 'ap-angular2-fullcalendar';
 import { ClassCalendarComponent } from './class-calendar/class-calendar.component';
 import { EventFormComponent } from './event-form/event-form.component';
-<<<<<<< HEAD
-import { StudentManagementComponent } from './student-management/student-management.component';
-
-=======
 import { EventService } from './services/event.service';
->>>>>>> 40f61da3c5647e40ad36584e0d2991802914f9cb
+import { StudentManagementComponent } from './student-management/student-management.component';
 
 
 @NgModule({
@@ -38,7 +34,7 @@ import { EventService } from './services/event.service';
     CalendarComponent,
     ClassCalendarComponent,
     EventFormComponent,
-    StudentManagementComponent
+    StudentManagementComponent,
   ],
   imports: [
     BrowserModule,

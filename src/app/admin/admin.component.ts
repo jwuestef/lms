@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { EventService} from '../services/event.service';
+import { StudentService } from '../services/student.service';
 
 
 @Component({
@@ -29,14 +30,12 @@ export class AdminComponent {
           }
         });
   }
-<<<<<<< HEAD
-=======
-        addEvents(eventArray) {
-   console.log('addEventsCalled');
-   console.log(this.events.eventArray);
-   this.calendar.renderEvents();
+
+  addEvents(eventArray) {
+      console.log('addEventsCalled');
+      console.log(this.events.eventArray);
+      this.calendar.renderEvents();
   }
 
 
->>>>>>> 40f61da3c5647e40ad36584e0d2991802914f9cb
 }

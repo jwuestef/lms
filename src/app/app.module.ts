@@ -19,7 +19,8 @@ import { FirebaseService } from './services/auth.service';
 import { firebaseConfig } from '../environments/firebase.config';
 import { CalendarComponent } from 'ap-angular2-fullcalendar';
 import { ClassCalendarComponent } from './class-calendar/class-calendar.component';
-
+import { EventFormComponent } from './event-form/event-form.component';
+import { EventService } from './services/event.service';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ClassCalendarComponent } from './class-calendar/class-calendar.componen
     LoginComponent,
     NavbarComponent,
     CalendarComponent,
-    ClassCalendarComponent
+    ClassCalendarComponent,
+    EventFormComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +43,8 @@ import { ClassCalendarComponent } from './class-calendar/class-calendar.componen
   providers: [
     FirebaseService,
     AngularFireAuth,
-    AngularFireDatabase
+    AngularFireDatabase,
+    EventService
    ],
   bootstrap: [ AppComponent ]
 })

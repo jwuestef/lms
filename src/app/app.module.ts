@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -41,7 +42,8 @@ import { EventFormComponent } from './event-form/event-form.component';
   ],
   providers: [
     FirebaseService,
-    AngularFireAuth
+    AngularFireAuth,
+    AngularFireDatabase
    ],
   bootstrap: [ AppComponent ]
 })

@@ -1,10 +1,14 @@
 <div class="container">
   <img id="background-logo" src="./assets/efalogo.png" />
   <div id="login">
-    <input class="form-control" id="un" type="text" placeholder="Username">
+    <h5><strong>HAJ CASINO</strong></h5>
+    <input class="form-control" id="un" type="text" placeholder="Username" (keydown.enter)="onSubmit()" [(ngModel)]="model.username">
+    <p *ngIf="errors.username" class="validation">{{errors.username}}</p>
     <br>
-    <input class="form-control" id="pw" type="text" placeholder="Password">
+    <input class="form-control" id="pw" type="text" placeholder="Password" (keydown.enter)="onSubmit()" [(ngModel)]="model.pass">
+    <p *ngIf="errors.pass" class="validation">{{errors.pass}}</p>
     <br>
-    <button id="login-btn" class="btn btn-primary">Login</button>
+    <button id="login-btn" class="btn btn-primary" (click)="onSubmit()">Login</button>
   </div>
 </div>
+

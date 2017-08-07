@@ -3,14 +3,16 @@ import { User } from '../models/user';
 
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 
 @Injectable()
 export class FirebaseService {
-    fbs = this;
     authState;
 
     signup(user: User) {
-        this.af.auth.createUserWithEmailAndPassword(user.email,user.password)
+        user.username = user.username + '@elevenfifty.org';
+        this.afa.auth.createUserWithEmailAndPassword(user.username, user.password)
         .then(() => {
             this.router.navigateByUrl('/admin');
         })
@@ -22,20 +24,46 @@ export class FirebaseService {
     }
 
     signin(user: User) {
-        this.af.auth.signInWithEmailAndPassword(user.email, user.password)
+        this.afa.auth.signInWithEmailAndPassword(user.username, user.password)
         .then(() => {
-            this.router.navigateByUrl('/student');
+            const thisSaved = this;
+            this.afd.database.ref('/isAdmin').once('value').then(function(isAdminTable) {
+              const arrayOfAdmins = isAdminTable.val();
+              const authData = thisSaved.afa.auth.currentUser.email;
+              const atSign = authData.search('@');
+              const userToCheckIfAdmin = authData.slice(0, atSign);
+              const isAdmin = arrayOfAdmins.hasOwnProperty(userToCheckIfAdmin);
+              if (isAdmin) {
+                thisSaved.router.navigateByUrl('/admin');
+              } else {
+                thisSaved.router.navigateByUrl('/student');
+              }
+            });
         })
         .catch((e) => {
             console.log('Error in signin function inside auth.service.ts: ');
             console.log(e);
         });
     }
+
+    signout() {
+        this.afa.auth.signOut()
+        .then(() => {
+            localStorage.clear();
+            this.router.navigateByUrl('/');
+        })
+        .catch((e) => {
+            console.log('Error in signout function inside auth.service.ts: ');
+            console.log(e);
+        });
+    }
+
     isAuthed() {
         return !!this.authState;
     }
-    constructor(private af: AngularFireAuth, private router: Router){
-        this.af.authState.subscribe((authState) => {
+
+    constructor(public afa: AngularFireAuth, public router: Router, public afd: AngularFireDatabase){
+        this.afa.authState.subscribe((authState) => {
             this.authState = authState;
         });
     }

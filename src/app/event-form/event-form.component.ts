@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { AngularFireDatabase } from 'angularfire2/database';
+
 import { EventService } from '../services/event.service';
 
 @Component({
@@ -14,15 +16,21 @@ export class EventFormComponent {
   eventLink: string;
   eventType = 'Event Type';
 
-  constructor(private events: EventService){}
+  constructor(private es: EventService, private afd: AngularFireDatabase) {}
 
   addEvent() {
-    this.events.eventArray.push({
+    this.es.eventArray.push({
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,
       url: this.eventLink
     });
     this.clickSubmit.emit(null);
+    // Save it to Firebase
+    const thisSaved = this;
+    this.afd.database.ref('/calendars/' + this.es.currentCalender.title + '/events').push({
+      eventTitle: thisSaved.eventName,
+      eventStart: thisSaved.eventDate
+    });
   }
 }

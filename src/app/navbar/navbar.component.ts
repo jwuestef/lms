@@ -41,9 +41,7 @@ export class NavbarComponent {
     const creator = creatorWithAtSign.slice(0, atSign);
     this.afd.database.ref('/calendars/' + this.newCalendarTitle).set({
       title: this.newCalendarTitle,
-      creator: creator,
-      events: [0],
-      users: [0]
+      creator: creator
     });
     const thisSaved = this;
     this.afd.database.ref('/calendars').once('value').then(function(listOfCalendarsFromDB) {

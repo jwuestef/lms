@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { EventService } from '../services/event.service';
 
 @Component({
   selector: 'app-event-form',
@@ -7,19 +8,18 @@ import { NgModel } from '@angular/forms';
   styleUrls: ['./event-form.component.css']
 })
 export class EventFormComponent {
-  @Input() eventsArray = [];
   @Output() clickSubmit = new EventEmitter<Array<Object>>();
   eventName: string;
   eventDate: string;
   eventType = 'Event Type';
 
+  constructor(private events: EventService){}
 
   addEvent() {
-    this.eventsArray.push({
+    this.events.eventArray.push({
       title: this.eventName,
       start: this.eventDate
     });
-    this.clickSubmit.emit(this.eventsArray);
-    console.log(this.eventsArray);
+    this.clickSubmit.emit(null);
   }
 }

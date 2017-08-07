@@ -1,0 +1,18 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover{
+  color: #971d23;
+}
+
+nav {
+  background-color: #971d23;
+  font-size: 20px;
+}
+
+.navbar-brand {
+  margin-top: -5px;
+}
+

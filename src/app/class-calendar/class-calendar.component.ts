@@ -78,6 +78,9 @@ export class ClassCalendarComponent {
     console.log('renderEvents called');
     $('#calendar').fullCalendar('renderEvent', this.events.eventArray[this.events.eventArray.length - 1]);
   }
+  loadCalendar(){
+    $('#calendar').fullCalendar('renderEvents', this.events.eventArray);
+  }
 
 
 }

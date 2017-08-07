@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar (changeCalendar) = 'loadEvents($event)'></app-navbar>
 <div class="col-xs-3">
   <app-event-form (clickSubmit)='addEvents($event)'></app-event-form>
 </div>

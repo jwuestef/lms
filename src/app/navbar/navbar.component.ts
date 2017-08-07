@@ -81,7 +81,6 @@ export class NavbarComponent {
       const atSign = authData.search('@');
       const userToCheckIfAdmin = authData.slice(0, atSign);
       thisSaved.isAdmin = arrayOfAdmins.hasOwnProperty(userToCheckIfAdmin);
-      console.log(thisSaved.isAdmin);
     });
   }
 

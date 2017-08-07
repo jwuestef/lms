@@ -24,7 +24,7 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ap-angular2-fullcalendar/node_modules/fullcalendar/dist/fullcalendar.css"
       ],
-      "scripts": [],
+      "scripts": ["../node_modules/jquery/dist/jquery.min.js"],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

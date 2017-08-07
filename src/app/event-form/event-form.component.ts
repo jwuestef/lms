@@ -13,7 +13,7 @@ export class EventFormComponent {
   @Output() clickSubmit = new EventEmitter<Array<Object>>();
   eventName: string;
   eventDate: string;
-  eventLink: string;
+  eventLink = '';
   eventType = 'Event Type';
 
   constructor(private es: EventService, private afd: AngularFireDatabase) {}

@@ -25,7 +25,9 @@ export class ClassCalendarComponent {
   loadCalendar() {
     console.log(this.events.eventArray);
     console.log('load new calendar');
-    $('#calendar').fullCalendar('rerenderEvents');
+    $('#calendar').fullCalendar( 'removeEvents');
+    $('#calendar').fullCalendar( 'addEventSource', this.events.eventArray);
+    $('#calendar').fullCalendar( 'rerenderEvents');
   }
   onCalendarInit() {
     console.log('calendar init');

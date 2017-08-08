@@ -8,6 +8,7 @@ import * as $ from 'jquery';
   styleUrls: ['class-calendar.component.css']
 })
 export class ClassCalendarComponent {
+  currentCalendarTitle;
 
   constructor(private events: EventService) { }
   calendarOptions: Object = {
@@ -28,13 +29,14 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar( 'removeEvents');
     $('#calendar').fullCalendar( 'addEventSource', this.events.eventArray);
     $('#calendar').fullCalendar( 'rerenderEvents');
+    this.currentCalendarTitle = this.events.currentCalender.title;
   }
   onCalendarInit() {
     console.log('calendar init');
-     jQuery('#calendar').on( 'click', '.fc-event', function(e){
-    e.preventDefault();
-    window.open( jQuery(this).attr('href'), '_blank' );
-});
+    jQuery('#calendar').on( 'click', '.fc-event', function(e){
+      e.preventDefault();
+      window.open( jQuery(this).attr('href'), '_blank' );
+    });
   }
 
 

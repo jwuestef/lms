@@ -20,6 +20,7 @@ export class EventFormComponent {
 
   addEvent() {
     const currentEvent = {
+      id: this.eventDate + this.eventName,
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { EventService } from '../services/event.service';
 import * as $ from 'jquery';
 
@@ -8,6 +8,8 @@ import * as $ from 'jquery';
   styleUrls: ['class-calendar.component.css']
 })
 export class ClassCalendarComponent {
+
+  @Output() eventEdit = new EventEmitter<string>();
 
   constructor(private events: EventService) { }
   calendarOptions: Object = {
@@ -25,16 +27,20 @@ export class ClassCalendarComponent {
   loadCalendar() {
     console.log(this.events.eventArray);
     console.log('load new calendar');
-    $('#calendar').fullCalendar( 'removeEvents');
-    $('#calendar').fullCalendar( 'addEventSource', this.events.eventArray);
-    $('#calendar').fullCalendar( 'rerenderEvents');
+    $('#calendar').fullCalendar('removeEvents');
+    $('#calendar').fullCalendar('addEventSource', this.events.eventArray);
+    $('#calendar').fullCalendar('rerenderEvents');
   }
   onCalendarInit() {
+    const calendar = this;
     console.log('calendar init');
-     jQuery('#calendar').on( 'click', '.fc-event', function(e){
-    e.preventDefault();
-    window.open( jQuery(this).attr('href'), '_blank' );
-});
+    jQuery('#calendar').on('click', '.fc-event', function (e) {
+      e.preventDefault();
+      console.log(e.currentTarget);
+      console.log(e.data);
+      calendar.eventEdit.emit();
+      // window.open( jQuery(this).attr('href'), '_blank' );
+    });
   }
 
 

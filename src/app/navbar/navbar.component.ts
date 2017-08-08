@@ -6,7 +6,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { User } from '../models/user';
 import { LoginComponent } from '../login/login.component';
-import { FirebaseService } from '../services/auth.service';
 import { EventService } from '../services/event.service';
 
 
@@ -16,19 +15,69 @@ import { EventService } from '../services/event.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
+  @Output() changeCalendar = new EventEmitter<Object>();
   user: User;
   navbarUsername: string;
   newCalendarTitle: string;
-  listOfCalendars;
-  arrayOfCalendars = [0];
+  listOfCalendarsAsObject;
+  arrayOfCalendars = [];
   isAdmin: boolean;
-  @Output() changeCalendar =  new EventEmitter<Object>();
   thisSaved;
+
+
+
+  constructor(
+    private router: Router,
+    private afa: AngularFireAuth,
+    private afd: AngularFireDatabase,
+    private es: EventService
+  ) {
+    this.navbarUsername = localStorage.getItem('navbarUsername');
+    const thisSaved = this;
+    this.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
+      thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
+      Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
+        thisSaved.arrayOfCalendars.push(thisSaved.listOfCalendarsAsObject[key]);
+      });
+      // Now that we have our array full of calendars, let's see which ones they are allowed to see.
+      // Check if they are on the isAdmin table
+      thisSaved.afd.database.ref('/isAdmin').once('value').then(function (isAdminTable) {
+        const objectOfAdmins = isAdminTable.val();
+        const authData = thisSaved.afa.auth.currentUser.email;
+        const atSign = authData.search('@');
+        const userToCheckIfAdmin = authData.slice(0, atSign);
+        thisSaved.isAdmin = objectOfAdmins.hasOwnProperty(userToCheckIfAdmin);  // isAdmin is boolean true/false
+        // If they are an admin, do nothing
+        // Otherwise, query the 'student' table, which returns object full of calendar names they are authorized to view
+        // Iterate over thisSaved.arrayOfCalendars, and any calender that doesn't have it's name on the list, erase
+        if (!thisSaved.isAdmin) {
+          // console.log('You aren\'t an admin, so we need to find out which calendars you are allowed to view!');
+          thisSaved.afd.database.ref('/students').once('value').then(function (studentsTable) {
+            const objectOfStudents = studentsTable.val();
+            // console.log('The calendars you are authorized to view are:');
+            // console.log(objectOfStudents[thisSaved.navbarUsername]);
+            for (let i = 0; i < thisSaved.arrayOfCalendars.length; i++) {
+              const iteratingCalendarTitle = thisSaved.arrayOfCalendars[i]['title'];
+              if (objectOfStudents[thisSaved.navbarUsername].hasOwnProperty(iteratingCalendarTitle)) {
+                // Do nothing
+              } else {
+                thisSaved.arrayOfCalendars[i] = null;
+              }
+            }
+            // Loop over array and erase all null values
+            thisSaved.arrayOfCalendars = thisSaved.arrayOfCalendars.filter(function(n){ return n !== null; });
+          });
+        }
+      });
+    });
+
+  } // End of constructor
+
 
 
   selectCalender(event) {
     const thisSaved = this;
-    this.afd.database.ref('/calendars/' + event.target.innerText).once('value').then(function(selectedCalender) {
+    this.afd.database.ref('/calendars/' + event.target.innerText).once('value').then(function (selectedCalender) {
       thisSaved.es.currentCalender = selectedCalender.val();
       thisSaved.changeCalendar.emit(null);
     });
@@ -44,14 +93,14 @@ export class NavbarComponent {
       creator: creator
     });
     const thisSaved = this;
-    this.afd.database.ref('/calendars').once('value').then(function(listOfCalendarsFromDB) {
-      thisSaved.listOfCalendars = listOfCalendarsFromDB.val();
+    this.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
+      thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
       let counterOfCalendars = 0;
-      Object.keys(thisSaved.listOfCalendars).forEach(function(key) {
-          // console.log(key, thisSaved.listOfCalendars[key]);
-          thisSaved.arrayOfCalendars[counterOfCalendars] = thisSaved.listOfCalendars[key];
-          counterOfCalendars++;
-          // console.log(thisSaved.arrayOfCalendars);
+      Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
+        // console.log(key, thisSaved.listOfCalendarsAsObject[key]);
+        thisSaved.arrayOfCalendars[counterOfCalendars] = thisSaved.listOfCalendarsAsObject[key];
+        counterOfCalendars++;
+        // console.log(thisSaved.arrayOfCalendars);
       });
     });
   }
@@ -63,33 +112,5 @@ export class NavbarComponent {
   }
 
 
-  constructor(
-              private FirebaseService: FirebaseService,
-              private router: Router,
-              private afa: AngularFireAuth,
-              private afd: AngularFireDatabase,
-              private es: EventService
-  ) {
-    this.FirebaseService = FirebaseService;
-    this.navbarUsername = localStorage.getItem('navbarUsername');
-    const thisSaved = this;
-    this.afd.database.ref('/calendars').once('value').then(function(listOfCalendarsFromDB) {
-      thisSaved.listOfCalendars = listOfCalendarsFromDB.val();
-      let counterOfCalendars = 0;
-      Object.keys(thisSaved.listOfCalendars).forEach(function(key) {
-          // console.log(key, thisSaved.listOfCalendars[key]);
-          thisSaved.arrayOfCalendars[counterOfCalendars] = thisSaved.listOfCalendars[key];
-          counterOfCalendars++;
-          // console.log(thisSaved.arrayOfCalendars);
-      });
-    });
-    this.afd.database.ref('/isAdmin').once('value').then(function(isAdminTable) {
-      const arrayOfAdmins = isAdminTable.val();
-      const authData = thisSaved.afa.auth.currentUser.email;
-      const atSign = authData.search('@');
-      const userToCheckIfAdmin = authData.slice(0, atSign);
-      thisSaved.isAdmin = arrayOfAdmins.hasOwnProperty(userToCheckIfAdmin);
-    });
-  }
 
 } // End of component

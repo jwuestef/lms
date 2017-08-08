@@ -5,7 +5,17 @@
   text-align: center;
   background-color: #78171c;
 }
-#login {
+
+#background-logo {
+  position: absolute;
+  height: 80vh;
+  opacity: 0.4;
+  left: 0;
+  margin: 5vh;
+}
+
+
+#loginDiv {
   display: inline-block;
   margin-top: 25vh;
   padding-top: 5vh;
@@ -16,22 +26,39 @@
   background-color: white;
   z-index: 1;
 }
-#pw {
+#loginUsername {
  width: 300px;
  margin: 0 auto;
 }
-#un {
+#loginPassword {
  width: 300px;
  margin: 0 auto;
 }
 #login-btn {
   width: 70px;
 }
-#background-logo {
-  position: absolute;
-  height: 80vh;
-  opacity: 0.4;
-  left: 0;
-  margin: 5vh;
+
+
+#signupDiv {
+  display: inline-block;
+  margin-top: 25vh;
+  padding-top: 5vh;
+  width: 350px;
+  height: 250px;
+  border: 0px solid white;
+  border-radius: 15px;
+  background-color: white;
+  z-index: 1;
+}
+#signupUsername {
+ width: 300px;
+ margin: 0 auto;
+}
+#signupPassword {
+ width: 300px;
+ margin: 0 auto;
+}
+#signup-btn {
+  width: 70px;
 }
 

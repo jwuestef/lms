@@ -1,15 +1,15 @@
 
-<app-navbar (changeCalendar) = 'loadEvents($events)'></app-navbar>
+<app-navbar (changeCalendar) = 'loadEvents()'></app-navbar>
 <div id="tabs" class="col-xs-3">
   <div id="buttons">
     <button id="student" class="btn btn-primary" (click) = 'showStudentForm()'>Students</button>
     <button id="event" class="btn btn-primary" (click)="showEventForm()">Events</button>
   </div>
   <div>
-    <app-event-form *ngIf="isEvent"(clickSubmit)='addEvents($event)'></app-event-form>
+    <app-event-form #eventForm *ngIf="isEvent"(clickSubmit)='addOrEditEvents($event)'></app-event-form>
     <app-student-management *ngIf = 'isStudent'></app-student-management>
   </div>
 </div>
 <div class="col-xs-9" style="background-color: 'lightgreen'">
-  <app-class-calendar #classCalendar></app-class-calendar>
+  <app-class-calendar #classCalendar (eventEdit) = 'alertEventForm($event)'></app-class-calendar>
 </div>

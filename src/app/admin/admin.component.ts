@@ -17,12 +17,10 @@ import { StudentService } from '../services/student.service';
 })
 export class AdminComponent {
   @ViewChild('classCalendar') calendar: ClassCalendarComponent;
+  @ViewChild('eventForm') eventForm: EventFormComponent;
   isEvent = true;
   isStudent = false;
-
-
-
-  constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, public es: EventService) {
+  constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, private events: EventService) {
     const thisSaved = this;
     this.afd.database.ref('/isAdmin').once('value').then(function (isAdminTable) {
       const arrayOfAdmins = isAdminTable.val();
@@ -36,45 +34,43 @@ export class AdminComponent {
     });
   }
 
-
-
-  addEvents(eventArray) {
-    console.log('addEventsCalled');
-    console.log(this.es.eventArray);
-    this.calendar.renderEvents();
+  addOrEditEvents(operation) {
+    console.log(operation);
+    if (operation === 'add') {
+      this.calendar.renderEvents();
+    }
+    else if (operation === 'delete') {
+      this.calendar.deleteEvents();
+    }
+    else
+      this.calendar.updateEvents();
   }
 
-
-
   loadEvents() {
-    this.es.eventArray = [];
+    this.events.eventArray = [];
     console.log('loadEvents Calles');
-    console.log(this.es.currentCalender);
+    console.log(this.events.currentCalender);
     const thisSaved = this;
     let counterOfEvents = 0;
-    Object.keys(thisSaved.es.currentCalender.events).forEach(function (key) {
-      thisSaved.es.eventArray[counterOfEvents] = thisSaved.es.currentCalender.events[key];
+    Object.keys(thisSaved.events.currentCalender.events).forEach(function (key) {
+      thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
       counterOfEvents++;
     });
 
     this.calendar.loadCalendar();
   }
 
-
-
   showEventForm() {
     this.isStudent = false;
     this.isEvent = true;
   }
-
-
-
   showStudentForm() {
     this.isEvent = false;
     this.isStudent = true;
 
   }
 
-
-
-} // End of component
+  alertEventForm(data) {
+    this.eventForm.editEvent(data);
+  }
+}

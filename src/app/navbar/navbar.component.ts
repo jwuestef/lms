@@ -20,7 +20,7 @@ export class NavbarComponent {
   navbarUsername: string;
   newCalendarTitle: string;
   listOfCalendarsAsObject;
-  arrayOfCalendars = [0];
+  arrayOfCalendars = [];
   isAdmin: boolean;
   thisSaved;
 
@@ -36,10 +36,8 @@ export class NavbarComponent {
     const thisSaved = this;
     this.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
       thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
-      let counterOfCalendars = 0;
       Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
-        thisSaved.arrayOfCalendars[counterOfCalendars] = thisSaved.listOfCalendarsAsObject[key];
-        counterOfCalendars++;
+        thisSaved.arrayOfCalendars.push(thisSaved.listOfCalendarsAsObject[key]);
       });
       // Now that we have our array full of calendars, let's see which ones they are allowed to see.
       // Check if they are on the isAdmin table
@@ -53,17 +51,21 @@ export class NavbarComponent {
         // Otherwise, query the 'student' table, which returns object full of calendar names they are authorized to view
         // Iterate over thisSaved.arrayOfCalendars, and any calender that doesn't have it's name on the list, erase
         if (!thisSaved.isAdmin) {
-          console.log('You aren\'t an admin, so we need to find out which calendars you are allowed to view!');
+          // console.log('You aren\'t an admin, so we need to find out which calendars you are allowed to view!');
           thisSaved.afd.database.ref('/students').once('value').then(function (studentsTable) {
             const objectOfStudents = studentsTable.val();
-            console.log('The calendars you are authorized to view are:');
-            console.log(objectOfStudents[thisSaved.navbarUsername]);
-            console.log('Now we need to iterate over thisSaved.arrayOfCalendars');
-            console.log('The calendars inside thisSaved.arrayOfCalendars are titled:');
+            // console.log('The calendars you are authorized to view are:');
+            // console.log(objectOfStudents[thisSaved.navbarUsername]);
             for (let i = 0; i < thisSaved.arrayOfCalendars.length; i++) {
               const iteratingCalendarTitle = thisSaved.arrayOfCalendars[i]['title'];
-              console.log(iteratingCalendarTitle);
+              if (objectOfStudents[thisSaved.navbarUsername].hasOwnProperty(iteratingCalendarTitle)) {
+                // Do nothing
+              } else {
+                thisSaved.arrayOfCalendars[i] = null;
+              }
             }
+            // Loop over array and erase all null values
+            thisSaved.arrayOfCalendars = thisSaved.arrayOfCalendars.filter(function(n){ return n !== null; });
           });
         }
       });

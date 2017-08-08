@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { EventService} from '../services/event.service';
+import { StudentService } from '../services/student.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ import { EventService} from '../services/event.service';
 
 export class AdminComponent {
  @ViewChild('classCalendar') calendar: ClassCalendarComponent;
-
+isEvent= true;
+isStudent = false;
   constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, private events: EventService) {
         const thisSaved = this;
         this.afd.database.ref('/isAdmin').once('value').then(function(isAdminTable) {
@@ -30,10 +32,11 @@ export class AdminComponent {
           }
         });
   }
-        addEvents(eventArray) {
-   console.log('addEventsCalled');
-   console.log(this.events.eventArray);
-   this.calendar.renderEvents();
+
+  addEvents(eventArray) {
+      console.log('addEventsCalled');
+      console.log(this.events.eventArray);
+      this.calendar.renderEvents();
   }
 
     loadEvents() {
@@ -50,5 +53,13 @@ export class AdminComponent {
       this.calendar.loadCalendar();
     }
 
+  showEventForm(){
+    this.isStudent = false;
+    this.isEvent = true;
+  }
+  showStudentForm(){
+    this.isEvent = false;
+    this.isStudent = true;
 
+  }
 }

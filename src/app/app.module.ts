@@ -21,6 +21,7 @@ import { CalendarComponent } from 'ap-angular2-fullcalendar';
 import { ClassCalendarComponent } from './class-calendar/class-calendar.component';
 import { EventFormComponent } from './event-form/event-form.component';
 import { EventService } from './services/event.service';
+import { StudentManagementComponent } from './student-management/student-management.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { EventService } from './services/event.service';
     NavbarComponent,
     CalendarComponent,
     ClassCalendarComponent,
-    EventFormComponent
+    EventFormComponent,
+    StudentManagementComponent,
   ],
   imports: [
     BrowserModule,

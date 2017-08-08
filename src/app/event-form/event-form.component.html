@@ -1,0 +1,15 @@
+ <div class="eventForm">
+  <h4>Create Event</h4>
+  <form (ngSubmit)='addEvent()'>
+    <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required>
+    <select id='eventType' name="eventType" [(ngModel)]='eventType'>
+      <option selected disabled>Event Type</option>
+      <option value="red">Assignment</option>
+      <option value='blue'>Topic</option>
+      <option value='green'>Workshop</option>
+    </select>
+    <input id="eventLink" name='eventLink' type='text' placeholder="Link to" [(ngModel)]='eventLink' required>
+    <input id="eventDate" type="date" name="eventDate" [(ngModel)]='eventDate'>
+    <button id="addEvent" type="submit" class='btn btn-success'>Add</button>
+  </form>
+ </div>

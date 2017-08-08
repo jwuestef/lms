@@ -1,10 +1,46 @@
 <nav class="navbar navbar-fixed-top bg-inverse">
   <div class="container">
     <a class="navbar-brand"><img src="./assets/efalogo.png" height="30"></a>
-    <ul class="nav navbar-nav pull-right" routerLinkActive="active">
+
+    <ul class="nav navbar-nav pull-left" *ngIf="isAdmin">
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Calendars <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="javascript:void(0)" *ngFor="let calendar of arrayOfCalendars" (click)="selectCalender($event)">{{calendar.title}}</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;Add Calendar</a></li>
+          </ul>
+      </li>
+    </ul>
+
+    <ul class="nav navbar-nav pull-right">
       <li class="nav-item" (click)="signout()"><a href="#">Logged in as <em>{{ navbarUsername }}</em>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Logout</a></li>
     </ul>
+
   </div>
 </nav>
 
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add New Calendar</h4>
+      </div>
+      <div class="modal-body">
+        <label for="newCalendarTitleInput">New calendar's title will be: </label>
+        <input type="text" id="newCalendarTitleInput" [(ngModel)]="newCalendarTitle">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="createNewCalendar()">Create</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 

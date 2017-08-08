@@ -1,0 +1,28 @@
+#eventType{
+  height: 26px;
+  width: 175px;
+  margin: auto;
+  margin-bottom: 5px;
+  display: block;
+}
+#eventName{
+  margin: auto;
+  display: block;
+   margin-bottom: 5px;
+}
+#addEvent{
+  margin: auto;
+  margin-top: 0px;
+}
+
+#eventDate{
+  margin: auto;
+  margin-top: 0px;
+  display: block;
+  width: 175px;
+   margin-bottom: 5px;
+}
+
+.eventForm{
+  text-align: center;
+}

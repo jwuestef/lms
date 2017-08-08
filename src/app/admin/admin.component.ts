@@ -36,12 +36,10 @@ export class AdminComponent {
 
   addOrEditEvents(operation) {
     console.log(operation);
-    console.log('addEventsCalled');
-    console.log(this.events.eventArray);
     if (operation === 'add') {
       this.calendar.renderEvents();
     }
-    else if(operation === 'delete'){
+    else if (operation === 'delete') {
       this.calendar.deleteEvents();
     }
     else

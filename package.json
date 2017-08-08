@@ -25,6 +25,7 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "@types/bootstrap": "^3.3.35",
+    "angular2-flash-messages": "^1.0.8",
     "angular2-fullcalendar": "^1.0.19",
     "angularfire2": "^4.0.0-rc.1",
     "ap-angular2-fullcalendar": "^1.3.1",

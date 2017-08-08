@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
@@ -40,7 +41,8 @@ import { StudentManagementComponent } from './student-management/student-managem
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    FlashMessagesModule
   ],
   providers: [
     FirebaseService,

@@ -6,6 +6,7 @@ export class EventService {
   currentCalender;
 
   eventBeingEdited = {
+    id: '',
     start: {
       _i: ''
     },

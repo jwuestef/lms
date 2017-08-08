@@ -1,6 +1,6 @@
  <div class="eventForm">
   <h4>{{currentForm}} Event</h4>
-  <form (ngSubmit)='addEvent()'>
+  <form >
     <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required>
     <select id='eventType' name="eventType" [(ngModel)]='eventType'>
       <option selected disabled>Event Type</option>
@@ -10,7 +10,7 @@
     </select>
     <input id="eventLink" name='eventLink' type='text' placeholder="Link to" [(ngModel)]='eventLink' required>
     <input id="eventDate" type="date" name="eventDate" [(ngModel)]='eventDate'>
-    <button id="addEvent" type="submit" class='btn btn-success'>{{currentForm}}</button>
-    <button id="deleteEvent" *ngIf = 'showEdit' type="submit" class='btn btn-success'>Delete</button>
+    <button id="addEvent"  (click)='addEvent()'name ="{{currentForm}}"class='btn btn-success'>{{currentForm}}</button>
+    <button id="deleteEvent" *ngIf = 'showEdit' (click) = 'deleteEvent()' name="delete" class='btn btn-success'>Delete</button>
   </form>
  </div>

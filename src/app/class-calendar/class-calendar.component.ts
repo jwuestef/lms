@@ -35,8 +35,21 @@ export class ClassCalendarComponent {
   }
   updateEvents() {
     console.log('call update');
-    $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited);
+    $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
+    const currentEvent = {
+    id: this.events.eventBeingEdited.id,
+    title: this.events.eventBeingEdited.title,
+    start: this.events.eventBeingEdited.start._i,
+    color: this.events.eventBeingEdited.color,
+    url: this.events.eventBeingEdited.url,
+  };
+    $('#calendar').fullCalendar('renderEvent', currentEvent);
   }
+
+  deleteEvents(){
+     $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
+  }
+
   loadCalendar() {
     console.log(this.events.eventArray);
     console.log('load new calendar');

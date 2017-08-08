@@ -41,6 +41,9 @@ export class AdminComponent {
     if (operation === 'add') {
       this.calendar.renderEvents();
     }
+    else if(operation === 'delete'){
+      this.calendar.deleteEvents();
+    }
     else
       this.calendar.updateEvents();
   }

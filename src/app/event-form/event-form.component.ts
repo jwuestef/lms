@@ -17,10 +17,11 @@ export class EventFormComponent {
   eventType = 'Event Type';
   showEdit = false;
   currentForm = 'Add';
+  operation ='';
 
   constructor(private es: EventService, private afd: AngularFireDatabase) { }
 
-  addEvent() {
+  addEvent(data) {
     const currentEvent = {
     id: this.eventDate + this.eventName,
     title: this.eventName,
@@ -56,5 +57,10 @@ export class EventFormComponent {
     this.eventName = data.title;
     this.eventLink = data.url;
     this.eventType = data.color;
+  }
+
+  deleteEvent(){
+    this.clickSubmit.emit('delete');
+
   }
 }

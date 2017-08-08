@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { EventService } from '../services/event.service';
 import * as $ from 'jquery';
 
@@ -9,13 +9,23 @@ import * as $ from 'jquery';
 })
 export class ClassCalendarComponent {
   currentCalendarTitle;
+  calendarOptions: object;
+  @Output() eventEdit = new EventEmitter<object>();
 
-  constructor(private events: EventService) { }
-  calendarOptions: Object = {
-    fixedWeekCount: false,
-    editable: true,
-    eventLimit: true, // allow "more" link when too many events
-    events: this.events.eventArray
+  constructor(private events: EventService) {
+    const currentCalendar = this;
+
+    this.calendarOptions = {
+      fixedWeekCount: false,
+      editable: false,
+      eventLimit: true, // allow "more" link when too many events
+      events: this.events.eventArray,
+      eventClick: function (event, element) {
+        currentCalendar.eventEdit.emit(event);
+        //$('#calendar').fullCalendar('updateEvent', event);
+      }
+    };
+
   };
   renderEvents() {
     console.log('renderEvents called');
@@ -23,19 +33,41 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('renderEvent', currentEvent);
 
   }
+  updateEvents() {
+    console.log('call update');
+    $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
+    const currentEvent = {
+    id: this.events.eventBeingEdited.id,
+    title: this.events.eventBeingEdited.title,
+    start: this.events.eventBeingEdited.start._i,
+    color: this.events.eventBeingEdited.color,
+    url: this.events.eventBeingEdited.url,
+  };
+    $('#calendar').fullCalendar('renderEvent', currentEvent);
+  }
+
+  deleteEvents(){
+     $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
+  }
+
   loadCalendar() {
     console.log(this.events.eventArray);
     console.log('load new calendar');
-    $('#calendar').fullCalendar( 'removeEvents');
-    $('#calendar').fullCalendar( 'addEventSource', this.events.eventArray);
-    $('#calendar').fullCalendar( 'rerenderEvents');
+    $('#calendar').fullCalendar('removeEvents');
+    $('#calendar').fullCalendar('addEventSource', this.events.eventArray);
+    $('#calendar').fullCalendar('rerenderEvents');
+
     this.currentCalendarTitle = this.events.currentCalender.title;
   }
   onCalendarInit() {
+    const calendar = this;
     console.log('calendar init');
-    jQuery('#calendar').on( 'click', '.fc-event', function(e){
-      e.preventDefault();
-      window.open( jQuery(this).attr('href'), '_blank' );
+    jQuery('#calendar').on('click', '.fc-event', function (e) {
+      if (jQuery(this).attr('href')) {
+        e.preventDefault();
+        calendar.eventEdit.emit();
+        window.open(jQuery(this).attr('href'), '_blank');
+      }
     });
   }
 

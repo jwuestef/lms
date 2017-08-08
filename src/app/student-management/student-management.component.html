@@ -1,7 +1,7 @@
 <div class="studentForm">
   <h4>Create Student</h4>
-  <form (ngSubmit)='addStudent()'>
-    <input id="username" type="text" placeholder="New Username">
-  </form>
-  <button id="addStudent" type="submit" class="btn btn-success">Add Student</button>
+  <input id="username" type="text" placeholder="New Username" (keydown.enter)="addStudent()" [(ngModel)]="newStudentUsername">
+  <br>
+  <br>
+  <button id="addStudent" type="submit" (click)='addStudent()' class="btn btn-success">Add Student</button>
 </div>

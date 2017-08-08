@@ -1,10 +1,11 @@
 import { Component, Output, ViewChild } from '@angular/core';
-import { EventFormComponent } from '../event-form/event-form.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { ClassCalendarComponent } from '../class-calendar/class-calendar.component';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+
+import { EventFormComponent } from '../event-form/event-form.component';
+import { NavbarComponent } from '../navbar/navbar.component';
+import { ClassCalendarComponent } from '../class-calendar/class-calendar.component';
 import { EventService } from '../services/event.service';
 import { StudentService } from '../services/student.service';
 
@@ -14,7 +15,6 @@ import { StudentService } from '../services/student.service';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
 })
-
 export class AdminComponent {
   @ViewChild('classCalendar') calendar: ClassCalendarComponent;
   @ViewChild('eventForm') eventForm: EventFormComponent;

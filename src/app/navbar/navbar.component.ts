@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgModel } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -22,6 +22,7 @@ export class NavbarComponent {
   listOfCalendars;
   arrayOfCalendars = [0];
   isAdmin: boolean;
+  @Output() changeCalendar =  new EventEmitter<Object>();
   thisSaved;
 
 
@@ -29,6 +30,7 @@ export class NavbarComponent {
     const thisSaved = this;
     this.afd.database.ref('/calendars/' + event.target.innerText).once('value').then(function(selectedCalender) {
       thisSaved.es.currentCalender = selectedCalender.val();
+      thisSaved.changeCalendar.emit(null);
     });
   }
 
@@ -39,9 +41,7 @@ export class NavbarComponent {
     const creator = creatorWithAtSign.slice(0, atSign);
     this.afd.database.ref('/calendars/' + this.newCalendarTitle).set({
       title: this.newCalendarTitle,
-      creator: creator,
-      events: [0],
-      users: [0]
+      creator: creator
     });
     const thisSaved = this;
     this.afd.database.ref('/calendars').once('value').then(function(listOfCalendarsFromDB) {

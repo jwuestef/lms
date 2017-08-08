@@ -5,7 +5,7 @@
     <input class="form-control" id="un" type="text" placeholder="Username" (keydown.enter)="onSubmit()" [(ngModel)]="model.username">
     <p *ngIf="errors.username" class="validation">{{errors.username}}</p>
     <br>
-    <input class="form-control" id="pw" type="text" placeholder="Password" (keydown.enter)="onSubmit()" [(ngModel)]="model.pass">
+    <input class="form-control" id="pw" type="password" placeholder="Password" (keydown.enter)="onSubmit()" [(ngModel)]="model.pass">
     <p *ngIf="errors.pass" class="validation">{{errors.pass}}</p>
     <br>
     <button id="login-btn" class="btn btn-primary" (click)="onSubmit()">Login</button>

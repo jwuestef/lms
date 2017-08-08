@@ -1,10 +1,12 @@
 import { Component, Output, ViewChild } from '@angular/core';
 import { EventFormComponent } from '../event-form/event-form.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 import { ClassCalendarComponent } from '../class-calendar/class-calendar.component';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { EventService} from '../services/event.service';
+import { StudentService } from '../services/student.service';
 
 
 @Component({
@@ -15,7 +17,8 @@ import { EventService} from '../services/event.service';
 
 export class AdminComponent {
  @ViewChild('classCalendar') calendar: ClassCalendarComponent;
-
+isEvent= true;
+isStudent = false;
   constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, private events: EventService) {
         const thisSaved = this;
         this.afd.database.ref('/isAdmin').once('value').then(function(isAdminTable) {
@@ -29,11 +32,34 @@ export class AdminComponent {
           }
         });
   }
-        addEvents(eventArray) {
-   console.log('addEventsCalled');
-   console.log(this.events.eventArray);
-   this.calendar.renderEvents();
+
+  addEvents(eventArray) {
+      console.log('addEventsCalled');
+      console.log(this.events.eventArray);
+      this.calendar.renderEvents();
   }
 
+    loadEvents() {
+      this.events.eventArray = [];
+      console.log('loadEvents Calles');
+      console.log(this.events.currentCalender);
+      const thisSaved = this;
+      let counterOfEvents = 0;
+      Object.keys(thisSaved.events.currentCalender.events).forEach(function(key) {
+          thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
+          counterOfEvents++;
+      });
 
+      this.calendar.loadCalendar();
+    }
+
+  showEventForm(){
+    this.isStudent = false;
+    this.isEvent = true;
+  }
+  showStudentForm(){
+    this.isEvent = false;
+    this.isStudent = true;
+
+  }
 }

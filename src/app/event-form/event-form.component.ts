@@ -17,18 +17,19 @@ export class EventFormComponent {
   eventType = 'Event Type';
   showEdit = false;
   currentForm = 'Add';
-  operation ='';
+  operation = '';
+  nameError = false;
 
   constructor(private es: EventService, private afd: AngularFireDatabase) { }
 
-  addEvent(data) {
+  addOrEditEvent(data) {
     const currentEvent = {
-    id: this.eventDate + this.eventName,
-    title: this.eventName,
-    start: this.eventDate,
-    color: this.eventType,
-    url: this.eventLink
-  };
+      id: this.eventDate + this.eventName,
+      title: this.eventName,
+      start: this.eventDate,
+      color: this.eventType,
+      url: this.eventLink
+    };
     console.log('//////////////////////////////////////');
     console.log(currentEvent);
     if (this.currentForm === 'Add') {
@@ -59,8 +60,35 @@ export class EventFormComponent {
     this.eventType = data.color;
   }
 
-  deleteEvent(){
+  deleteEvent() {
     this.clickSubmit.emit('delete');
 
   }
+  setAction(action) {
+    this.operation = action;
+  }
+  chooseAction() {
+    console.log(this.eventDate);
+    if (this.eventName === '' || this.eventName === undefined) {
+      this.nameError = true;
+    }
+    else {
+      if (this.eventDate === undefined) {
+        this.nameError = true;
+      }
+      else {
+        if (this.operation === 'addOrEdit') {
+          this.nameError = false;
+          this.addOrEditEvent(this.currentForm);
+
+        }
+        else {
+          this.nameError = false;
+          this.deleteEvent();
+        }
+      }
+    }
+
+  }
+
 }

@@ -1,11 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
-<<<<<<< HEAD
-=======
 import { FlashMessagesService } from 'angular2-flash-messages';
-
->>>>>>> ac7666acdc443f3f56fc58cc772ccb3960a30b49
 import { EventService } from '../services/event.service';
 
 

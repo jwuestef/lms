@@ -1,5 +1,8 @@
 <div class="eventForm">
-  <h4>{{currentForm}} Event</h4>
+  <h4>
+    <button *ngIf = 'showEdit' (click) = 'switchToAdd()' class="backButton glyphicon glyphicon-arrow-left"></button>
+    {{currentForm}} Event
+  </h4>
   <form (ngSubmit)="chooseAction()">
     <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required minlength="1">
     <select id='eventType' name="eventType" [(ngModel)]='eventType'>

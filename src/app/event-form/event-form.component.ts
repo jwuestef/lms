@@ -90,7 +90,11 @@ export class EventFormComponent {
         }
       }
     }
+  }
 
+  switchToAdd(){
+    this.showEdit = false;
+    this.currentForm = 'Add'
   }
 
 }

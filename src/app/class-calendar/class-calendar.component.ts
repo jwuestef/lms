@@ -25,6 +25,7 @@ export class ClassCalendarComponent {
       eventLimit: true, // allow "more" link when too many events
       events: this.events.eventArray,
       eventClick: function (event, element) {
+        console.log('this is the event');
         console.log(event);
         currentCalendar.eventEdit.emit(event);
         // $('#calendar').fullCalendar('updateEvent', event);
@@ -83,8 +84,7 @@ export class ClassCalendarComponent {
     jQuery('#calendar').on('click', '.fc-event', function (e) {
       if (jQuery(this).attr('href')) {
         e.preventDefault();
-        calendar.eventEdit.emit();
-        window.open(jQuery(this).attr('href'), '_blank');
+        // window.open(jQuery(this).attr('href'), '_blank');
       }
     });
   }

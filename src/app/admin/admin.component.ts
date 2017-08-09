@@ -51,16 +51,18 @@ export class AdminComponent {
 
   loadEvents() {
     this.events.eventArray = [];
-    console.log('loadEvents Calles');
+    console.log('loadEvents in adminComponent Called');
     console.log(this.events.currentCalender);
     const thisSaved = this;
     let counterOfEvents = 0;
-    Object.keys(thisSaved.events.currentCalender.events).forEach(function (key) {
-      thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
-      thisSaved.events.eventArray[counterOfEvents].id = key;
-      counterOfEvents++;
-    });
-
+    console.log(thisSaved.events.currentCalender.events);
+    if (thisSaved.events.currentCalender.events !== undefined) {
+      Object.keys(thisSaved.events.currentCalender.events).forEach(function (key) {
+        thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
+        thisSaved.events.eventArray[counterOfEvents].id = key;
+        counterOfEvents++;
+      });
+    }
     this.calendar.loadCalendar();
   }
 

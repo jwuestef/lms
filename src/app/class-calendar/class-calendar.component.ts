@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { EventService } from '../services/event.service';
 import * as $ from 'jquery';
+
+import { EventService } from '../services/event.service';
+
 
 @Component({
   selector: 'app-class-calendar',
@@ -12,6 +14,8 @@ export class ClassCalendarComponent {
   calendarOptions: object;
   @Output() eventEdit = new EventEmitter<object>();
 
+
+
   constructor(private events: EventService) {
     const currentCalendar = this;
 
@@ -22,33 +26,42 @@ export class ClassCalendarComponent {
       events: this.events.eventArray,
       eventClick: function (event, element) {
         currentCalendar.eventEdit.emit(event);
-        //$('#calendar').fullCalendar('updateEvent', event);
+        // $('#calendar').fullCalendar('updateEvent', event);
       }
     };
 
-  };
+  }
+
+
+
   renderEvents() {
     console.log('renderEvents called');
     const currentEvent = this.events.eventArray[this.events.eventArray.length - 1];
     $('#calendar').fullCalendar('renderEvent', currentEvent);
-
   }
+
+
+
   updateEvents() {
     console.log('call update');
     $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
     const currentEvent = {
-    id: this.events.eventBeingEdited.id,
-    title: this.events.eventBeingEdited.title,
-    start: this.events.eventBeingEdited.start._i,
-    color: this.events.eventBeingEdited.color,
-    url: this.events.eventBeingEdited.url,
-  };
+      id: this.events.eventBeingEdited.id,
+      title: this.events.eventBeingEdited.title,
+      start: this.events.eventBeingEdited.start._i,
+      color: this.events.eventBeingEdited.color,
+      url: this.events.eventBeingEdited.url,
+    };
     $('#calendar').fullCalendar('renderEvent', currentEvent);
   }
 
-  deleteEvents(){
-     $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
+
+
+  deleteEvents() {
+    $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
   }
+
+
 
   loadCalendar() {
     console.log(this.events.eventArray);
@@ -59,6 +72,9 @@ export class ClassCalendarComponent {
 
     this.currentCalendarTitle = this.events.currentCalender.title;
   }
+
+
+
   onCalendarInit() {
     const calendar = this;
     console.log('calendar init');
@@ -72,5 +88,6 @@ export class ClassCalendarComponent {
   }
 
 
-}
+
+}  // End of component
 

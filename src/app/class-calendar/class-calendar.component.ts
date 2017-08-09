@@ -25,6 +25,7 @@ export class ClassCalendarComponent {
       eventLimit: true, // allow "more" link when too many events
       events: this.events.eventArray,
       eventClick: function (event, element) {
+        console.log(event);
         currentCalendar.eventEdit.emit(event);
         // $('#calendar').fullCalendar('updateEvent', event);
       }
@@ -45,6 +46,7 @@ export class ClassCalendarComponent {
   updateEvents() {
     console.log('call update');
     $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
+    console.log(this.events.eventBeingEdited.id);
     const currentEvent = {
       id: this.events.eventBeingEdited.id,
       title: this.events.eventBeingEdited.title,

@@ -57,6 +57,7 @@ export class AdminComponent {
     let counterOfEvents = 0;
     Object.keys(thisSaved.events.currentCalender.events).forEach(function (key) {
       thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
+      thisSaved.events.eventArray[counterOfEvents].id = key;
       counterOfEvents++;
     });
 

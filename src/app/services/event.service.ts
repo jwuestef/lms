@@ -13,7 +13,5 @@ export class EventService {
     title: '',
     url: '',
     color: '',
-    originalStart: '',
-    originalTitle: ''
   };
 }

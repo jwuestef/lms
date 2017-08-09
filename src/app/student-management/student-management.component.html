@@ -1,6 +1,8 @@
 <div class="studentForm">
-  <h3>
-    student array goes here
-  </h3>
-  <button type="submit" class="btn btn-success">Add Student</button>
+  <h4>Create Student</h4>
+  <input id="username" type="text" placeholder="New Username" (keydown.enter)="addStudent()" [(ngModel)]="newStudentUsername">
+  <br>
+  <br>
+  <button id="addStudent" type="submit" (click)='addStudent()' class="btn btn-success">Add Student</button>
 </div>
+<flash-messages></flash-messages>

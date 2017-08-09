@@ -1,15 +1,22 @@
- <div class="eventForm">
-  <h4>Create Event</h4>
-  <form (ngSubmit)='addEvent()'>
-    <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required>
+<div class="eventForm">
+  <h4>
+    <button *ngIf = 'showEdit' (click) = 'switchToAdd()' class="backButton glyphicon glyphicon-arrow-left"></button>
+    {{currentForm}} Event
+  </h4>
+  <form (ngSubmit)="chooseAction()">
+    <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required minlength="1">
     <select id='eventType' name="eventType" [(ngModel)]='eventType'>
       <option selected disabled>Event Type</option>
       <option value="red">Assignment</option>
       <option value='blue'>Topic</option>
       <option value='green'>Workshop</option>
     </select>
-    <input id="eventLink" name='eventLink' type='text' placeholder="Link to" [(ngModel)]='eventLink' required>
+    <input id="eventLink" name='eventLink' type='text' placeholder="Link to" [(ngModel)]='eventLink'>
     <input id="eventDate" type="date" name="eventDate" [(ngModel)]='eventDate'>
-    <button id="addEvent" type="submit" class='btn btn-success'>Add</button>
+    <button id="addEvent" type='submit' (click)='setAction("addOrEdit")'name="{{currentForm}}" class='btn btn-success'>{{currentForm}}</button>
+    <button id="deleteEvent" type='submit '*ngIf='showEdit' (click)='setAction()' name="delete" class='btn btn-success'>Delete</button>
+    <p *ngIf = 'nameError'> Please enter a valid name and date </p>
   </form>
- </div>
+</div>
+
+<flash-messages></flash-messages>

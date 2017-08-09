@@ -1,7 +1,7 @@
 <div class="eventForm">
   <h4>{{currentForm}} Event</h4>
   <form (ngSubmit)="chooseAction()">
-    <input id="eventNameInput" name='eventNameInput' type='text' placeholder="Event Name" [(ngModel)]='eventName' required minlength="1">
+    <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required minlength="1">
     <select id='eventType' name="eventType" [(ngModel)]='eventType'>
       <option selected disabled>Event Type</option>
       <option value="red">Assignment</option>

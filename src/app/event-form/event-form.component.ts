@@ -25,6 +25,8 @@ export class EventFormComponent {
   addOrEditEvent(data) {
     const currentEvent = {
       id: this.eventDate + this.eventName,
+      originalStart: this.eventDate,
+      originalTitle: this.eventName,
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,

@@ -1,7 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
-
 import { EventService } from '../services/event.service';
 
 @Component({
@@ -40,16 +39,17 @@ export class EventFormComponent {
       // Save it to Firebase
       const thisSaved = this;
       this.afd.database.ref('/calendars/' + this.es.currentCalender.title + '/events').push(currentEvent);
-    }
-    else {
+    } else {
+      console.log('about to break');
       this.es.eventBeingEdited.start._i = this.eventDate;
+      console.log('i break here');
       this.es.eventBeingEdited.title = this.eventName;
       this.es.eventBeingEdited.url = this.eventLink;
       this.es.eventBeingEdited.color = this.eventType;
       this.clickSubmit.emit('');
       this.showEdit = false;
       this.currentForm = 'Add';
-      //update the datebase with using the object currentEvent
+      // update the datebase with using the object currentEvent
     }
     this.eventDate = '';
     this.eventName = '';
@@ -75,22 +75,19 @@ export class EventFormComponent {
   setAction(action) {
     this.operation = action;
   }
-  chooseAction() {
+  chooseAction() {// Form Validation
     console.log(this.eventDate);
     if (this.eventName === '' || this.eventName === undefined) {
       this.nameError = true;
-    }
-    else {
+    }else {
       if (this.eventDate === undefined || this.eventDate ==='') {
         this.nameError = true;
-      }
-      else {
+      }else {
         if (this.operation === 'addOrEdit') {
           this.nameError = false;
           this.addOrEditEvent(this.currentForm);
 
-        }
-        else {
+        } else {
           this.nameError = false;
           this.deleteEvent();
         }

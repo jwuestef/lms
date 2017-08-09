@@ -23,6 +23,8 @@ import { ClassCalendarComponent } from './class-calendar/class-calendar.componen
 import { EventFormComponent } from './event-form/event-form.component';
 import { EventService } from './services/event.service';
 import { StudentManagementComponent } from './student-management/student-management.component';
+import { StudentService } from './services/student.service';
+
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { StudentManagementComponent } from './student-management/student-managem
     FirebaseService,
     AngularFireAuth,
     AngularFireDatabase,
-    EventService
+    EventService,
+    StudentService
    ],
   bootstrap: [ AppComponent ]
 })

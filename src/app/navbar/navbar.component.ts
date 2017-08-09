@@ -7,6 +7,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { User } from '../models/user';
 import { LoginComponent } from '../login/login.component';
 import { EventService } from '../services/event.service';
+import { StudentService } from '../services/student.service';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class NavbarComponent {
     private router: Router,
     private afa: AngularFireAuth,
     private afd: AngularFireDatabase,
-    private es: EventService
+    private es: EventService,
+    private serviceStudent: StudentService
   ) {
     this.navbarUsername = localStorage.getItem('navbarUsername');
     const thisSaved = this;
@@ -47,6 +49,7 @@ export class NavbarComponent {
         const atSign = authData.search('@');
         const userToCheckIfAdmin = authData.slice(0, atSign);
         thisSaved.isAdmin = objectOfAdmins.hasOwnProperty(userToCheckIfAdmin);  // isAdmin is boolean true/false
+        thisSaved.serviceStudent.isAdmin = thisSaved.isAdmin;
         // If they are an admin, do nothing
         // Otherwise, query the 'student' table, which returns object full of calendar names they are authorized to view
         // Iterate over thisSaved.arrayOfCalendars, and any calender that doesn't have it's name on the list, erase

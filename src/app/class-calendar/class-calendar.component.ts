@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as $ from 'jquery';
-
+import { StudentService } from '../services/student.service';
 import { EventService } from '../services/event.service';
 
 
@@ -16,7 +16,7 @@ export class ClassCalendarComponent {
 
 
 
-  constructor(private events: EventService) {
+  constructor(private events: EventService, private serviceStudent: StudentService) {
     const currentCalendar = this;
 
     this.calendarOptions = {
@@ -28,7 +28,6 @@ export class ClassCalendarComponent {
         console.log('this is the event');
         console.log(event);
         currentCalendar.eventEdit.emit(event);
-        // $('#calendar').fullCalendar('updateEvent', event);
       }
     };
 
@@ -84,7 +83,9 @@ export class ClassCalendarComponent {
     jQuery('#calendar').on('click', '.fc-event', function (e) {
       if (jQuery(this).attr('href')) {
         e.preventDefault();
-        // window.open(jQuery(this).attr('href'), '_blank');
+        if (calendar.serviceStudent.isAdmin === false) {
+          window.open(jQuery(this).attr('href'), '_blank');
+        }
       }
     });
   }

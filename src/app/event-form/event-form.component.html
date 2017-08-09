@@ -1,16 +1,17 @@
- <div class="eventForm">
+<div class="eventForm">
   <h4>{{currentForm}} Event</h4>
-  <form >
-    <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required>
+  <form (ngSubmit)="chooseAction()">
+    <input id="eventName" name='eventName' type='text' placeholder="Event Name" [(ngModel)]='eventName' required minlength="1">
     <select id='eventType' name="eventType" [(ngModel)]='eventType'>
       <option selected disabled>Event Type</option>
       <option value="red">Assignment</option>
       <option value='blue'>Topic</option>
       <option value='green'>Workshop</option>
     </select>
-    <input id="eventLink" name='eventLink' type='text' placeholder="Link to" [(ngModel)]='eventLink' required>
+    <input id="eventLink" name='eventLink' type='text' placeholder="Link to" [(ngModel)]='eventLink'>
     <input id="eventDate" type="date" name="eventDate" [(ngModel)]='eventDate'>
-    <button id="addEvent"  (click)='addEvent()'name ="{{currentForm}}"class='btn btn-success'>{{currentForm}}</button>
-    <button id="deleteEvent" *ngIf = 'showEdit' (click) = 'deleteEvent()' name="delete" class='btn btn-success'>Delete</button>
+    <button id="addEvent" type='submit' (click)='setAction("addOrEdit")'name="{{currentForm}}" class='btn btn-success'>{{currentForm}}</button>
+    <button id="deleteEvent" type='submit '*ngIf='showEdit' (click)='setAction()' name="delete" class='btn btn-success'>Delete</button>
+    <p *ngIf = 'nameError'> Please enter a valid name and date </p>
   </form>
- </div>
+</div>

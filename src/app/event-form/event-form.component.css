@@ -33,3 +33,8 @@
 .eventForm{
   text-align: center;
 }
+
+.backButton{
+  border: none;
+  background-color: white;
+}

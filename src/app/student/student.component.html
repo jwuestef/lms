@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
-<p>
-  student works!
-</p>
+<app-navbar (changeCalendar) = 'loadEvents()'></app-navbar>
+<div class ='container' style="background-color: 'lightgreen'">
+  <app-class-calendar #classCalendar></app-class-calendar>
+</div>

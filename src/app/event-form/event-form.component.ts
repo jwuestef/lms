@@ -62,6 +62,51 @@ export class EventFormComponent {
       this.es.eventBeingEdited.color = this.eventType;
       this.clickSubmit.emit('');
       // Update the datebase with using the object currentEvent
+      console.log('The item being updated (this.es.eventBeingEdited) is:');
+      console.log(this.es.eventBeingEdited);
+
+      const thisSaved = this;
+      // query database for all events on this calendar, return object full of eventObjects
+      this.afd.database.ref('/calendars/' + this.es.currentCalender.title + '/events').once('value').then(function (eventsListFromDB) {
+      thisSaved.eventsListAsObject = eventsListFromDB.val();
+      console.log('The returned object full of events (named "eventsListAsObject") is: ');
+      console.log(thisSaved.eventsListAsObject);
+      console.log('Now looping over object key/value pairs:');
+      Object.keys(thisSaved.eventsListAsObject).forEach(function (key) {
+        console.log(key + ' <--key has value --> ' + thisSaved.eventsListAsObject[key]);
+        console.log(thisSaved.eventsListAsObject[key]);
+        console.log('This event\'s title from the DB is:');
+        console.log(thisSaved.eventsListAsObject[key]['title']);
+        console.log('This event\'s start from the DB is:');
+        console.log(thisSaved.eventsListAsObject[key]['start']);
+        if (
+          thisSaved.es.eventBeingEdited.originalTitle === thisSaved.eventsListAsObject[key]['originalTitle']
+          &&
+          thisSaved.es.eventBeingEdited.originalStart === thisSaved.eventsListAsObject[key]['originalStart']
+        ) {
+          console.log('THIS IS THE EVENT TO EDIT');
+          console.log(key);
+          thisSaved.afd.database.ref('/calendars/' + thisSaved.es.currentCalender.title + '/events/' + key).update({
+            title: thisSaved.es.eventBeingEdited.title,
+            start: thisSaved.es.eventBeingEdited.start._i
+          }).then(function() {
+            console.log('Event edited!');
+            thisSaved.fms.show(
+              '\'' +  thisSaved.es.eventBeingEdited.title + '\' edited in ' + '\'' + thisSaved.es.currentCalender.title + '\'',
+              {
+                cssClass: 'alert-success',
+                timeout: 1500
+              }
+            );
+          }).catch(function(err) {
+            console.log('Error editing event!');
+            console.log(err);
+          });
+        }
+      });
+    });
+
+
     }
   }
 
@@ -77,6 +122,8 @@ export class EventFormComponent {
     this.eventName = data.title;
     this.eventLink = data.url;
     this.eventType = data.color;
+    this.es.eventBeingEdited.originalStart = data.originalStart;
+    this.es.eventBeingEdited.originalTitle = data.originalTitle;
   }
 
 
@@ -112,9 +159,9 @@ export class EventFormComponent {
         console.log('This event\'s start is:');
         console.log(thisSaved.eventsListAsObject[key]['start']);
         if (
-          thisSaved.es.eventBeingEdited.title === thisSaved.eventsListAsObject[key]['title']
+          thisSaved.es.eventBeingEdited.originalTitle === thisSaved.eventsListAsObject[key]['originalTitle']
           &&
-          thisSaved.es.eventBeingEdited.start._i === thisSaved.eventsListAsObject[key]['start']
+          thisSaved.es.eventBeingEdited.originalStart === thisSaved.eventsListAsObject[key]['originalStart']
         ) {
           console.log('THIS IS THE EVENT TO DELETE');
           console.log(key);
@@ -149,18 +196,14 @@ export class EventFormComponent {
     console.log(this.eventDate);
     if (this.eventName === '' || this.eventName === undefined) {
       this.nameError = true;
-    }
-    else {
+    } else {
       if (this.eventDate === undefined) {
         this.nameError = true;
-      }
-      else {
+      } else {
         if (this.operation === 'addOrEdit') {
           this.nameError = false;
           this.addOrEditEvent(this.currentForm);
-
-        }
-        else {
+        } else {
           this.nameError = false;
           this.deleteEvent();
         }

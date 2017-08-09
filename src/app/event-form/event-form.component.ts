@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 import { EventService } from '../services/event.service';
 
@@ -19,43 +20,41 @@ export class EventFormComponent {
   showEdit = false;
   currentForm = 'Add';
   operation = '';
-<<<<<<< HEAD
+  nameError = false;
   eventsListAsObject;
 
 
 
-  constructor(private es: EventService, private afd: AngularFireDatabase) { }
+  constructor(private es: EventService, private afd: AngularFireDatabase, private fms: FlashMessagesService) { }
 
 
-
-  addEvent(data) {
-    const currentEvent = {
-      id: this.eventDate + this.eventName,
-=======
-  nameError = false;
-
-  constructor(private es: EventService, private afd: AngularFireDatabase) { }
 
   addOrEditEvent(data) {
-    const currentEvent = {
+    const newEvent = {
       id: this.eventDate + this.eventName,
+      title: this.eventName,
       originalStart: this.eventDate,
       originalTitle: this.eventName,
->>>>>>> d16c3786015bcff5715cdcdbaef64896b1953a3d
+      start: this.eventDate,
+      color: this.eventType,
+      url: this.eventLink
+    };
+    const currentEvent = {
+      id: this.eventDate + this.eventName,
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,
       url: this.eventLink
     };
     console.log('//////////////////////////////////////');
-    console.log('currentEvent is:');
-    console.log(currentEvent);
+    console.log('newEvent is:');
+    console.log(newEvent);
     if (this.currentForm === 'Add') {
-      this.es.eventArray.push(currentEvent);
+      this.es.eventArray.push(newEvent);
       this.clickSubmit.emit('add');
       // Save it to Firebase
       const thisSaved = this;
-      this.afd.database.ref('/calendars/' + this.es.currentCalender.title + '/events').push(currentEvent);
+      this.afd.database.ref('/calendars/' + this.es.currentCalender.title + '/events').push(newEvent);
     } else {
       this.es.eventBeingEdited.start._i = this.eventDate;
       this.es.eventBeingEdited.title = this.eventName;
@@ -66,10 +65,13 @@ export class EventFormComponent {
     }
   }
 
+
+
   editEvent(data) {
     this.showEdit = true;
     this.currentForm = 'Edit';
     this.es.eventBeingEdited = data;
+    console.log('"data" inside editEvent() function inside event-form.component.ts is:');
     console.log(data);
     this.eventDate = data.start._i;
     this.eventName = data.title;
@@ -77,13 +79,72 @@ export class EventFormComponent {
     this.eventType = data.color;
   }
 
+
+
   deleteEvent() {
     this.clickSubmit.emit('delete');
+    console.log('=====================================================================');
+    console.log('=====================================================================');
+    console.log('=====================================================================');
+    console.log('=====================================================================');
+    console.log('=====================================================================');
+
+    console.log('We need to delete the event named "eventBeingEdited", which is:');
+    console.log(this.es.eventBeingEdited);
+    console.log('The title of the event we want to delete is:');
+    console.log(this.es.eventBeingEdited.title);
+    console.log('... and the date of the event we want to delete is:');
+    console.log(this.es.eventBeingEdited.start._i);
+
+    // query database for all events on this calendar, return object full of eventObjects
+    console.log('query database for all events on this calendar, return object full of eventObjects');
+    const thisSaved = this;
+    this.afd.database.ref('/calendars/' + this.es.currentCalender.title + '/events').once('value').then(function (eventsListFromDB) {
+      thisSaved.eventsListAsObject = eventsListFromDB.val();
+      console.log('The returned object full of events (named "eventsListAsObject") is: ');
+      console.log(thisSaved.eventsListAsObject);
+      console.log('Now looping over object key/value pairs:');
+      Object.keys(thisSaved.eventsListAsObject).forEach(function (key) {
+        console.log(key + ' <--key has value --> ' + thisSaved.eventsListAsObject[key]);
+        console.log(thisSaved.eventsListAsObject[key]);
+        console.log('This event\'s title is:');
+        console.log(thisSaved.eventsListAsObject[key]['title']);
+        console.log('This event\'s start is:');
+        console.log(thisSaved.eventsListAsObject[key]['start']);
+        if (
+          thisSaved.es.eventBeingEdited.title === thisSaved.eventsListAsObject[key]['title']
+          &&
+          thisSaved.es.eventBeingEdited.start._i === thisSaved.eventsListAsObject[key]['start']
+        ) {
+          console.log('THIS IS THE EVENT TO DELETE');
+          console.log(key);
+          thisSaved.afd.database.ref('/calendars/' + thisSaved.es.currentCalender.title + '/events/' + key).remove().then(function() {
+            console.log('Event removed!');
+            thisSaved.fms.show(
+              '\'' +  thisSaved.es.eventBeingEdited.title + '\' removed from ' + '\'' + thisSaved.es.currentCalender.title + '\'',
+              {
+                cssClass: 'alert-success',
+                timeout: 1500
+              }
+            );
+          }).catch(function(err) {
+            console.log('Error deleting event!');
+            console.log(err);
+          });
+        }
+      });
+    });
 
   }
+
+
+
   setAction(action) {
     this.operation = action;
   }
+
+
+
   chooseAction() {
     console.log(this.eventDate);
     if (this.eventName === '' || this.eventName === undefined) {
@@ -108,4 +169,6 @@ export class EventFormComponent {
 
   }
 
-}
+
+
+}  // End of component

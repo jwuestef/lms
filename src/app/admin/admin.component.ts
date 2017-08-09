@@ -34,17 +34,20 @@ export class AdminComponent {
     });
   }
 
+
+
   addOrEditEvents(operation) {
     console.log(operation);
     if (operation === 'add') {
       this.calendar.renderEvents();
-    }
-    else if (operation === 'delete') {
+    } else if (operation === 'delete') {
       this.calendar.deleteEvents();
-    }
-    else
+    } else {
       this.calendar.updateEvents();
+    }
   }
+
+
 
   loadEvents() {
     this.events.eventArray = [];
@@ -60,17 +63,27 @@ export class AdminComponent {
     this.calendar.loadCalendar();
   }
 
+
+
   showEventForm() {
     this.isStudent = false;
     this.isEvent = true;
   }
+
+
+
   showStudentForm() {
     this.isEvent = false;
     this.isStudent = true;
 
   }
 
+
+
   alertEventForm(data) {
     this.eventForm.editEvent(data);
   }
-}
+
+
+
+} // End of component

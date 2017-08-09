@@ -47,8 +47,14 @@ export class EventFormComponent {
       this.es.eventBeingEdited.url = this.eventLink;
       this.es.eventBeingEdited.color = this.eventType;
       this.clickSubmit.emit('');
+      this.showEdit = false;
+      this.currentForm = 'Add';
       //update the datebase with using the object currentEvent
     }
+    this.eventDate = '';
+    this.eventName = '';
+    this.eventType = 'Event Type';
+    this.eventLink = '';
   }
 
   editEvent(data) {
@@ -75,7 +81,7 @@ export class EventFormComponent {
       this.nameError = true;
     }
     else {
-      if (this.eventDate === undefined) {
+      if (this.eventDate === undefined || this.eventDate ==='') {
         this.nameError = true;
       }
       else {
@@ -94,7 +100,11 @@ export class EventFormComponent {
 
   switchToAdd(){
     this.showEdit = false;
-    this.currentForm = 'Add'
+    this.currentForm = 'Add';
+    this.eventDate = '';
+    this.eventName = '';
+    this.eventType = 'Event Type';
+    this.eventLink = '';
   }
 
 }

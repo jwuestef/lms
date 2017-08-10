@@ -21,6 +21,8 @@ export class LoginComponent {
   usernameToSendLogin: string;  // The username that gets sent to Firebase, includes @elevenfifty.org
   usernameToSendSignup: string;  // The username that gets sent to Firebase, includes @elevenfifty.org
   studentTableArray;
+  isLogin = true;
+  isSignup = false;
 
 
 
@@ -85,6 +87,15 @@ export class LoginComponent {
     localStorage.setItem('navbarUsername', this.userUsernameLogin);
   }
 
+  showLogin() {
+    this.isSignup = false;
+    this.isLogin = true;
+  }
+
+  showSignup() {
+    this.isLogin = false;
+    this.isSignup = true;
+  }
 
 
 

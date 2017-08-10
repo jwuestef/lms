@@ -16,3 +16,6 @@ nav {
   margin-top: -5px;
 }
 
+.dropdown-toggle:active, .open .dropdown-toggle {
+      color:#971d23 !important;
+}

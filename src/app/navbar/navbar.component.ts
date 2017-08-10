@@ -8,6 +8,7 @@ import { User } from '../models/user';
 import { LoginComponent } from '../login/login.component';
 import { EventService } from '../services/event.service';
 import { StudentService } from '../services/student.service';
+import { FirebaseService } from '../services/auth.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class NavbarComponent {
     private afa: AngularFireAuth,
     private afd: AngularFireDatabase,
     private es: EventService,
-    private serviceStudent: StudentService
+    private serviceStudent: StudentService,
+    private fbs: FirebaseService
   ) {
     // Pulls current user out of the local storage to show in navbar
     this.navbarUsername = localStorage.getItem('navbarUsername');
@@ -124,8 +126,7 @@ export class NavbarComponent {
 
   // Signs user out by clearing the local storage, then navigates back to login
   signout() {
-    localStorage.clear();
-    this.router.navigateByUrl('/');
+    this.fbs.signout();
   }
 
 

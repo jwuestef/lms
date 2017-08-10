@@ -26,7 +26,7 @@ export class LoginComponent {
   isSignup = false;
 
 
-
+  // The contructor function runs automatically on component load, each and every time it's called
   constructor(public es: EventService, public fbs: FirebaseService, public afd: AngularFireDatabase) {
     this.es.currentCalender = null;
     this.es.eventArray = [];

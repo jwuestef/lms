@@ -15,7 +15,7 @@ export class StudentManagementComponent {
   newStudentUsername = '';
 
 
-
+  // The contructor function runs automatically on component load, each and every time it's called
   constructor(public afd: AngularFireDatabase, public es: EventService, public fms: FlashMessagesService) {}
 
 

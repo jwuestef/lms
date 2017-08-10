@@ -10,6 +10,7 @@ import { EventService } from '../services/event.service';
 })
 export class StudentComponent {
   @ViewChild('classCalendar') calendar: ClassCalendarComponent;
+    // The contructor function runs automatically on component load, each and every time it's called
   constructor(public events: EventService) {}
 
    loadEvents() {

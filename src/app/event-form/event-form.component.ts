@@ -2,6 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { FlashMessagesService } from 'angular2-flash-messages';
+
 import { EventService } from '../services/event.service';
 
 
@@ -24,6 +25,7 @@ export class EventFormComponent {
 
 
 
+  // The contructor function runs automatically on component load, each and every time it's called
   constructor(private es: EventService, private afd: AngularFireDatabase, private fms: FlashMessagesService) { }
 
 

@@ -26,7 +26,7 @@ export class NavbarComponent {
   thisSaved;
 
 
-
+  // The contructor function runs automatically on component load, each and every time it's called
   constructor(
     private router: Router,
     private afa: AngularFireAuth,

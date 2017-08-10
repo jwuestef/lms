@@ -89,6 +89,7 @@ export class ClassCalendarComponent {
         }
       }
     });
+    // when the calendar month is changed this handles rerendering events
     jQuery('#calendar').on('click', '.fc-button-group', function (e) {
       console.log('next or previous button clicked');
       $('#calendar').fullCalendar('removeEvents'); // removes all events locally before switching to a new calendar

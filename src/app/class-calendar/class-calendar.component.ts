@@ -34,7 +34,7 @@ export class ClassCalendarComponent {
   }
 
 
-// gets called when the add button is clicked
+  // gets called when the add button is clicked
   renderEvents() {
     console.log('renderEvents called');
     const currentEvent = this.events.eventArray[this.events.eventArray.length - 1];
@@ -58,7 +58,7 @@ export class ClassCalendarComponent {
   }
 
 
-// deletes current edited event from calendar then renders it
+  // deletes current edited event from calendar then renders it
   deleteEvents() {
     $('#calendar').fullCalendar('removeEvents', this.events.eventBeingEdited.id);
   }
@@ -77,7 +77,7 @@ export class ClassCalendarComponent {
   }
 
 
- // Link handling for events
+  // Link handling for events
   onCalendarInit() {
     const calendar = this;
     console.log('calendar init');
@@ -88,6 +88,13 @@ export class ClassCalendarComponent {
           window.open(jQuery(this).attr('href'), '_blank'); // if user is student open link in a new tab
         }
       }
+    });
+    // when the calendar month is changed this handles rerendering events
+    jQuery('#calendar').on('click', '.fc-button-group', function (e) {
+      console.log('next or previous button clicked');
+      $('#calendar').fullCalendar('removeEvents'); // removes all events locally
+      $('#calendar').fullCalendar('addEventSource', calendar.events.eventArray); // adds a new set of events
+      $('#calendar').fullCalendar('rerenderEvents'); // rerenders all events on the calendar using the new set of events
     });
   }
 

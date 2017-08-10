@@ -20,7 +20,7 @@ export class AdminComponent {
   @ViewChild('eventForm') eventForm: EventFormComponent;
   isEvent = true;
   isStudent = false;
-  constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, private events: EventService) {
+  constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, public es: EventService) {
     const thisSaved = this;
     this.afd.database.ref('/isAdmin').once('value').then(function (isAdminTable) {
       const arrayOfAdmins = isAdminTable.val();
@@ -50,16 +50,16 @@ export class AdminComponent {
 
 
   loadEvents() {
-    this.events.eventArray = [];
+    this.es.eventArray = [];
     console.log('loadEvents in adminComponent Called');
-    console.log(this.events.currentCalender);
+    console.log(this.es.currentCalender);
     const thisSaved = this;
     let counterOfEvents = 0;
-    console.log(thisSaved.events.currentCalender.events);
-    if (thisSaved.events.currentCalender.events !== undefined) {
-      Object.keys(thisSaved.events.currentCalender.events).forEach(function (key) {
-        thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
-        thisSaved.events.eventArray[counterOfEvents].id = key;
+    console.log(thisSaved.es.currentCalender.events);
+    if (thisSaved.es.currentCalender.events !== undefined) {
+      Object.keys(thisSaved.es.currentCalender.events).forEach(function (key) {
+        thisSaved.es.eventArray[counterOfEvents] = thisSaved.es.currentCalender.events[key];
+        thisSaved.es.eventArray[counterOfEvents].id = key;
         counterOfEvents++;
       });
     }

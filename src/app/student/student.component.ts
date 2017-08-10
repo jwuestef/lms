@@ -10,7 +10,7 @@ import { EventService } from '../services/event.service';
 })
 export class StudentComponent {
   @ViewChild('classCalendar') calendar: ClassCalendarComponent;
-  constructor(private events: EventService) { }
+  constructor(public events: EventService) {}
 
    loadEvents() {
     this.events.eventArray = [];

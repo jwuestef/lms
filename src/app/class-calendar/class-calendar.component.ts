@@ -10,13 +10,13 @@ import { EventService } from '../services/event.service';
   styleUrls: ['class-calendar.component.css']
 })
 export class ClassCalendarComponent {
-  currentCalendarTitle;
+  currentCalendarTitle = 'Choose a calendar from the dropdown.';
   calendarOptions: object;
   @Output() eventEdit = new EventEmitter<object>();
 
 
 
-  constructor(private events: EventService, private serviceStudent: StudentService) {
+  constructor(public events: EventService, public serviceStudent: StudentService) {
     const currentCalendar = this;
 
     this.calendarOptions = {
@@ -66,13 +66,14 @@ export class ClassCalendarComponent {
 
 
   loadCalendar() {
+    this.currentCalendarTitle = this.events.currentCalender.title;
+    console.log('this.events.currentCalender.title is:');
+    console.log(this.events.currentCalender.title);
     console.log(this.events.eventArray);
     console.log('load new calendar');
     $('#calendar').fullCalendar('removeEvents');
     $('#calendar').fullCalendar('addEventSource', this.events.eventArray);
     $('#calendar').fullCalendar('rerenderEvents');
-
-    this.currentCalendarTitle = this.events.currentCalender.title;
   }
 
 

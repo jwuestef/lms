@@ -3,6 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 
 import { FirebaseService } from '../services/auth.service';
 import { User } from '../models/user';
+import { EventService } from '../services/event.service';
 
 
 @Component({
@@ -21,10 +22,14 @@ export class LoginComponent {
   usernameToSendLogin: string;  // The username that gets sent to Firebase, includes @elevenfifty.org
   usernameToSendSignup: string;  // The username that gets sent to Firebase, includes @elevenfifty.org
   studentTableArray;
+  isLogin = true;
+  isSignup = false;
 
 
 
-  constructor(public fbs: FirebaseService, public afd: AngularFireDatabase) {
+  constructor(public es: EventService, public fbs: FirebaseService, public afd: AngularFireDatabase) {
+    this.es.currentCalender = null;
+    this.es.eventArray = [];
   }
 
 
@@ -85,6 +90,15 @@ export class LoginComponent {
     localStorage.setItem('navbarUsername', this.userUsernameLogin);
   }
 
+  showLogin() {
+    this.isSignup = false;
+    this.isLogin = true;
+  }
+
+  showSignup() {
+    this.isLogin = false;
+    this.isSignup = true;
+  }
 
 
 

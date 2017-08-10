@@ -90,6 +90,12 @@ export class ClassCalendarComponent {
         }
       }
     });
+    // When the calendar month is changed, this handles re-rendering events
+    jQuery('#calendar').on('click', '.fc-button-group', function (e) {
+      $('#calendar').fullCalendar('removeEvents');  // Removes all events locally
+      $('#calendar').fullCalendar('addEventSource', calendar.es.eventArray);  // Adds a new set of events
+      $('#calendar').fullCalendar('rerenderEvents');  // Re-renders all events on the calendar using the new set of events
+    });
   }
 
 

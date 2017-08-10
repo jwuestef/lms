@@ -34,10 +34,13 @@ export class NavbarComponent {
     private es: EventService,
     private serviceStudent: StudentService
   ) {
+    // pulls current user out of the local storage to show in navbar
     this.navbarUsername = localStorage.getItem('navbarUsername');
+    // query database to obtain list of calendars to populate dropdown menu with
     const thisSaved = this;
     this.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
       thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
+      // iterate over object and turn it into an array of calendars
       Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
         thisSaved.arrayOfCalendars.push(thisSaved.listOfCalendarsAsObject[key]);
       });
@@ -64,6 +67,7 @@ export class NavbarComponent {
               if (objectOfStudents[thisSaved.navbarUsername].hasOwnProperty(iteratingCalendarTitle)) {
                 // Do nothing
               } else {
+                // Then the current user doesn't have this calendar added, so we need to erase this calendar from the array, set to null
                 thisSaved.arrayOfCalendars[i] = null;
               }
             }
@@ -77,7 +81,9 @@ export class NavbarComponent {
   } // End of constructor
 
 
-
+  // query the database for the calendar with a given name
+  // set whole calendar to value in service
+  // fires event that tells calendar component to load new calendar
   selectCalender(event) {
     const thisSaved = this;
     this.afd.database.ref('/calendars/' + event.target.innerText).once('value').then(function (selectedCalender) {
@@ -88,27 +94,29 @@ export class NavbarComponent {
 
 
   createNewCalendar() {
+    // pulls current user out, sets as the creator for this calendar
     const creatorWithAtSign = this.afa.auth.currentUser.email;
     const atSign = creatorWithAtSign.search('@');
     const creator = creatorWithAtSign.slice(0, atSign);
+    // create the calendar in the database, populated with the title and creator
     this.afd.database.ref('/calendars/' + this.newCalendarTitle).set({
       title: this.newCalendarTitle,
       creator: creator
     });
+    // query database for all calendars, so the dropdown menu will populate with this new calendar
+    // iterate over the object and turn it into an array
     const thisSaved = this;
     this.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
       thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
       let counterOfCalendars = 0;
       Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
-        // console.log(key, thisSaved.listOfCalendarsAsObject[key]);
         thisSaved.arrayOfCalendars[counterOfCalendars] = thisSaved.listOfCalendarsAsObject[key];
         counterOfCalendars++;
-        // console.log(thisSaved.arrayOfCalendars);
       });
     });
   }
 
-
+// signs user out by clearing the local storage, navigate back to home page (login)
   signout() {
     localStorage.clear();
     this.router.navigateByUrl('/');

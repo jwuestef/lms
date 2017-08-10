@@ -16,18 +16,21 @@ export class StudentManagementComponent {
 
 
 
-  constructor(public afd: AngularFireDatabase, public es: EventService, public fms: FlashMessagesService) {
-    console.log('StudentManagementComponent loaded!');
-  }
+  constructor(public afd: AngularFireDatabase, public es: EventService, public fms: FlashMessagesService) {}
 
 
 
+  // add a calendar to a student, giving the student permission to see this calendar
   addStudent() {
+    // set the new calendar's title
     const newCalendarTitle = this.es.currentCalender.title;
+    // send a 'set' request to Firebase under this user, and make a new child for that student with the calendar's name
+    // the calendar is populated with a dummy object, so it acts as a folder and correctly loads into Firebase
     const thisSaved = this;
     this.afd.database.ref('/students/' + this.newStudentUsername).child(newCalendarTitle).set({
       dummyVariable: 1
     }).then(function() {
+      // show a success message upon successful calendar addition
       thisSaved.fms.show(
         '\'' + thisSaved.newStudentUsername + '\' added to ' + '\'' + thisSaved.es.currentCalender.title + '\'',
         {
@@ -37,6 +40,7 @@ export class StudentManagementComponent {
       );
       thisSaved.newStudentUsername = '';
     }).catch(function(err) {
+      // we couldn't add the calendar name to this student for some reason, show error message
       console.log('Error in addStudent function inside student-management.component.ts is:');
       console.log(err);
       thisSaved.fms.show(
@@ -48,8 +52,6 @@ export class StudentManagementComponent {
       );
     });
   }
-
-
 
 
 

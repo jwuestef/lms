@@ -13,19 +13,20 @@ export class StudentComponent {
   constructor(public events: EventService) {}
 
    loadEvents() {
-    this.events.eventArray = [];
+     // This is called when a calendar is selected from the dropdown
+    this.events.eventArray = []; // Clears events array
     console.log('loadEvents in studentComponent Called');
     console.log(this.events.currentCalender);
     const thisSaved = this;
     let counterOfEvents = 0;
     console.log(thisSaved.events.currentCalender.events);
-    if (thisSaved.events.currentCalender.events !== undefined) {
+    if (thisSaved.events.currentCalender.events !== undefined) { // checks if the calendar has existing events
       Object.keys(thisSaved.events.currentCalender.events).forEach(function (key) {
         thisSaved.events.eventArray[counterOfEvents] = thisSaved.events.currentCalender.events[key];
         thisSaved.events.eventArray[counterOfEvents].id = key;
         counterOfEvents++;
       });
     }
-    this.calendar.loadCalendar();
+    this.calendar.loadCalendar(); // call calendar load
   }
 }

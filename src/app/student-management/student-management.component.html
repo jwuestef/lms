@@ -1,8 +1,18 @@
 <div class="studentForm">
+
+  <!-- Header identifying we're on the Student Management tab -->
   <h4>Create Student</h4>
+
+  <!-- Form with single field to add a username. -->
   <input id="username" type="text" placeholder="New Username" (keydown.enter)="addStudent()" [(ngModel)]="newStudentUsername">
   <br>
   <br>
-  <button id="addStudent" type="submit" (click)='addStudent()' class="btn btn-success">Add Student</button>
+  <!-- This button submits the form, and calls the function addStudent() -->
+  <button id="addStudent" type="submit" (click)="addStudent()" class="btn btn-success">Add Student</button>
+
 </div>
+
+
+
+<!-- Output of flash messages -->
 <flash-messages></flash-messages>

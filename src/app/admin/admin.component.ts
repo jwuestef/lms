@@ -43,10 +43,9 @@ export class AdminComponent {
 
 
 
-// Handles which verison of the form sent an action, if the event is being triggered by clicking the add vs delete vs edit button
+  // Handles which verison of the form sent an action, if the event is being triggered by clicking the add vs delete vs edit button
   addOrEditEvents(operation) {
     // Operation is the string that holds which action to be performed
-    console.log(operation);
     if (operation === 'add') {
       this.calendar.renderEvents();
     } else if (operation === 'delete') {

@@ -2,8 +2,8 @@
 
   <!-- Header identifying we're on the Event Management tab -->
   <h4>
-    <button *ngIf = "showEdit" (click) = "switchToAdd()" class="backButton glyphicon glyphicon-arrow-left"></button>
-    {{currentForm}} Event
+    <button *ngIf="showEdit" (click)="switchToAdd()" class="backButton glyphicon glyphicon-arrow-left"></button> {{currentForm}}
+    Event
   </h4>
 
   <!-- Form with fields to add/edit event. A name and a date are required -->
@@ -17,14 +17,14 @@
     </select>
     <input id="eventLink" name="eventLink" type="text" placeholder="Link to" [(ngModel)]="eventLink">
     <input id="eventDate" type="date" name="eventDate" [(ngModel)]="eventDate">
-    <button id="addEvent" type="submit" (click)="setAction("addOrEdit")"name="{{currentForm}}" class="btn btn-success">{{currentForm}}</button>
-    <button id="deleteEvent" type="submit "*ngIf="showEdit" (click)="setAction()" name="delete" class="btn btn-success">Delete</button>
-    <p *ngIf = "nameError"> Please enter a valid name and date </p>
+    <button id="addEvent" type="submit" (click)="setAction('addOrEdit')" name="{{currentForm}}" class="btn btn-success">{{currentForm}}</button>
+    <button id="deleteEvent" type="submit " *ngIf="showEdit" (click)="setAction()" name="delete" class="btn btn-success">Delete</button>
+    <p *ngIf="nameError"> Please enter a valid name and date </p>
   </form>
 
 </div>
 
 
 
-<!-- Output of flash messages  -->
+<!-- Output of flash messages -->
 <flash-messages></flash-messages>

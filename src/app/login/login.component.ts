@@ -34,7 +34,7 @@ export class LoginComponent {
 
 
 
-  validateSignup() {
+  validateSignup() { // If the signup form isn't completely filled out, set error messages
     this.signupErrors = {username: '', pass: ''};
     if (!this.signupModel.username) {
       this.signupErrors.username = 'Please provide an username';
@@ -57,9 +57,11 @@ export class LoginComponent {
       if (!isValidStudent) {
         alert('The provided signup information isn\'t authorized to view any calendars, account NOT created!');
       } else {
-        console.log('Valid student located in "student" table in Firebase. Allowing signup to proceed...');
+        // console.log('Valid student located in "student" table in Firebase. Allowing signup to proceed...');
+        // construct a user from given information
         thisSaved.usernameToSendSignup = thisSaved.signupModel.username + '@elevenfifty.org';
         thisSaved.user = new User(thisSaved.usernameToSendSignup, thisSaved.signupModel.pass);
+        // Call signup function from the service, and then save the username in local storage so we can show it in the navbar
         thisSaved.fbs.signup(thisSaved.user);
         localStorage.setItem('navbarUsername', thisSaved.userUsernameSignup);
       }
@@ -68,7 +70,7 @@ export class LoginComponent {
 
 
 
-  validateLogin() {
+  validateLogin() {// If the signup form isn't completely filled out, set error messages
     this.loginErrors = {username: '', pass: ''};
     if (!this.loginModel.username) {
       this.loginErrors.username = 'Please provide an username';
@@ -85,16 +87,17 @@ export class LoginComponent {
     }
     this.userUsernameLogin = this.loginModel.username;
     this.usernameToSendLogin = this.loginModel.username + '@elevenfifty.org';
+    // constructs user to login to firebase with, then login using the service... and then set the local storage item to be our username
     this.user = new User(this.usernameToSendLogin, this.loginModel.pass);
     this.fbs.login(this.user);
     localStorage.setItem('navbarUsername', this.userUsernameLogin);
   }
 
+  // fake tabs on login page
   showLogin() {
     this.isSignup = false;
     this.isLogin = true;
   }
-
   showSignup() {
     this.isLogin = false;
     this.isSignup = true;

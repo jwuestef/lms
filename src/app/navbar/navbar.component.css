@@ -8,7 +8,7 @@ a:hover {
 }
 
 nav {
-  background-color: #971d23;
+  background-color: rgb(226, 74, 82);
   font-size: 20px;
 }
 
@@ -20,4 +20,8 @@ nav {
 
 .dropdown-toggle:active, .open .dropdown-toggle {
       color:#971d23 !important;
+}
+
+.navbar{
+  margin-bottom: 0px;
 }

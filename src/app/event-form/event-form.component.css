@@ -23,9 +23,9 @@
 }
 
 #deleteEvent{
-  background-color: rgb(226, 74, 82);
+  background-color: white;
   border-color: #ddd;
-  color: white;
+  color: rgb(226, 74, 82);
 }
 
 #eventLink{
@@ -51,7 +51,8 @@
 
 .backButton{
   border: none;
-  background-color: white;
+  color: white;
+  background-color: rgb(226, 74, 82);
 }
 h4{
   color: white;

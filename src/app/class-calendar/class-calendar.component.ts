@@ -67,24 +67,15 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
   }
 
-  showMeEventArray(){
-    console.log('This is the current Event Array');
-    console.log(this.es.eventArray);
-  }
+
 
   // Deletes current edited event from calendar then renders the lack of event on that day/spot
   deleteEvents() {
     let counter = 0;
     const thisSaved = this;
-    console.log(this.es.eventArray);
       this.es.eventArray.forEach(function (element) {
       if (element.id === thisSaved.es.eventBeingEdited.id) {
-        console.log('this is the element id' + element.id);
-        console.log('this is the eventBeingEdited.id' + thisSaved.es.eventBeingEdited.id);
-       console.log('about to delete element at index ' + counter);
-       console.log(thisSaved.es.eventArray);
         thisSaved.es.eventArray.splice(counter, 1);
-        console.log(thisSaved.es.eventArray);
       }
        counter++;
     });

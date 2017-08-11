@@ -3,5 +3,10 @@
 }
 
 #addStudent {
-   background-color: #971d23;
+   background-color: white;
+   color: rgb(226, 74, 82);
+}
+
+h4{
+  color:white;
 }

@@ -1,25 +1,9 @@
 #buttons {
   padding-top: 15px;
-  border-bottom: .5px solid #ddd;
-  text-align: center;
+  text-align: right;
 }
 
-#student {
-  color: rgb(226, 74, 82);
-  background-color: white;
-  border-radius: 0 !important;
-  border-bottom: none !important;
-  border-color: rgb(226, 74, 82) !important;
-}
 
-#event {
-  color: rgb(226, 74, 82);
-  background-color: white;
-  width: 83px;
-  border-radius: 0 !important;
-  border-bottom: none !important;
-  border-color: rgb(226, 74, 82) !important;
-}
  .formContainer{
   height: 40em;
   display:block;
@@ -29,7 +13,7 @@
   height: 40em;
   padding-top: 20px;
   background-color: rgb(226, 74, 82);
-  border-radius: 5%;
+  border: 1px solid white;
 }
 
 #content{
@@ -42,4 +26,31 @@
 
 .calendarContainer{
   background-color: white;
+}
+
+
+.fakeTabs input[type=radio] {
+   display: none;
+}
+.fakeTabs label {
+  border: 1px solid white;
+  background-color: rgb(226, 74, 82);
+  color: white;
+  padding: 2px 16px;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+  margin-bottom: -1px;
+}
+  .fakeTabs input:checked + label, .fakeTabs label.selected {
+  color:white;
+  border: 1px solid white;
+  border-bottom: 1px solid rgb(226, 74, 82);
+  z-index: 3;
+}
+
+.fakeTabs input:checked + label {
+ border: 1px solid white;
+  border-bottom: 1px solid rgb(226, 74, 82);
+  z-index: 3;
 }

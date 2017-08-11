@@ -5,18 +5,41 @@
 }
 
 #student {
-  color: white;
-  background-color: #971d23;
+  color: rgb(226, 74, 82);
+  background-color: white;
   border-radius: 0 !important;
   border-bottom: none !important;
-  border-color: #ddd !important;
+  border-color: rgb(226, 74, 82) !important;
 }
 
 #event {
-  color: white;
-  background-color: #971d23;
+  color: rgb(226, 74, 82);
+  background-color: white;
   width: 83px;
   border-radius: 0 !important;
   border-bottom: none !important;
-  border-color: #ddd !important;
+  border-color: rgb(226, 74, 82) !important;
+}
+ .formContainer{
+  height: 40em;
+  display:block;
+}
+
+.formContent{
+  height: 40em;
+  padding-top: 20px;
+  background-color: rgb(226, 74, 82);
+  border-radius: 5%;
+}
+
+#content{
+  margin-top: -9px;
+  background-color: rgba(20,23,33,0.8);
+  height: 100%;
+  display: block;
+  width: 100%;
+}
+
+.calendarContainer{
+  background-color: white;
 }

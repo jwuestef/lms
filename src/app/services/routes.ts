@@ -16,9 +16,5 @@ export const routes = [
   {
     path: '',
     component: LoginComponent
-  },
-  {
-    path: 'test',
-    component: EventFormComponent
   }
 ];

@@ -98,10 +98,10 @@ export class EventFormComponent {
               console.log(err);
             });
           } else {
-            // If the event key is not found
-            console.log('Event key not found');
-            console.log(thisSaved.es.eventBeingEdited.id);
-            console.log(key);
+            // If the event key doesn't match
+            // console.log('Event key doesn\'t match');
+            // console.log(thisSaved.es.eventBeingEdited.id);
+            // console.log(key);
           }
         });
       });

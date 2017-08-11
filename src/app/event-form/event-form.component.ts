@@ -183,6 +183,7 @@ export class EventFormComponent {
           // Perform Delete
           this.nameError = false;
           this.deleteEvent();
+          this.switchToAdd();
         }
       }
     }

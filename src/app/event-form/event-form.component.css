@@ -17,13 +17,15 @@
   margin: auto;
   margin-top: 0px;
   width: 65px;
-  background-color: #971d23;
+  background-color: white;
   border-color: #ddd;
+  color: rgb(226, 74, 82);
 }
 
 #deleteEvent{
-  background-color: #971d23;
+  background-color: rgb(226, 74, 82);
   border-color: #ddd;
+  color: white;
 }
 
 #eventLink{
@@ -44,9 +46,21 @@
 
 .eventForm{
   text-align: center;
+    height:100%;
 }
 
 .backButton{
   border: none;
+  background-color: white;
+}
+h4{
+  color: white;
+}
+
+#testBox{
+  margin: auto;
+  margin-top: 20px;
+  height: 250px;
+  width: 220px;
   background-color: white;
 }

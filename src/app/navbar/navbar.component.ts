@@ -8,6 +8,7 @@ import { User } from '../models/user';
 import { LoginComponent } from '../login/login.component';
 import { EventService } from '../services/event.service';
 import { StudentService } from '../services/student.service';
+import { FirebaseService } from '../services/auth.service';
 
 
 @Component({
@@ -27,28 +28,34 @@ export class NavbarComponent {
 
 
 
+  // The contructor function runs automatically on component load, each and every time it's called
   constructor(
     private router: Router,
     private afa: AngularFireAuth,
     private afd: AngularFireDatabase,
     private es: EventService,
-    private serviceStudent: StudentService
+    private serviceStudent: StudentService,
+    private fbs: FirebaseService
   ) {
+    // Pulls current user out of the local storage to show in navbar
     this.navbarUsername = localStorage.getItem('navbarUsername');
+    // Query database to obtain list of calendars, to populate dropdown menu with
     const thisSaved = this;
     this.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
       thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
+      // Iterate over object and turn it into an array of calendars
       Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
         thisSaved.arrayOfCalendars.push(thisSaved.listOfCalendarsAsObject[key]);
       });
-      // Now that we have our array full of calendars, let's see which ones they are allowed to see.
+      // Now that we have our array full of calendars, let's see which ones the user is allowed to see.
       // Check if they are on the isAdmin table
       thisSaved.afd.database.ref('/isAdmin').once('value').then(function (isAdminTable) {
         const objectOfAdmins = isAdminTable.val();
         const authData = thisSaved.afa.auth.currentUser.email;
         const atSign = authData.search('@');
         const userToCheckIfAdmin = authData.slice(0, atSign);
-        thisSaved.isAdmin = objectOfAdmins.hasOwnProperty(userToCheckIfAdmin);  // isAdmin is boolean true/false
+        // isAdmin is boolean true/false, based on whether the Firebase table has this username
+        thisSaved.isAdmin = objectOfAdmins.hasOwnProperty(userToCheckIfAdmin);
         thisSaved.serviceStudent.isAdmin = thisSaved.isAdmin;
         // If they are an admin, do nothing
         // Otherwise, query the 'student' table, which returns object full of calendar names they are authorized to view
@@ -64,20 +71,23 @@ export class NavbarComponent {
               if (objectOfStudents[thisSaved.navbarUsername].hasOwnProperty(iteratingCalendarTitle)) {
                 // Do nothing
               } else {
+                // Then the current user doesn't have this calendar added, so we need to erase this calendar from the array, set to null
                 thisSaved.arrayOfCalendars[i] = null;
               }
             }
             // Loop over array and erase all null values
-            thisSaved.arrayOfCalendars = thisSaved.arrayOfCalendars.filter(function(n){ return n !== null; });
+            thisSaved.arrayOfCalendars = thisSaved.arrayOfCalendars.filter(function (n) { return n !== null; });
           });
         }
       });
     });
-
-  } // End of constructor
-
+  }  // End of constructor
 
 
+
+  // Query the database for the calendar with a given name
+  // Set whole calendar to value in service
+  // Fires event that tells calendar component to load new calendar
   selectCalender(event) {
     const thisSaved = this;
     this.afd.database.ref('/calendars/' + event.target.innerText).once('value').then(function (selectedCalender) {
@@ -87,31 +97,36 @@ export class NavbarComponent {
   }
 
 
+
+  // Handles the logic for creating a new calendar in Firebase
   createNewCalendar() {
+    // Pulls current user out of authentication data, sets as the creator for this calendar
     const creatorWithAtSign = this.afa.auth.currentUser.email;
     const atSign = creatorWithAtSign.search('@');
     const creator = creatorWithAtSign.slice(0, atSign);
+    // Create the calendar in the database, populated with the title and creator
     this.afd.database.ref('/calendars/' + this.newCalendarTitle).set({
       title: this.newCalendarTitle,
       creator: creator
     });
+    // Query database for all calendars, so the dropdown menu will populate with this new calendar
     const thisSaved = this;
     this.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
       thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
+      // Iterate over the returned object and turn it into an array of calendars
       let counterOfCalendars = 0;
       Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
-        // console.log(key, thisSaved.listOfCalendarsAsObject[key]);
         thisSaved.arrayOfCalendars[counterOfCalendars] = thisSaved.listOfCalendarsAsObject[key];
         counterOfCalendars++;
-        // console.log(thisSaved.arrayOfCalendars);
       });
     });
   }
 
 
+
+  // Signs user out by clearing the local storage, then navigates back to login
   signout() {
-    localStorage.clear();
-    this.router.navigateByUrl('/');
+    this.fbs.signout();
   }
 
 

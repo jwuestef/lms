@@ -12,6 +12,7 @@
   width: 175px;
   margin-bottom: 5px;
 }
+
 #addEvent{
   margin: auto;
   margin-top: 0px;
@@ -19,10 +20,12 @@
   background-color: #971d23;
   border-color: #ddd;
 }
+
 #deleteEvent{
   background-color: #971d23;
   border-color: #ddd;
 }
+
 #eventLink{
   margin: auto;
   margin-top: 0px;

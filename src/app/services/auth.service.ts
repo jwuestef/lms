@@ -25,12 +25,14 @@ export class FirebaseService {
   // Verification they're allowed to sign up has already been made prior to calling this function
   signup(user: User) {
     // Create a user in Firebase
-    this.afa.auth.createUserWithEmailAndPassword(user.username, user.password).then(() => {
+    return this.afa.auth.createUserWithEmailAndPassword(user.username, user.password).then(() => {
       // Signup successful
       this.router.navigateByUrl('/student');
+      return;
     }).catch((err) => {
-      console.log('Error in signup function inside auth.service.ts: ');
-      console.log(err);
+      // console.log('Error in signup function inside auth.service.ts: ');
+      // console.log(err);
+      return err;
     });
   }
 
@@ -38,7 +40,7 @@ export class FirebaseService {
 
   // Logs the user in through Firebase authentication
   login(user: User) {
-    this.afa.auth.signInWithEmailAndPassword(user.username, user.password).then(() => {
+    return this.afa.auth.signInWithEmailAndPassword(user.username, user.password).then(() => {
       // If we succeed in logging in, check if they are on the admin table... then route appropriately
       // Query the isAdmin table in Firebase
       const thisSaved = this;
@@ -53,13 +55,16 @@ export class FirebaseService {
         // Routes based on isAdmin status
         if (isAdmin) {
           thisSaved.router.navigateByUrl('/admin');
+          return;
         } else {
           thisSaved.router.navigateByUrl('/student');
+          return;
         }
       });
     }).catch((err) => {
-      console.log('Error in login function inside auth.service.ts: ');
-      console.log(err);
+      // console.log('Error in login function inside auth.service.ts: ');
+      // console.log(err);
+      return err;
     });
   }
 

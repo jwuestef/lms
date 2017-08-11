@@ -14,6 +14,7 @@ nav {
 
 .navbar-brand {
   margin-top: -5px;
+  padding-right: 15px;
 }
 
 .dropdown-toggle:active, .open .dropdown-toggle {

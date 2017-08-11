@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { FlashMessagesModule } from 'angular2-flash-messages';
 
 // Modules
 import { BrowserModule } from '@angular/platform-browser';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 // Components
 import { AppComponent } from './app.component';
@@ -15,14 +15,19 @@ import { StudentComponent } from './student/student.component';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { routes } from './services/routes';
-import { FirebaseService } from './services/auth.service';
-import { firebaseConfig } from '../environments/firebase.config';
 import { CalendarComponent } from 'ap-angular2-fullcalendar';
 import { ClassCalendarComponent } from './class-calendar/class-calendar.component';
 import { EventFormComponent } from './event-form/event-form.component';
-import { EventService } from './services/event.service';
 import { StudentManagementComponent } from './student-management/student-management.component';
+
+// Configuration
+import { routes } from './services/routes';
+import { firebaseConfig } from '../environments/firebase.config';
+
+// Services
+import { FirebaseService } from './services/auth.service';
+import { EventService } from './services/event.service';
+import { StudentService } from './services/student.service';
 
 
 @NgModule({
@@ -48,8 +53,9 @@ import { StudentManagementComponent } from './student-management/student-managem
     FirebaseService,
     AngularFireAuth,
     AngularFireDatabase,
-    EventService
-   ],
-  bootstrap: [ AppComponent ]
+    EventService,
+    StudentService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

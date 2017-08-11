@@ -14,51 +14,65 @@
   margin: 5vh;
 }
 
-
-#loginDiv {
+#loginSignup {
+  position: relative;
   display: inline-block;
   margin-top: 25vh;
   padding-top: 5vh;
   width: 350px;
-  height: 250px;
+  height: 325px;
   border: 0px solid white;
   border-radius: 15px;
   background-color: white;
   z-index: 1;
 }
+
+#fakeTabs{
+  border-bottom: .5px solid #ddd;
+  text-align: center;
+}
+
+#loginButton{
+  color: white;
+  background-color: #971d23;
+  border-radius: 0 !important;
+  border-bottom: none !important;
+  border-color: #ddd !important;
+  width: 70px;
+}
+
+#signupButton{
+  color: white;
+  background-color: #971d23;
+  border-radius: 0 !important;
+  border-bottom: none !important;
+  border-color: #ddd !important;
+}
+
 #loginUsername {
  width: 300px;
  margin: 0 auto;
 }
+
 #loginPassword {
  width: 300px;
  margin: 0 auto;
 }
+
 #login-btn {
   width: 70px;
 }
 
-
-#signupDiv {
-  display: inline-block;
-  margin-top: 25vh;
-  padding-top: 5vh;
-  width: 350px;
-  height: 250px;
-  border: 0px solid white;
-  border-radius: 15px;
-  background-color: white;
-  z-index: 1;
-}
 #signupUsername {
  width: 300px;
  margin: 0 auto;
 }
+
 #signupPassword {
  width: 300px;
  margin: 0 auto;
 }
+
 #signup-btn {
   width: 70px;
 }
-

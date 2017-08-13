@@ -1,17 +1,19 @@
 <app-navbar (changeCalendar)="loadEvents()"></app-navbar>
 
-
+<div id ="content" class="container">
 <!-- Sidebar  -->
-<div id="tabs" class="col-xs-3">
+<div id="tabs" class="col-xs-2 formContainer">
 
   <!-- Buttons (styled to appear as tabs) to switch between the student management tab and the event management tab -->
-  <div id="buttons" *ngIf="es.currentCalender !== null">
-    <button id="student" class="btn btn-primary" (click)="showStudentForm()">Students</button>
-    <button id="event" class="btn btn-primary" (click)="showEventForm()">Events</button>
+  <div id="buttons"  class="fakeTabs"*ngIf="es.currentCalender !== null">
+    <input type='radio' name="tab" id="Students" (click)="showStudentForm()" value="Students">
+    <label for='Students' id="studentsTabLabel">Students</label>
+    <input type='radio' name = 'tab' id="Events" (click)="showEventForm()" value="Events" checked>
+    <label for='Events'>Events</label>
   </div>
 
   <!-- The actual student management and event management components. Which is shown is controlled by the buttons/tabs above -->
-  <div *ngIf="es.currentCalender !== null">
+  <div *ngIf="es.currentCalender !== null"  class="formContent">
     <app-event-form #eventForm *ngIf="isEvent" (clickSubmit)="addOrEditEvents($event)"></app-event-form>
     <app-student-management *ngIf="isStudent"></app-student-management>
   </div>
@@ -20,6 +22,7 @@
 
 
 <!-- Main calendar display area -->
-<div class="col-xs-9">
+<div class="col-xs-9 calendarContainer">
   <app-class-calendar #classCalendar (eventEdit)="alertEventForm($event)"></app-class-calendar>
+</div>
 </div>

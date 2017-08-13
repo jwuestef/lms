@@ -98,10 +98,10 @@ export class EventFormComponent {
               console.log(err);
             });
           } else {
-            // If the event key is not found
-            console.log('Event key not found');
-            console.log(thisSaved.es.eventBeingEdited.id);
-            console.log(key);
+            // If the event key doesn't match
+            // console.log('Event key doesn\'t match');
+            // console.log(thisSaved.es.eventBeingEdited.id);
+            // console.log(key);
           }
         });
       });
@@ -120,6 +120,7 @@ export class EventFormComponent {
     this.showEdit = true;
     this.currentForm = 'Edit';
     this.es.eventBeingEdited = data;
+    console.log(this.es.eventBeingEdited.id);
     this.eventDate = data.start._i;
     this.eventName = data.title;
     this.eventLink = data.url;
@@ -182,6 +183,7 @@ export class EventFormComponent {
           // Perform Delete
           this.nameError = false;
           this.deleteEvent();
+          this.switchToAdd();
         }
       }
     }

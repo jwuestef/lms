@@ -63,7 +63,7 @@ export class LoginComponent {
     if (this.validateSignup()) {
       return;
     }
-    this.userUsernameSignup = this.signupModel.username;
+    this.userUsernameSignup = this.signupModel.username.toLowerCase();
     // Check if this.userUsernameSignup (which is just 'student11' - no @elevenfifty.org) is in the 'students' table in Firebase
     const thisSaved = this;
     this.afd.database.ref('/students').once('value').then(function (studentTableAsObject) {
@@ -76,8 +76,19 @@ export class LoginComponent {
         thisSaved.usernameToSendSignup = thisSaved.signupModel.username + '@elevenfifty.org';
         thisSaved.user = new User(thisSaved.usernameToSendSignup, thisSaved.signupModel.pass);
         // Call signup function from the service, and then save the username in local storage so we can show it in the navbar
-        thisSaved.fbs.signup(thisSaved.user);
-        localStorage.setItem('navbarUsername', thisSaved.userUsernameSignup);
+        thisSaved.fbs.signup(thisSaved.user).then(function (err) {
+          if (err !== undefined) {
+            // If there is an error, then display a message to the user
+            // If it's the error talking about an email address in use, then re-word it to say 'username' instead
+            if (err.message === 'The email address is already in use by another account.') {
+              err.message = 'This username is already in use by another account.';
+            }
+            thisSaved.signupErrors.pass = err.message;
+          } else {
+            // Set the local storage item to be our username, so our navbar can display it
+            localStorage.setItem('navbarUsername', thisSaved.userUsernameSignup);
+          }
+        });
       }
     });
   }
@@ -105,13 +116,20 @@ export class LoginComponent {
     if (this.validateLogin()) {
       return;
     }
-    this.userUsernameLogin = this.loginModel.username;
-    this.usernameToSendLogin = this.loginModel.username + '@elevenfifty.org';
+    this.userUsernameLogin = this.loginModel.username.toLowerCase();
+    this.usernameToSendLogin = this.loginModel.username.toLowerCase() + '@elevenfifty.org';
     // Constructs user to login to firebase with, then login using the service
     this.user = new User(this.usernameToSendLogin, this.loginModel.pass);
-    this.fbs.login(this.user);
-    // Set the local storage item to be our username, so our navbar can display it
-    localStorage.setItem('navbarUsername', this.userUsernameLogin);
+    const thisSaved = this;
+    this.fbs.login(this.user).then(function (err) {
+      if (err !== undefined) {
+        // If there is an error, then display a message to the user
+        thisSaved.loginErrors.pass = 'Username & password combination invalid, or user does not exist';
+      } else {
+        // Set the local storage item to be our username, so our navbar can display it
+        localStorage.setItem('navbarUsername', thisSaved.userUsernameLogin);
+      }
+    });
   }
 
 

@@ -11,9 +11,9 @@
     <input id="eventName" name="eventName" type="text" placeholder="Event Name" [(ngModel)]="eventName" required minlength="1">
     <select id="eventType" name="eventType" [(ngModel)]="eventType">
       <option selected disabled>Event Type</option>
-      <option value="red">Assignment</option>
-      <option value="blue">Topic</option>
-      <option value="green">Workshop</option>
+      <option value="rgb(226, 74, 82)">Assignment</option>
+      <option value="#337ab7">Topic</option>
+      <option value="#67c167">Workshop</option>
     </select>
     <input id="eventLink" name="eventLink" type="text" placeholder="Link to" [(ngModel)]="eventLink">
     <input id="eventDate" type="date" name="eventDate" [(ngModel)]="eventDate">
@@ -21,8 +21,10 @@
     <button id="deleteEvent" type="submit " *ngIf="showEdit" (click)="setAction()" name="delete" class="btn btn-success">Delete</button>
     <p *ngIf="nameError"> Please enter a valid name and date </p>
   </form>
-
+<div id='testBox'>
 </div>
+</div>
+
 
 
 

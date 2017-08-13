@@ -1,22 +1,58 @@
 #buttons {
   padding-top: 15px;
-  border-bottom: .5px solid #ddd;
-  text-align: center;
+  padding-right: 10px;
+  text-align: right;
 }
 
-#student {
-  color: white;
-  background-color: #971d23;
-  border-radius: 0 !important;
-  border-bottom: none !important;
-  border-color: #ddd !important;
+
+ .formContainer{
+  height: 40em;
+  display:block;
 }
 
-#event {
+.formContent{
+  height: 40em;
+  padding-top: 20px;
+  background-color: rgb(226, 74, 82);
+  border: 1px solid white;
+}
+
+#content{
+  margin-top: -9px;
+  background-color: rgba(20,23,33,0.8);
+  height: 100%;
+  display: block;
+  width: 100%;
+}
+
+.calendarContainer{
+  background-color: white;
+}
+
+
+.fakeTabs input[type=radio] {
+   display: none;
+}
+.fakeTabs label {
+  border: 1px solid white;
+  background-color: #c3333a;
   color: white;
-  background-color: #971d23;
-  width: 83px;
-  border-radius: 0 !important;
-  border-bottom: none !important;
-  border-color: #ddd !important;
+  padding: 2px 5px;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+  margin-bottom: -1px;
+}
+  .fakeTabs input:checked + label, .fakeTabs label.selected {
+  color:white;
+  background-color: rgb(226, 74, 82);
+  border: 1px solid white;
+  border-bottom: 1px solid rgb(226, 74, 82);
+  z-index: 3;
+}
+
+.fakeTabs input:checked + label {
+ border: 1px solid white;
+  border-bottom: 1px solid rgb(226, 74, 82);
+  z-index: 3;
 }

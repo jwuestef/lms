@@ -55,6 +55,15 @@ export class ClassCalendarComponent {
       color: this.es.eventBeingEdited.color,
       url: this.es.eventBeingEdited.url,
     };
+    const thisSaved = this;
+    let counter = 0;
+     // This loop searches for the selected event in the local array then edits it with the new value.
+    this.es.eventArray.forEach(function (element) {
+      if (element.id === currentEvent.id) {
+        thisSaved.es.eventArray[counter] = currentEvent;
+        counter++;
+      }
+    });
     $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
   }
 
@@ -62,6 +71,14 @@ export class ClassCalendarComponent {
 
   // Deletes current edited event from calendar then renders the lack of event on that day/spot
   deleteEvents() {
+    let counter = 0;
+    const thisSaved = this;
+      this.es.eventArray.forEach(function (element) {
+      if (element.id === thisSaved.es.eventBeingEdited.id) {
+        thisSaved.es.eventArray.splice(counter, 1);
+      }
+       counter++;
+    });
     $('#calendar').fullCalendar('removeEvents', this.es.eventBeingEdited.id);
   }
 

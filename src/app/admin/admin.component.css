@@ -1,5 +1,6 @@
 #buttons {
   padding-top: 15px;
+  padding-right: 10px;
   text-align: right;
 }
 
@@ -34,9 +35,9 @@
 }
 .fakeTabs label {
   border: 1px solid white;
-  background-color: rgb(226, 74, 82);
+  background-color: #c3333a;
   color: white;
-  padding: 2px 16px;
+  padding: 2px 5px;
   cursor: pointer;
   z-index: 1;
   position: relative;
@@ -44,6 +45,7 @@
 }
   .fakeTabs input:checked + label, .fakeTabs label.selected {
   color:white;
+  background-color: rgb(226, 74, 82);
   border: 1px solid white;
   border-bottom: 1px solid rgb(226, 74, 82);
   z-index: 3;

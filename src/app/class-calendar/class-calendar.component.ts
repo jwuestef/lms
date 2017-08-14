@@ -61,8 +61,8 @@ export class ClassCalendarComponent {
     this.es.eventArray.forEach(function (element) {
       if (element.id === currentEvent.id) {
         thisSaved.es.eventArray[counter] = currentEvent;
-        counter++;
       }
+       counter++;
     });
     $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
   }
@@ -91,7 +91,9 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
   }
 
-
+showCurrentEvents(){
+  console.log(this.es.eventArray);
+}
 
   // Link handling for events
   onCalendarInit() {

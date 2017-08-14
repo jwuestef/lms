@@ -42,10 +42,10 @@
 }
 
 #signupButton{
-  color: white;
-  background-color: #971d23;
+  color: #971d23;
+  background-color: white;
   border-radius: 0 !important;
-  border-bottom: none !important;
+  border-bottom: white !important;
   border-color: #ddd !important;
 }
 

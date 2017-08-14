@@ -22,7 +22,13 @@
     <p *ngIf="nameError"> Please enter a valid name and date </p>
   </form>
 
-  <div id='testBox'>
+  <div id="goodBadStudents">
+    <ul>
+      <li *ngFor="let student of arrayOfBadStudents">{{student}}</li>
+    </ul>
+    <ul>
+      <li *ngFor="let student of arrayOfGoodStudents">{{student}}</li>
+    </ul>
   </div>
 
 </div>

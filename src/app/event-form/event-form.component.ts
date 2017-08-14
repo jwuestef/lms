@@ -137,6 +137,8 @@ export class EventFormComponent {
     this.eventType = data.color;
     // Reset array full of students back to empty
     this.arrayOfStudentsOnThisCalendar = [];
+    this.arrayOfGoodStudents = [];
+    this.arrayOfBadStudents = [];
     // Query Firebase for list of students that are on this calendar, and sort them into Good Students vs Bad Students
     // (Good Students have completed the event, Bad Students have not completed the event)
     const thisSaved = this;
@@ -158,12 +160,6 @@ export class EventFormComponent {
           }
         }
       });
-      console.log('Students currently assigned to this calendar are:');
-      console.log(thisSaved.listOfStudentsAsObject);
-      console.log('Bad students are:');
-      console.log(thisSaved.arrayOfBadStudents);
-      console.log('Good students are:');
-      console.log(thisSaved.arrayOfGoodStudents);
     });
   }
 

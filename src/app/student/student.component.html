@@ -1,8 +1,13 @@
-<!-- Display the navbar -->
-<!-- On the changeCalendar event firing, call the loadEvents function -->
-<app-navbar (changeCalendar)="loadEvents()"></app-navbar>
+<div id="content">
 
-<!-- Display the calendar component -->
-<div class="container">
-  <app-class-calendar #classCalendar></app-class-calendar>
+  <!-- Display the navbar -->
+  <!-- On the changeCalendar event firing, call the loadEvents function -->
+  <app-navbar (changeCalendar)="loadEvents()"></app-navbar>
+
+  <!-- Display the calendar component -->
+  <div class="container">
+    <app-class-calendar #classCalendar></app-class-calendar>
+  </div>
+
 </div>
+

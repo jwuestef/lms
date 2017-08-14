@@ -91,9 +91,7 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
   }
 
-showCurrentEvents(){
-  console.log(this.es.eventArray);
-}
+
 
   // Link handling for events
   onCalendarInit() {

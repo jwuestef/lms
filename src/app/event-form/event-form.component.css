@@ -61,7 +61,10 @@ h4{
 #testBox{
   margin: auto;
   margin-top: 20px;
-  height: 250px;
-  width: 220px;
+  border: 1px solid rgba(20,23,33,0.8);
+  height: 30vh;
+  width: 80%;
   background-color: white;
+  overflow: scroll;
+  list-style-type: none;
 }

@@ -68,24 +68,22 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
   }
 
-  strikeThroughEvent(){
-     $('#calendar').fullCalendar('removeEvents', this.es.eventBeingEdited.id);
-     if(this.es.eventBeingEdited.color == 'darkgray'){
-          const currentEvent = {
+  strikeThroughEvent() {
+    $('#calendar').fullCalendar('removeEvents', this.es.eventBeingEdited.id);
+    console.log(this.es.eventBeingEdited);
+    const currentEvent = {
       id: this.es.eventBeingEdited.id,
       title: this.es.eventBeingEdited.title,
       start: this.es.eventBeingEdited.start._i,  // Fixes the start property so it can be re-added to the calendar
-      color: this.es.eventBeingEdited.originalColor,
+      color: this.es.eventBeingEdited.color,
       url: this.es.eventBeingEdited.url,
+      originalColor: this.es.eventBeingEdited.originalColor
     };
-     }else{
-      const currentEvent = {
-      id: this.es.eventBeingEdited.id,
-      title: this.es.eventBeingEdited.title,
-      start: this.es.eventBeingEdited.start._i,  // Fixes the start property so it can be re-added to the calendar
-      color: 'darkgray',
-      url: this.es.eventBeingEdited.url,
-    };
+    if (this.es.eventBeingEdited.color === 'darkgray') {
+        currentEvent.color = this.es.eventBeingEdited.originalColor;
+    } else {
+        currentEvent.color = 'darkgray';
+      }
     const thisSaved = this;
     let counter = 0;
     // This loop searches for the selected event in the local array then edits it with the new value.
@@ -97,7 +95,6 @@ export class ClassCalendarComponent {
     });
     $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
   }
-}
 
 
 
@@ -124,13 +121,6 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
   }
 
-<<<<<<< HEAD
-  showCurrentEvents() {
-    console.log(this.es.eventArray);
-  }
-=======
-
->>>>>>> 85181f64e356b4d905b3801a53c02a9d07277396
 
   // Link handling for events
   onCalendarInit() {

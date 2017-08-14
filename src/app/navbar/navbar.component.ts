@@ -25,7 +25,7 @@ export class NavbarComponent {
   arrayOfCalendars = [];
   isAdmin: boolean;
   thisSaved;
-
+  help = false;
 
 
   // The contructor function runs automatically on component load, each and every time it's called
@@ -129,6 +129,16 @@ export class NavbarComponent {
     this.fbs.signout();
   }
 
+
+
+  showHelp(){
+    this.help = true;
+  }
+
+
+   hideHelp(){
+    this.help = false;
+  }
 
 
 } // End of component

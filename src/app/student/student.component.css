@@ -1,0 +1,11 @@
+.container {
+  background-color: white;
+}
+
+#content{
+  margin-top: -9px;
+  background-color: rgba(20,23,33,0.8);
+  height: 100%;
+  display: block;
+  width: 100%;
+}

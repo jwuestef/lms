@@ -120,7 +120,6 @@ export class EventFormComponent {
     this.showEdit = true;
     this.currentForm = 'Edit';
     this.es.eventBeingEdited = data;
-    console.log(this.es.eventBeingEdited.id);
     this.eventDate = data.start._i;
     this.eventName = data.title;
     this.eventLink = data.url;

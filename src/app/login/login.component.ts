@@ -4,6 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { FirebaseService } from '../services/auth.service';
 import { User } from '../models/user';
 import { EventService } from '../services/event.service';
+import { StudentService } from '../services/student.service';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class LoginComponent {
 
 
   // The contructor function runs automatically on component load, each and every time it's called
-  constructor(public es: EventService, public fbs: FirebaseService, public afd: AngularFireDatabase) {
+  constructor(public es: EventService, public fbs: FirebaseService, public afd: AngularFireDatabase, private ss: StudentService) {
     // Wipe any pre-existing calendar or event information
     this.es.currentCalender = null;
     this.es.eventArray = [];
@@ -86,6 +87,7 @@ export class LoginComponent {
             thisSaved.signupErrors.pass = err.message;
           } else {
             // Set the local storage item to be our username, so our navbar can display it
+            thisSaved.ss.currentStudentUsername = thisSaved.userUsernameSignup;
             localStorage.setItem('navbarUsername', thisSaved.userUsernameSignup);
           }
         });
@@ -127,6 +129,7 @@ export class LoginComponent {
         thisSaved.loginErrors.pass = 'Username & password combination invalid, or user does not exist';
       } else {
         // Set the local storage item to be our username, so our navbar can display it
+        thisSaved.ss.currentStudentUsername = thisSaved.userUsernameLogin;
         localStorage.setItem('navbarUsername', thisSaved.userUsernameLogin);
       }
     });

@@ -13,16 +13,19 @@
   left: 0;
   margin: 5vh;
 }
-
+#formContainer{
+  margin-top: 25vh;
+  ;
+}
 #loginSignup {
   position: relative;
   display: inline-block;
-  margin-top: 25vh;
+  margin-top: 0px;
   padding-top: 5vh;
   width: 350px;
   height: 325px;
-  border: 0px solid white;
   border-radius: 15px;
+  border: 1px solid #971d23;
   background-color: white;
   z-index: 1;
 }
@@ -75,4 +78,30 @@
 
 #signup-btn {
   width: 70px;
+}
+
+
+.fakeTabs input[type=radio] {
+   display: none;
+}
+.fakeTabs label {
+  border: 1px solid #971d23;
+  background-color: rgb(245,245,245);
+  color: #971d23;
+  padding: 2px 16px;
+  cursor: pointer;
+  z-index: 2;
+  position: relative;
+  margin-bottom: -1px;
+}
+  .fakeTabs input:checked + label, .fakeTabs label.selected {
+    background-color: white;
+    border-bottom: 1px solid white;
+  z-index: 3;
+}
+
+.fakeTabs input:checked + label {
+  background-color:white;
+  border-bottom: 1px solid white;
+  z-index: 3;
 }

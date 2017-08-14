@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 
 import { StudentService } from '../services/student.service';
 import { EventService } from '../services/event.service';
-
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-class-calendar',
@@ -18,9 +18,9 @@ export class ClassCalendarComponent {
 
 
   // The contructor function runs automatically on component load, each and every time it's called
-  constructor(public es: EventService, public serviceStudent: StudentService) {
+  constructor(public es: EventService, public serviceStudent: StudentService, private afd: AngularFireDatabase) {
     const currentCalendar = this;
-
+    this.serviceStudent.currentStudentUsername = localStorage.getItem('navbarUsername');
     // Set FullCalendar options
     this.calendarOptions = {
       fixedWeekCount: false,
@@ -70,7 +70,6 @@ export class ClassCalendarComponent {
 
   strikeThroughEvent() {
     $('#calendar').fullCalendar('removeEvents', this.es.eventBeingEdited.id);
-    console.log(this.es.eventBeingEdited);
     const currentEvent = {
       id: this.es.eventBeingEdited.id,
       title: this.es.eventBeingEdited.title,
@@ -80,10 +79,12 @@ export class ClassCalendarComponent {
       originalColor: this.es.eventBeingEdited.originalColor
     };
     if (this.es.eventBeingEdited.color === 'darkgray') {
-        currentEvent.color = this.es.eventBeingEdited.originalColor;
+      currentEvent.color = this.es.eventBeingEdited.originalColor;
+      this.afd.database.ref('/students/' + this.serviceStudent.currentStudentUsername + "/" + this.es.currentCalender.title + "/" + currentEvent.id).remove();
     } else {
-        currentEvent.color = 'darkgray';
-      }
+      currentEvent.color = 'darkgray';
+      this.afd.database.ref('/students/' + this.serviceStudent.currentStudentUsername + "/" + this.es.currentCalender.title).update({ [currentEvent.id]: currentEvent.id });
+    }
     const thisSaved = this;
     let counter = 0;
     // This loop searches for the selected event in the local array then edits it with the new value.
@@ -93,6 +94,7 @@ export class ClassCalendarComponent {
       }
       counter++;
     });
+
     $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
   }
 
@@ -115,10 +117,28 @@ export class ClassCalendarComponent {
 
   // Loads a calendar - removed existing events, and then renders new calendar with new events
   loadCalendar() {
+    let counter = 0;
+    const thisSaved = this;
     this.currentCalendarTitle = this.es.currentCalender.title;
-    $('#calendar').fullCalendar('removeEvents');  // Removes all events locally before switching to a new calendar
-    $('#calendar').fullCalendar('addEventSource', this.es.eventArray);  // Adds a new set of events
-    $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
+    if (this.serviceStudent.isAdmin == false) {
+      this.afd.database.ref('/students/' + this.serviceStudent.currentStudentUsername + '/' + this.es.currentCalender.title).once('value').then(function (EventsStruckThrough) {
+        Object.keys(EventsStruckThrough.val()).forEach(function (id) {
+          for (let i = 0; i < thisSaved.es.eventArray.length; i++) {
+            if (id == thisSaved.es.eventArray[i].id) {
+              thisSaved.es.eventArray[i].color = 'darkgray';
+            }
+          }
+          counter++;
+        });
+        $('#calendar').fullCalendar('removeEvents');  // Removes all events locally before switching to a new calendar
+        $('#calendar').fullCalendar('addEventSource', thisSaved.es.eventArray);  // Adds a new set of events
+        $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
+      });
+    } else {
+      $('#calendar').fullCalendar('removeEvents');  // Removes all events locally before switching to a new calendar
+      $('#calendar').fullCalendar('addEventSource', thisSaved.es.eventArray);  // Adds a new set of events
+      $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
+    }
   }
 
 

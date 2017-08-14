@@ -31,11 +31,14 @@
     <!-- Signup form -->
     <div id="signupDiv" *ngIf="isSignup">
       <h5><strong>HAJ CASINO - Signup</strong></h5>
-      <input class="form-control" id="signupUsername" type="text" placeholder="Username" (keydown.enter)="onSignup()" [(ngModel)]="signupModel.username">
+      <input class="form-control" id="signupUsername" type="text" placeholder="Username" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.username">
       <p *ngIf="signupErrors.username" class="validation">{{signupErrors.username}}</p>
       <br>
-      <input class="form-control" id="signupPassword" type="password" placeholder="Password" (keydown.enter)="onSignup()" [(ngModel)]="signupModel.pass">
+      <input class="form-control" id="signupPassword" type="password" placeholder="Password" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.pass">
       <p *ngIf="signupErrors.pass" class="validation">{{signupErrors.pass}}</p>
+      <br>
+      <input class="form-control" id="signupPasswordConfirm" type="password" placeholder="Confirm Password" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.passConfirm">
+      <p *ngIf="signupErrors.passConfirm" class="validation">{{signupErrors.passConfirm}}</p>
       <br>
       <button id="signup-btn" class="btn btn-primary" (click)="onSignup()">Signup</button>
     </div>

@@ -1,6 +1,6 @@
 #eventType{
   height: 26px;
-  width: 175px;
+  width: 80%;
   margin: auto;
   margin-bottom: 5px;
   display: block;
@@ -9,7 +9,7 @@
 #eventName{
   margin: auto;
   display: block;
-  width: 175px;
+  width: 80%;
   margin-bottom: 5px;
 }
 
@@ -32,7 +32,7 @@
   margin: auto;
   margin-top: 0px;
   display: block;
-  width: 175px;
+  width: 80%;
   margin-bottom: 5px;
 }
 
@@ -40,7 +40,7 @@
   margin: auto;
   margin-top: 0px;
   display: block;
-  width: 175px;
+  width: 80%;
   margin-bottom: 5px;
 }
 
@@ -58,10 +58,23 @@ h4{
   color: white;
 }
 
-#testBox{
+#goodBadStudents{
   margin: auto;
   margin-top: 20px;
-  height: 250px;
-  width: 220px;
+  border: .5px solid rgba(20,23,33,0.8);
+  height: 30vh;
+  width: 80%;
   background-color: white;
+  overflow: scroll;
+}
+
+#badStudents {
+  padding-top: 8px;
+  list-style-type: none;
+  color: rgb(226, 74, 82);
+}
+
+#goodStudents {
+  list-style-type: none;
+  color: seagreen;
 }

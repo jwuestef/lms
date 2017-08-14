@@ -11,13 +11,24 @@ import { EventService } from '../services/event.service';
   templateUrl: './student-management.component.html',
   styleUrls: ['./student-management.component.css']
 })
-export class StudentManagementComponent {
+export class StudentManagementComponent implements OnInit {
   newStudentUsername = '';
+  listOfStudentsAsObject;
+  arrayOfStudentsOnThisCalendar = [];
 
 
 
   // The contructor function runs automatically on component load, each and every time it's called
-  constructor(public afd: AngularFireDatabase, public es: EventService, public fms: FlashMessagesService) { }
+  constructor(public afd: AngularFireDatabase, public es: EventService, public fms: FlashMessagesService) {
+    this.arrayOfStudentsOnThisCalendar = [];
+  }
+
+
+
+  // Runs after the component has loaded
+  ngOnInit() {
+    this.getStudents();
+  }
 
 
 
@@ -40,6 +51,7 @@ export class StudentManagementComponent {
           timeout: 1500
         }
       );
+      thisSaved.arrayOfStudentsOnThisCalendar.push(thisSaved.newStudentUsername);
       thisSaved.newStudentUsername = '';
     }).catch(function (err) {
       // We couldn't add the calendar name to this student for some reason, show error message
@@ -52,6 +64,26 @@ export class StudentManagementComponent {
           timeout: 1500
         }
       );
+    });
+  }
+
+
+
+  // Gets the students currently assigned to this calendar
+  getStudents() {
+    // Reset array full of students back to empty
+    this.arrayOfStudentsOnThisCalendar = [];
+    // Query Firebase for all of the students, will be returned as object
+    const thisSaved = this;
+    this.afd.database.ref('/students').once('value').then(function (listOfStudents) {
+      thisSaved.listOfStudentsAsObject = listOfStudents.val();
+      // Interate through object, check if each student-object has a property of the title of the current calendar
+      Object.keys(thisSaved.listOfStudentsAsObject).forEach(function (key) {
+        if (thisSaved.listOfStudentsAsObject[key].hasOwnProperty(thisSaved.es.currentCalender.title)) {
+          // If so, add this student's username onto the array full of students
+          thisSaved.arrayOfStudentsOnThisCalendar.push(key);
+        }
+      });
     });
   }
 

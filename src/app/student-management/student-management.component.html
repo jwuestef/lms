@@ -10,6 +10,14 @@
   <!-- This button submits the form, and calls the function addStudent() -->
   <button id="addStudent" type="submit" (click)="addStudent()" class="btn">Add Student</button>
 
+  <!-- Students currently assigned to the calendar appear here -->
+  <!-- STYLE THIS FEATURE -->
+  <br>
+  <br>
+  <ul id="studentArray">
+    <li *ngFor="let student of arrayOfStudentsOnThisCalendar">{{student}}</li>
+  </ul>
+
 </div>
 
 

@@ -13,29 +13,29 @@
   left: 0;
   margin: 5vh;
 }
-#formContainer{
+
+#formContainer {
   margin-top: 25vh;
-  ;
 }
+
 #loginSignup {
   position: relative;
   display: inline-block;
   margin-top: 0px;
   padding-top: 5vh;
   width: 350px;
-  height: 325px;
-  border-radius: 15px;
+  height: 400px;
   border: 1px solid #971d23;
   background-color: white;
   z-index: 1;
 }
 
-#fakeTabs{
+#fakeTabs {
   border-bottom: .5px solid #ddd;
   text-align: center;
 }
 
-#loginButton{
+#loginButton {
   color: white;
   background-color: #971d23;
   border-radius: 0 !important;
@@ -44,11 +44,11 @@
   width: 70px;
 }
 
-#signupButton{
-  color: white;
-  background-color: #971d23;
+#signupButton {
+  color: #971d23;
+  background-color: white;
   border-radius: 0 !important;
-  border-bottom: none !important;
+  border-bottom: white !important;
   border-color: #ddd !important;
 }
 
@@ -76,14 +76,19 @@
  margin: 0 auto;
 }
 
+#signupPasswordConfirm {
+ width: 300px;
+ margin: 0 auto;
+}
+
 #signup-btn {
   width: 70px;
 }
 
-
 .fakeTabs input[type=radio] {
    display: none;
 }
+
 .fakeTabs label {
   border: 1px solid #971d23;
   background-color: rgb(245,245,245);
@@ -94,7 +99,8 @@
   position: relative;
   margin-bottom: -1px;
 }
-  .fakeTabs input:checked + label, .fakeTabs label.selected {
+
+.fakeTabs input:checked + label, .fakeTabs label.selected {
     background-color: white;
     border-bottom: 1px solid white;
   z-index: 3;

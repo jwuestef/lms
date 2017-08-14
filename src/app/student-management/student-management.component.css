@@ -1,6 +1,9 @@
 .studentForm {
   text-align: center;
 }
+#username{
+  width: 80%;
+}
 
 #addStudent {
    background-color: white;

@@ -22,6 +22,7 @@
     <p *ngIf="nameError"> Please enter a valid name and date </p>
   </form>
 
+  <!-- Lists the students assigned to the calendar, sorted based on whether they've completed the selected event or not -->
   <div id="goodBadStudents">
     <ul id="badStudents">
       <li *ngFor="let student of arrayOfBadStudents">{{student}}</li>

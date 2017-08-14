@@ -61,6 +61,16 @@ export class AdminComponent {
 
   // This is called when a calendar is selected from the dropdown
   loadEvents() {
+    if (this.eventForm !== undefined) {
+      this.eventForm.arrayOfGoodStudents = [];
+      this.eventForm.arrayOfBadStudents = [];
+      this.eventForm.showEdit = false;
+      this.eventForm.currentForm = 'Add';
+      this.eventForm.eventDate = '';
+      this.eventForm.eventName = '';
+      this.eventForm.eventType = 'Event Type';
+      this.eventForm.eventLink = '';
+    }
     this.es.eventArray = [];  // Clears events array
     const thisSaved = this;
     let counterOfEvents = 0;

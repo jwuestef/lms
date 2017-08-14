@@ -103,6 +103,9 @@ export class EventFormComponent {
                   timeout: 1500
                 }
               );
+              // Reset the good/bad students display to be empty
+              thisSaved.arrayOfGoodStudents = [];
+              thisSaved.arrayOfBadStudents = [];
             }).catch(function (err) {
               console.log('Error editing event!');
               console.log(err);
@@ -187,6 +190,9 @@ export class EventFormComponent {
                 timeout: 1500
               }
             );
+            // Reset the good/bad students display to be empty
+            thisSaved.arrayOfGoodStudents = [];
+            thisSaved.arrayOfBadStudents = [];
           }).catch(function (err) {
             console.log('Error deleting event!');
             console.log(err);
@@ -235,6 +241,8 @@ export class EventFormComponent {
     this.eventName = '';
     this.eventType = 'Event Type';
     this.eventLink = '';
+    this.arrayOfGoodStudents = [];
+    this.arrayOfBadStudents = [];
   }
 
 

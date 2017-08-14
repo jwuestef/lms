@@ -24,11 +24,15 @@ export class EventFormComponent {
   eventsListAsObject;
   listOfStudentsAsObject;
   arrayOfStudentsOnThisCalendar = [];
+  arrayOfGoodStudents = [];
+  arrayOfBadStudents = [];
 
 
   // The contructor function runs automatically on component load, each and every time it's called
   constructor(private es: EventService, private afd: AngularFireDatabase, private fms: FlashMessagesService) {
     this.arrayOfStudentsOnThisCalendar = [];
+    this.arrayOfGoodStudents = [];
+    this.arrayOfBadStudents = [];
   }
 
 
@@ -133,7 +137,8 @@ export class EventFormComponent {
     this.eventType = data.color;
     // Reset array full of students back to empty
     this.arrayOfStudentsOnThisCalendar = [];
-    // Query Firebase for list of students that are on this calendar, and sort them into HasCompletedThisEvent vs HasNotCompleted
+    // Query Firebase for list of students that are on this calendar, and sort them into Good Students vs Bad Students
+    // (Good Students have completed the event, Bad Students have not completed the event)
     const thisSaved = this;
     this.afd.database.ref('/students').once('value').then(function (listOfStudents) {
       thisSaved.listOfStudentsAsObject = listOfStudents.val();
@@ -142,15 +147,23 @@ export class EventFormComponent {
         if (!thisSaved.listOfStudentsAsObject[key].hasOwnProperty(thisSaved.es.currentCalender.title)) {
           // If not, delete that student out of the student-object
           delete thisSaved.listOfStudentsAsObject[key];
+        } else {
+          // This student IS assigned to this calendar
+          // Now let's dig down past the current calendar level into the events
+          // See if each student, under this calendar, has a property of the current event's ID...
+          if (thisSaved.listOfStudentsAsObject[key][thisSaved.es.currentCalender.title].hasOwnProperty(thisSaved.es.eventBeingEdited.id)) {
+            thisSaved.arrayOfGoodStudents.push(key);
+          } else {
+            thisSaved.arrayOfBadStudents.push(key);
+          }
         }
       });
       console.log('Students currently assigned to this calendar are:');
       console.log(thisSaved.listOfStudentsAsObject);
-      // Now we need to iterate over each student, dig down past the current calendar level into the events
-      // Get the current event's ID
-      // See if each student, under this calendar, has a property of the current event's ID...
-      // If so, then they are done
-      // If not, they are a lazy student
+      console.log('Bad students are:');
+      console.log(thisSaved.arrayOfBadStudents);
+      console.log('Good students are:');
+      console.log(thisSaved.arrayOfGoodStudents);
     });
   }
 

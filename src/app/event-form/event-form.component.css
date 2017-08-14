@@ -66,4 +66,5 @@ h4{
   width: 80%;
   background-color: white;
   overflow: scroll;
+  list-style-type: none;
 }

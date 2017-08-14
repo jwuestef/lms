@@ -37,7 +37,8 @@ export class EventFormComponent {
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,
-      url: this.eventLink
+      url: this.eventLink,
+      originalColor: this.eventType
     };
     // What is the current form, Add or Edit?
     if (this.currentForm === 'Add') {

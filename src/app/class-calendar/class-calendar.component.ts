@@ -30,6 +30,7 @@ export class ClassCalendarComponent {
       eventClick: function (event, element) {  // Override default eventClick action with our own action
         // console.log('this is the event');
         // console.log(event);
+        currentCalendar.es.eventBeingEdited = event;
         currentCalendar.eventEdit.emit(event);  // Custom event fires
       }
     };
@@ -57,15 +58,46 @@ export class ClassCalendarComponent {
     };
     const thisSaved = this;
     let counter = 0;
-     // This loop searches for the selected event in the local array then edits it with the new value.
+    // This loop searches for the selected event in the local array then edits it with the new value.
     this.es.eventArray.forEach(function (element) {
       if (element.id === currentEvent.id) {
         thisSaved.es.eventArray[counter] = currentEvent;
       }
-       counter++;
+      counter++;
     });
     $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
   }
+
+  strikeThroughEvent(){
+     $('#calendar').fullCalendar('removeEvents', this.es.eventBeingEdited.id);
+     if(this.es.eventBeingEdited.color == 'darkgray'){
+          const currentEvent = {
+      id: this.es.eventBeingEdited.id,
+      title: this.es.eventBeingEdited.title,
+      start: this.es.eventBeingEdited.start._i,  // Fixes the start property so it can be re-added to the calendar
+      color: this.es.eventBeingEdited.originalColor,
+      url: this.es.eventBeingEdited.url,
+    };
+     }else{
+      const currentEvent = {
+      id: this.es.eventBeingEdited.id,
+      title: this.es.eventBeingEdited.title,
+      start: this.es.eventBeingEdited.start._i,  // Fixes the start property so it can be re-added to the calendar
+      color: 'darkgray',
+      url: this.es.eventBeingEdited.url,
+    };
+    const thisSaved = this;
+    let counter = 0;
+    // This loop searches for the selected event in the local array then edits it with the new value.
+    this.es.eventArray.forEach(function (element) {
+      if (element.id === currentEvent.id) {
+        thisSaved.es.eventArray[counter] = currentEvent;
+      }
+      counter++;
+    });
+    $('#calendar').fullCalendar('renderEvent', currentEvent);  // Render the new event onto the calendar view
+  }
+}
 
 
 
@@ -73,11 +105,11 @@ export class ClassCalendarComponent {
   deleteEvents() {
     let counter = 0;
     const thisSaved = this;
-      this.es.eventArray.forEach(function (element) {
+    this.es.eventArray.forEach(function (element) {
       if (element.id === thisSaved.es.eventBeingEdited.id) {
         thisSaved.es.eventArray.splice(counter, 1);
       }
-       counter++;
+      counter++;
     });
     $('#calendar').fullCalendar('removeEvents', this.es.eventBeingEdited.id);
   }
@@ -91,21 +123,25 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
   }
 
-showCurrentEvents(){
-  console.log(this.es.eventArray);
-}
+  showCurrentEvents() {
+    console.log(this.es.eventArray);
+  }
 
   // Link handling for events
   onCalendarInit() {
     const calendar = this;
     jQuery('#calendar').on('click', '.fc-event', function (e) {  // Fires every time an event is clicked
-      // If the event has an href
-      if (jQuery(this).attr('href')) {
-        // Prevent the default action - stops FullCalendar from performing its click-event
-        e.preventDefault();
-        // If the user is a student, then open the link in a new tab
-        if (calendar.serviceStudent.isAdmin === false) {
-          window.open(jQuery(this).attr('href'), '_blank');
+      if (e.ctrlKey && calendar.serviceStudent.isAdmin === false) {
+        calendar.strikeThroughEvent();
+      } else {
+        // If the event has an href
+        if (jQuery(this).attr('href')) {
+          // Prevent the default action - stops FullCalendar from performing its click-event
+          e.preventDefault();
+          // If the user is a student, then open the link in a new tab
+          if (calendar.serviceStudent.isAdmin === false) {
+            window.open(jQuery(this).attr('href'), '_blank');
+          }
         }
       }
     });

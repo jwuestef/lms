@@ -6,6 +6,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { EventFormComponent } from '../event-form/event-form.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { ClassCalendarComponent } from '../class-calendar/class-calendar.component';
+import { StudentManagementComponent } from '../student-management/student-management.component';
 import { EventService } from '../services/event.service';
 import { StudentService } from '../services/student.service';
 
@@ -18,6 +19,7 @@ import { StudentService } from '../services/student.service';
 export class AdminComponent {
   @ViewChild('classCalendar') calendar: ClassCalendarComponent;  // Access properties and methods of the child calendar component
   @ViewChild('eventForm') eventForm: EventFormComponent;  // Access properties and methods of the child eventForm component
+  @ViewChild('studentManagement') studentManagement: StudentManagementComponent;
   isEvent = true;  // Boolean for the sidebar, if we're on Student Management or Event Management
   isStudent = false;  // Boolean for the sidebar, if we're on Student Management or Event Management
 
@@ -73,6 +75,9 @@ export class AdminComponent {
     }
     // Now that we've loaded our events, actually load the calendar
     this.calendar.loadCalendar();
+    if (this.studentManagement !== undefined) {
+      this.studentManagement.getStudents();
+    }
   }
 
 

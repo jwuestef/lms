@@ -22,11 +22,14 @@ export class EventFormComponent {
   operation = '';
   nameError = false;
   eventsListAsObject;
-
+  listOfStudentsAsObject;
+  arrayOfStudentsOnThisCalendar = [];
 
 
   // The contructor function runs automatically on component load, each and every time it's called
-  constructor(private es: EventService, private afd: AngularFireDatabase, private fms: FlashMessagesService) { }
+  constructor(private es: EventService, private afd: AngularFireDatabase, private fms: FlashMessagesService) {
+    this.arrayOfStudentsOnThisCalendar = [];
+  }
 
 
 
@@ -37,7 +40,8 @@ export class EventFormComponent {
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,
-      url: this.eventLink
+      url: this.eventLink,
+      originalColor: this.eventType
     };
     // What is the current form, Add or Edit?
     if (this.currentForm === 'Add') {
@@ -56,6 +60,7 @@ export class EventFormComponent {
       this.es.eventBeingEdited.title = this.eventName;
       this.es.eventBeingEdited.url = this.eventLink;
       this.es.eventBeingEdited.color = this.eventType;
+      this.es.eventBeingEdited.originalColor = this.eventType;
       // Emit an event to call the editEvents function to rerender that edited event
       this.clickSubmit.emit('');
       // Switch form back to add
@@ -83,7 +88,8 @@ export class EventFormComponent {
               title: thisSaved.es.eventBeingEdited.title,
               start: thisSaved.es.eventBeingEdited.start._i,
               color: thisSaved.es.eventBeingEdited.color,
-              url: thisSaved.es.eventBeingEdited.url
+              url: thisSaved.es.eventBeingEdited.url,
+              originalColor: thisSaved.es.eventBeingEdited.originalColor
             }).then(function () {
               // Event was successfully edited, show pretty alert flash message
               thisSaved.fms.show(
@@ -115,8 +121,9 @@ export class EventFormComponent {
 
 
 
-  // Populates the event-form fields with the given event
+
   editEvent(data) {
+    // Populates the event-form fields with the given event
     this.showEdit = true;
     this.currentForm = 'Edit';
     this.es.eventBeingEdited = data;
@@ -124,6 +131,27 @@ export class EventFormComponent {
     this.eventName = data.title;
     this.eventLink = data.url;
     this.eventType = data.color;
+    // Reset array full of students back to empty
+    this.arrayOfStudentsOnThisCalendar = [];
+    // Query Firebase for list of students that are on this calendar, and sort them into HasCompletedThisEvent vs HasNotCompleted
+    const thisSaved = this;
+    this.afd.database.ref('/students').once('value').then(function (listOfStudents) {
+      thisSaved.listOfStudentsAsObject = listOfStudents.val();
+      // Interate through object, check if each student-object has a property of the title of the current calendar
+      Object.keys(thisSaved.listOfStudentsAsObject).forEach(function (key) {
+        if (!thisSaved.listOfStudentsAsObject[key].hasOwnProperty(thisSaved.es.currentCalender.title)) {
+          // If not, delete that student out of the student-object
+          delete thisSaved.listOfStudentsAsObject[key];
+        }
+      });
+      console.log('Students currently assigned to this calendar are:');
+      console.log(thisSaved.listOfStudentsAsObject);
+      // Now we need to iterate over each student, dig down past the current calendar level into the events
+      // Get the current event's ID
+      // See if each student, under this calendar, has a property of the current event's ID...
+      // If so, then they are done
+      // If not, they are a lazy student
+    });
   }
 
 

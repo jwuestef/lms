@@ -10,3 +10,13 @@
 h4{
   color:white;
 }
+
+#studentArray {
+  border: 1px solid rgba(20,23,33,0.8);
+  margin: auto;
+  width: 80%;
+  height: 30vh;
+  background-color: white;
+  overflow: scroll;
+  list-style-type: none;
+}

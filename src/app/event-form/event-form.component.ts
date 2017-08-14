@@ -40,7 +40,8 @@ export class EventFormComponent {
       title: this.eventName,
       start: this.eventDate,
       color: this.eventType,
-      url: this.eventLink
+      url: this.eventLink,
+      originalColor: this.eventType
     };
     // What is the current form, Add or Edit?
     if (this.currentForm === 'Add') {
@@ -59,6 +60,7 @@ export class EventFormComponent {
       this.es.eventBeingEdited.title = this.eventName;
       this.es.eventBeingEdited.url = this.eventLink;
       this.es.eventBeingEdited.color = this.eventType;
+      this.es.eventBeingEdited.originalColor = this.eventType;
       // Emit an event to call the editEvents function to rerender that edited event
       this.clickSubmit.emit('');
       // Switch form back to add
@@ -86,7 +88,8 @@ export class EventFormComponent {
               title: thisSaved.es.eventBeingEdited.title,
               start: thisSaved.es.eventBeingEdited.start._i,
               color: thisSaved.es.eventBeingEdited.color,
-              url: thisSaved.es.eventBeingEdited.url
+              url: thisSaved.es.eventBeingEdited.url,
+              originalColor: thisSaved.es.eventBeingEdited.originalColor
             }).then(function () {
               // Event was successfully edited, show pretty alert flash message
               thisSaved.fms.show(

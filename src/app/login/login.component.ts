@@ -15,10 +15,10 @@ import { StudentService } from '../services/student.service';
 export class LoginComponent {
   // This one is public so that angular can access it
   public loginErrors = { username: '', pass: '' };
-  public signupErrors = { username: '', pass: '' };
+  public signupErrors = { username: '', pass: '', passConfirm: '' };
   // Model that angular will store data in
   loginModel = { username: '', pass: '' };
-  signupModel = { username: '', pass: '' };
+  signupModel = { username: '', pass: '', passConfirm: '' };
   // User that we will send to the database
   user: User;
   // Just the student10, no @elevenfifty.org
@@ -34,6 +34,7 @@ export class LoginComponent {
   isSignup = false;
 
 
+
   // The contructor function runs automatically on component load, each and every time it's called
   constructor(public es: EventService, public fbs: FirebaseService, public afd: AngularFireDatabase, private ss: StudentService) {
     // Wipe any pre-existing calendar or event information
@@ -45,15 +46,21 @@ export class LoginComponent {
 
   // If the signup form isn't completely filled out, set error messages
   validateSignup() {
-    this.signupErrors = { username: '', pass: '' };
+    this.signupErrors = { username: '', pass: '', passConfirm: '' };
     if (!this.signupModel.username) {
       this.signupErrors.username = 'Please provide an username';
     }
     if (!this.signupModel.pass) {
       this.signupErrors.pass = 'Please provide a password';
     }
+    if (!this.signupModel.passConfirm) {
+      this.signupErrors.passConfirm = 'Please confirm your password';
+    }
+    if (this.signupModel.pass !== this.signupModel.passConfirm) {
+      this.signupErrors.passConfirm = 'Passwords don\'t match';
+    }
     // Returns true if there are errors
-    return (this.signupErrors.username || this.signupErrors.pass);
+    return (this.signupErrors.username || this.signupErrors.pass || this.signupErrors.passConfirm);
   }
 
 

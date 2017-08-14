@@ -25,3 +25,35 @@ nav {
 .navbar{
   margin-bottom: 0px;
 }
+
+#help{
+  color:white;
+}
+
+#helpContainer{
+  margin: auto;
+  margin-top: .6%;
+  margin-right: 5px;
+}
+#toolTip{
+ /* visibility: hidden; */
+  position: absolute;
+  top:90%;
+  left: 88%;
+  background-color: white;
+  border-radius: 15%;
+  padding: 20px;
+  font-size: 15px;
+  border:2px solid rgb(226, 74, 82);
+}
+
+
+#red{
+  color:rgb(226, 74, 82);
+}
+#blue{
+  color:#337ab7;
+}
+#green{
+  color:#67c167;
+}

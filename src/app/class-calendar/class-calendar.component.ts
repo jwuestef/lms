@@ -147,6 +147,7 @@ export class ClassCalendarComponent {
     const calendar = this;
     jQuery('#calendar').on('click', '.fc-event', function (e) {  // Fires every time an event is clicked
       if (e.ctrlKey || e.metaKey && calendar.serviceStudent.isAdmin === false) {
+         e.preventDefault();
         calendar.strikeThroughEvent();
       } else {
         // If the event has an href

@@ -115,6 +115,7 @@ export class ClassCalendarComponent {
   }
 
 
+
   // Loads a calendar - removed existing events, and then renders new calendar with new events
   loadCalendar() {
     this.currentCalendarTitle = this.es.currentCalender.title;
@@ -123,9 +124,13 @@ export class ClassCalendarComponent {
     $('#calendar').fullCalendar('rerenderEvents');  // Rerenders all events on the calendar using the new set of events
   }
 
+<<<<<<< HEAD
   showCurrentEvents() {
     console.log(this.es.eventArray);
   }
+=======
+
+>>>>>>> 85181f64e356b4d905b3801a53c02a9d07277396
 
   // Link handling for events
   onCalendarInit() {

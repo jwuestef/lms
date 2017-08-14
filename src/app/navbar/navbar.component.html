@@ -1,6 +1,5 @@
 <nav class="navbar navbar-fixed-top bg-inverse">
-  <div class="container">
-
+  <div>
     <!-- Display logo -->
     <a class="navbar-brand"><img src="./assets/efalogo.png" height="30"></a>
 
@@ -26,10 +25,22 @@
       </li>
     </ul>
 
+    <p class="nav navbar-nav pull-right" id='helpContainer'>
+      <span class='glyphicon glyphicon-question-sign' id='help' (mouseenter)='showHelp()' (mouseleave)='hideHelp()'></span>
+    </p>
     <!-- Display the current user's username, clicking this will log them out -->
     <ul class="nav navbar-nav pull-right">
       <li class="nav-item" (click)="signout()"><a href="#">Logged in as <em>{{navbarUsername}}</em>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Logout</a></li>
     </ul>
+
+    <div *ngIf="help" id='toolTip'>
+      <p><span class='glyphicon glyphicon-stop' id='red'></span> is an Assignment</p>
+      <p><span class='glyphicon glyphicon-stop' id='blue'></span> is a Topic</p>
+      <p><span class='glyphicon glyphicon-stop' id='green'></span> is a Workshop</p>
+      <hr/>
+      <p>Ctrl+click or cmd+click to</p>
+      <p>complete events</p>
+    </div>
 
   </div>
 </nav>

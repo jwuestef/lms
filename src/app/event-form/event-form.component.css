@@ -66,5 +66,15 @@ h4{
   width: 80%;
   background-color: white;
   overflow: scroll;
+}
+
+#badStudents {
+  padding-top: 10px;
   list-style-type: none;
+  color: rgb(226, 74, 82);
+}
+
+#goodStudents {
+  list-style-type: none;
+  color: seagreen;
 }

@@ -30,9 +30,9 @@ The relevant commands are:
      - When it asks about the `public`, enter `dist` instead
  - `firebase deploy`
 
-#.
-#.
-#.
+# .
+# .
+# .
 
 ## Angular CLI References
 

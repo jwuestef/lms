@@ -77,6 +77,11 @@ export class NavbarComponent {
             }
             // Loop over array and erase all null values
             thisSaved.arrayOfCalendars = thisSaved.arrayOfCalendars.filter(function (n) { return n !== null; });
+            // Check if the array only has 1 value, if so, we should select that calendar automatically
+            if (thisSaved.arrayOfCalendars.length === 1) {
+              thisSaved.es.currentCalender = thisSaved.arrayOfCalendars[0];
+              thisSaved.changeCalendar.emit(null);
+            }
           });
         }
       });

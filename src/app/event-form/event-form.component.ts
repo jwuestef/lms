@@ -128,7 +128,6 @@ export class EventFormComponent {
 
 
 
-
   editEvent(data) {
     // Populates the event-form fields with the given event
     this.showEdit = true;

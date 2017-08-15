@@ -20,10 +20,8 @@ export class AdminComponent {
   @ViewChild('classCalendar') calendar: ClassCalendarComponent;  // Access properties and methods of the child calendar component
   @ViewChild('eventForm') eventForm: EventFormComponent;  // Access properties and methods of the child eventForm component
   @ViewChild('studentManagement') studentManagement: StudentManagementComponent;
-  isEvent = true;  // Boolean for the sidebar, if we're on Student Management or Event Management
-  isStudent = false;  // Boolean for the sidebar, if we're on Student Management or Event Management
-
-
+  hideShowEvent = 'showThis';
+  hideShowStudent = 'hideThis';
 
   // The contructor function runs automatically on component load, each and every time it's called
   constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, public es: EventService) {
@@ -99,18 +97,19 @@ export class AdminComponent {
 
   // When the buttons (fake tabs) are clicked, update variables to switch between Student Management and Event Management
   showEventForm() {
-    this.isStudent = false;
-    this.isEvent = true;
+    this.hideShowEvent = 'showThis';
+    this.hideShowStudent = 'hideThis';
   }
   showStudentForm() {
-    this.isEvent = false;
-    this.isStudent = true;
+    this.hideShowStudent = 'showThis';
+    this.hideShowEvent = 'hideThis';
   }
 
 
 
   // Alerts the event-form component that an event was clicked and sends that event's data
   alertEventForm(data) {
+    this.showEventForm();
     this.eventForm.editEvent(data);
   }
 

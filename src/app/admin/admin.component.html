@@ -18,8 +18,8 @@
 
     <!-- The actual student management and event management components. Which is shown is controlled by the buttons/tabs above -->
     <div *ngIf="es.currentCalender !== null" class="formContent">
-      <app-event-form #eventForm *ngIf="isEvent" (clickSubmit)="addOrEditEvents($event)"></app-event-form>
-      <app-student-management #studentManagement *ngIf="isStudent"></app-student-management>
+      <app-event-form #eventForm [class]='hideShowEvent' (clickSubmit)="addOrEditEvents($event)" id='event'></app-event-form>
+      <app-student-management #studentManagement [class]='hideShowStudent' id='student'></app-student-management>
     </div>
 
   </div>

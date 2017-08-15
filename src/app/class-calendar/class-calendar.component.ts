@@ -78,6 +78,8 @@ export class ClassCalendarComponent {
       url: this.es.eventBeingEdited.url,
       originalColor: this.es.eventBeingEdited.originalColor
     };
+    // If the event is already struck-through (gray) then remove that from the student's 'done list'
+    // Else, add that event's ID to the student's 'done list'
     if (this.es.eventBeingEdited.color === 'darkgray') {
       currentEvent.color = this.es.eventBeingEdited.originalColor;
       this.afd.database.ref('/students/' + this.serviceStudent.currentStudentUsername + "/" + this.es.currentCalender.title + "/" + currentEvent.id).remove();

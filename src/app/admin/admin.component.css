@@ -29,6 +29,12 @@
   background-color: white;
 }
 
+.hideThis{
+  display: none;
+}
+.showThis{
+  display: inline;
+}
 
 .fakeTabs input[type=radio] {
    display: none;

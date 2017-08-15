@@ -29,11 +29,11 @@ The relevant commands are:
      - Choose the `Hosting` option
      - When it asks about the `public`, enter `dist` instead
  - `firebase deploy`
-
-
-
-
-
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
 ## Angular CLI References
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.2.6.

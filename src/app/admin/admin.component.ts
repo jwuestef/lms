@@ -61,6 +61,7 @@ export class AdminComponent {
 
   // This is called when a calendar is selected from the dropdown
   loadEvents() {
+    // If the Edit Event form is currently shown, reset it
     if (this.eventForm !== undefined) {
       this.eventForm.arrayOfGoodStudents = [];
       this.eventForm.arrayOfBadStudents = [];
@@ -70,6 +71,10 @@ export class AdminComponent {
       this.eventForm.eventName = '';
       this.eventForm.eventType = 'Event Type';
       this.eventForm.eventLink = '';
+    }
+    // If the Add Student form is currently shown, reset it
+    if (this.studentManagement !== undefined) {
+      this.studentManagement.newStudentUsername = '';
     }
     this.es.eventArray = [];  // Clears events array
     const thisSaved = this;

@@ -111,3 +111,13 @@
   border-bottom: 1px solid white;
   z-index: 3;
 }
+
+footer{
+  background-color: #78171c;
+  text-align: right;
+  color: white;
+  position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+

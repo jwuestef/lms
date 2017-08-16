@@ -34,9 +34,17 @@ export class StudentManagementComponent implements OnInit {
 
   // Add a calendar to a student, giving the student permission to see this calendar
   addStudent() {
-    // Set the new calendar's title, and make the new user's username all lowercase
+    // Set the new calendar's title, and make the new user's username all lowercase and take out leading or tailing whitespaces
     const newCalendarTitle = this.es.currentCalender.title;
-    this.newStudentUsername = this.newStudentUsername.toLowerCase();
+    this.newStudentUsername = this.newStudentUsername.toLowerCase().trim();
+    // If trim causes the username to be empty, stop here
+    if (
+      !this.newStudentUsername
+      || this.newStudentUsername.includes(' ')
+      || RegExp(/[!$%^&*()+|~=`{}\[\]:";'<>?,.\/]/).test(this.newStudentUsername)
+    ) {
+      return;
+    }
     // Make a new child for that student with the calendar's name, via a .child() and .set() call to Firebase
     // The calendar's name is populated with a dummy object, so it acts as a folder and correctly loads into Firebase
     const thisSaved = this;

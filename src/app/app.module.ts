@@ -25,7 +25,7 @@ import { routes } from './services/routes';
 import { firebaseConfig } from '../environments/firebase.config';
 
 // Services
-import { FirebaseService } from './services/auth.service';
+import { AuthService } from './services/auth.service';
 import { EventService } from './services/event.service';
 import { StudentService } from './services/student.service';
 
@@ -50,7 +50,7 @@ import { StudentService } from './services/student.service';
     FlashMessagesModule
   ],
   providers: [
-    FirebaseService,
+    AuthService,
     AngularFireAuth,
     AngularFireDatabase,
     EventService,

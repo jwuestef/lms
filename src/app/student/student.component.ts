@@ -1,7 +1,9 @@
 import { Component, ViewChild, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ClassCalendarComponent } from '../class-calendar/class-calendar.component';
 import { EventService } from '../services/event.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -17,7 +19,13 @@ export class StudentComponent {
 
 
   // The contructor function runs automatically on component load, each and every time it's called
-  constructor(public events: EventService) { }
+  constructor(public router: Router, public events: EventService, public as: AuthService) {
+    // See if the user is even logged in first, if not, direct them to login screen
+    if (!this.as.isAuthed()) {
+      localStorage.clear();
+      this.router.navigateByUrl('/');
+    }
+  }
 
 
 

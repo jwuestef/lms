@@ -9,6 +9,7 @@ import { ClassCalendarComponent } from '../class-calendar/class-calendar.compone
 import { StudentManagementComponent } from '../student-management/student-management.component';
 import { EventService } from '../services/event.service';
 import { StudentService } from '../services/student.service';
+import { AuthService } from '../services/auth.service';
 
 
 @Component({
@@ -24,7 +25,18 @@ export class AdminComponent {
   hideShowStudent = 'hideThis';
 
   // The contructor function runs automatically on component load, each and every time it's called
-  constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, public es: EventService) {
+  constructor(
+    public router: Router,
+    public afd: AngularFireDatabase,
+    public afa: AngularFireAuth,
+    public es: EventService,
+    public as: AuthService
+  ) {
+    // See if the user is even logged in first, if not, direct them to login screen
+    if (!this.as.isAuthed()) {
+      localStorage.clear();
+      this.router.navigateByUrl('/');
+    }
     // Immediately query the isAdmin table on Firebase to check if the user is authorized to access this route.
     const thisSaved = this;
     this.afd.database.ref('/isAdmin').once('value').then(function (isAdminTable) {
@@ -34,9 +46,10 @@ export class AdminComponent {
       const userToCheckIfAdmin = authData.slice(0, atSign); // Strips out @ and everything past that fro the current user
       // If our database object full of admins has a property of this username then set variable isAdmin to true
       const isAdmin = arrayOfAdmins.hasOwnProperty(userToCheckIfAdmin);
-      // If isAdmin is false (the user isn't a white-listed admin) then re-route to /student
+      // If isAdmin is false (the user isn't a white-listed admin) then re-route to login
       if (!isAdmin) {
-        thisSaved.router.navigateByUrl('/student');
+        localStorage.clear();
+        thisSaved.router.navigateByUrl('/');
       }
     });
   }

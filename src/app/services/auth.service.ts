@@ -7,7 +7,7 @@ import { User } from '../models/user';
 
 
 @Injectable()
-export class FirebaseService {
+export class AuthService {
   authState;
 
 

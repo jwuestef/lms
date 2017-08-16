@@ -5,6 +5,7 @@ import { StudentService } from '../services/student.service';
 import { EventService } from '../services/event.service';
 import { AngularFireDatabase } from 'angularfire2/database';
 
+
 @Component({
   selector: 'app-class-calendar',
   templateUrl: 'class-calendar.component.html',

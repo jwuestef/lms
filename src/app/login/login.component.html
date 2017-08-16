@@ -3,47 +3,48 @@
   <!-- Set background image -->
   <img id="background-logo" src="./assets/efalogo.png" />
 
-<div id='formContainer'>
-  <!-- Main box in center of screen displaying form for logging in or signing up -->
-     <div id="buttons"  class="fakeTabs">
-    <input type='radio' name="tab" id="Login" (click)="showLogin()" value="Login" checked>
-    <label for='Login' id="loginTabLabel">Login</label>
-    <input type='radio' name = 'tab' id="Signup" (click)="showSignup()" value="Signup">
-    <label for='Signup'>Signup</label>
+  <div id='formContainer'>
+    <!-- Main box in center of screen displaying form for logging in or signing up -->
+    <div id="buttons" class="fakeTabs">
+      <input type='radio' name="tab" id="Login" (click)="showLogin()" value="Login" checked>
+      <label for='Login' id="loginTabLabel">Login</label>
+      <input type='radio' name='tab' id="Signup" (click)="showSignup()" value="Signup">
+      <label for='Signup'>Signup</label>
+    </div>
+
+    <div id="loginSignup">
+
+      <!-- Making buttons to switch between the login vs signup forms, styled to appear as tabs -->
+
+      <!-- Login form -->
+      <div id="loginDiv" *ngIf="isLogin">
+        <h5><strong>HAJENDAR</strong></h5>
+        <input class="form-control" id="loginUsername" type="text" placeholder="Username" (keydown.enter)="onLogin()" [(ngModel)]="loginModel.username">
+        <p *ngIf="loginErrors.username" class="validation">{{loginErrors.username}}</p>
+        <br>
+        <input class="form-control" id="loginPassword" type="password" placeholder="Password" (keydown.enter)="onLogin()" [(ngModel)]="loginModel.pass">
+        <p *ngIf="loginErrors.pass" class="validation">{{loginErrors.pass}}</p>
+        <br>
+        <button id="login-btn" class="btn btn-primary" (click)="onLogin()">Login</button>
       </div>
 
-  <div id="loginSignup">
+      <!-- Signup form -->
+      <div id="signupDiv" *ngIf="isSignup">
+        <h5><strong>HAJ CASINO - Signup</strong></h5>
+        <input class="form-control" id="signupUsername" type="text" placeholder="Username" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.username">
+        <p *ngIf="signupErrors.username" class="validation">{{signupErrors.username}}</p>
+        <br>
+        <input class="form-control" id="signupPassword" type="password" placeholder="Password" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.pass">
+        <p *ngIf="signupErrors.pass" class="validation">{{signupErrors.pass}}</p>
+        <br>
+        <input class="form-control" id="signupPasswordConfirm" type="password" placeholder="Confirm Password" (keyup.enter)="onSignup()"
+          [(ngModel)]="signupModel.passConfirm">
+        <p *ngIf="signupErrors.passConfirm" class="validation">{{signupErrors.passConfirm}}</p>
+        <br>
+        <button id="signup-btn" class="btn btn-primary" (click)="onSignup()">Signup</button>
+      </div>
 
-    <!-- Making buttons to switch between the login vs signup forms, styled to appear as tabs -->
-
-    <!-- Login form -->
-    <div id="loginDiv" *ngIf="isLogin">
-      <h5><strong>HAJENDAR</strong></h5>
-      <input class="form-control" id="loginUsername" type="text" placeholder="Username" (keydown.enter)="onLogin()" [(ngModel)]="loginModel.username">
-      <p *ngIf="loginErrors.username" class="validation">{{loginErrors.username}}</p>
-      <br>
-      <input class="form-control" id="loginPassword" type="password" placeholder="Password" (keydown.enter)="onLogin()" [(ngModel)]="loginModel.pass">
-      <p *ngIf="loginErrors.pass" class="validation">{{loginErrors.pass}}</p>
-      <br>
-      <button id="login-btn" class="btn btn-primary" (click)="onLogin()">Login</button>
     </div>
-
-    <!-- Signup form -->
-    <div id="signupDiv" *ngIf="isSignup">
-      <h5><strong>HAJ CASINO - Signup</strong></h5>
-      <input class="form-control" id="signupUsername" type="text" placeholder="Username" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.username">
-      <p *ngIf="signupErrors.username" class="validation">{{signupErrors.username}}</p>
-      <br>
-      <input class="form-control" id="signupPassword" type="password" placeholder="Password" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.pass">
-      <p *ngIf="signupErrors.pass" class="validation">{{signupErrors.pass}}</p>
-      <br>
-      <input class="form-control" id="signupPasswordConfirm" type="password" placeholder="Confirm Password" (keyup.enter)="onSignup()" [(ngModel)]="signupModel.passConfirm">
-      <p *ngIf="signupErrors.passConfirm" class="validation">{{signupErrors.passConfirm}}</p>
-      <br>
-      <button id="signup-btn" class="btn btn-primary" (click)="onSignup()">Signup</button>
-    </div>
-
   </div>
 </div>
-
-</div>
+<footer><a href="https://harrisonschultz.github.io/">H</a><a href="https://aadwilli.github.io/">A</a><a href="https://jwuestef.github.io/">J</a> Studio -2017 </footer>

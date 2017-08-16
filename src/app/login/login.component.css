@@ -1,6 +1,6 @@
 .container {
   margin-top: -60px;
-  height: 100vh;
+  height: 98vh;
   width: 100%;
   text-align: center;
   background-color: #78171c;
@@ -110,4 +110,11 @@
   background-color:white;
   border-bottom: 1px solid white;
   z-index: 3;
+}
+
+footer{
+  background-color: #78171c;
+  text-align: right;
+  color: white;
+  padding-right: 10px;
 }

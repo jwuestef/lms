@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 
-import { FirebaseService } from '../services/auth.service';
+import { AuthService } from '../services/auth.service';
 import { User } from '../models/user';
 import { EventService } from '../services/event.service';
 import { StudentService } from '../services/student.service';
@@ -36,7 +36,7 @@ export class LoginComponent {
 
 
   // The contructor function runs automatically on component load, each and every time it's called
-  constructor(public es: EventService, public fbs: FirebaseService, public afd: AngularFireDatabase, private ss: StudentService) {
+  constructor(public es: EventService, public as: AuthService, public afd: AngularFireDatabase, private ss: StudentService) {
     // Wipe any pre-existing calendar or event information
     this.es.currentCalender = null;
     this.es.eventArray = [];
@@ -84,7 +84,7 @@ export class LoginComponent {
         thisSaved.usernameToSendSignup = thisSaved.signupModel.username + '@elevenfifty.org';
         thisSaved.user = new User(thisSaved.usernameToSendSignup, thisSaved.signupModel.pass);
         // Call signup function from the service, and then save the username in local storage so we can show it in the navbar
-        thisSaved.fbs.signup(thisSaved.user).then(function (err) {
+        thisSaved.as.signup(thisSaved.user).then(function (err) {
           if (err !== undefined) {
             // If there is an error, then display a message to the user
             // If it's the error talking about an email address in use, then re-word it to say 'username' instead
@@ -130,7 +130,7 @@ export class LoginComponent {
     // Constructs user to login to firebase with, then login using the service
     this.user = new User(this.usernameToSendLogin, this.loginModel.pass);
     const thisSaved = this;
-    this.fbs.login(this.user).then(function (err) {
+    this.as.login(this.user).then(function (err) {
       if (err !== undefined) {
         // If there is an error, then display a message to the user
         thisSaved.loginErrors.pass = 'Username & password combination invalid, or user does not exist';

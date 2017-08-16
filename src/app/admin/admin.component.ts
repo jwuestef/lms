@@ -25,6 +25,12 @@ export class AdminComponent {
 
   // The contructor function runs automatically on component load, each and every time it's called
   constructor(public router: Router, public afd: AngularFireDatabase, public afa: AngularFireAuth, public es: EventService) {
+    // See if the user is even logged in first, if not, direct them to login screen
+    // if (this.afa.auth.currentUser.email === null || this.afa.auth.currentUser.email === undefined) {
+    //   this.router.navigateByUrl('/');
+    // }
+    // console.log('this.afa.auth.currentUser.email is:');
+    // console.log(this.afa.auth.currentUser.email);
     // Immediately query the isAdmin table on Firebase to check if the user is authorized to access this route.
     const thisSaved = this;
     this.afd.database.ref('/isAdmin').once('value').then(function (isAdminTable) {

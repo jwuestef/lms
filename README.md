@@ -7,7 +7,7 @@ The purpose of this website is to allow instructors to create a calendar to orga
 
 Students can view this calendar and click on the calendar events to access resources, and can mark events as "completed". 
 
-Instructors can review events and view which students have completed them.
+Instructors can add and review events, and view which students have completed them.
 
 ## View a deployed version
 See a [deployed version](https://lms-by-haj.firebaseapp.com/).
@@ -16,7 +16,7 @@ See a [deployed version](https://lms-by-haj.firebaseapp.com/).
 View an in-depth [user manual](https://docs.google.com/document/d/1inWpugtxjnkL31oBsdBdP9H6GDv_H6cae_Gd-ozrQsk/edit#).
 
 ## Cloning this repository
-Clone this Github repository, run `npm install` to install the dependancies, and then `ng serve` to build the app.
+Clone this Github repository, run `npm install` to install the dependencies, and then `ng serve` to build the app.
 Navigate to `http://localhost:4200/` to view the website.
 
 ## Deploying this website

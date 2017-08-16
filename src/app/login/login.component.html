@@ -3,18 +3,18 @@
   <!-- Set background image -->
   <img id="background-logo" src="./assets/efalogo.png" />
 
-  <div id='formContainer'>
-    <!-- Main box in center of screen displaying form for logging in or signing up -->
+  <div id="formContainer">
+
+    <!-- Making buttons to switch between the login vs signup forms, styled to appear as tabs -->
     <div id="buttons" class="fakeTabs">
-      <input type='radio' name="tab" id="Login" (click)="showLogin()" value="Login" checked>
-      <label for='Login' id="loginTabLabel">Login</label>
-      <input type='radio' name='tab' id="Signup" (click)="showSignup()" value="Signup">
-      <label for='Signup'>Signup</label>
+      <input type="radio" name="tab" id="Login" (click)="showLogin()" value="Login" checked>
+      <label for="Login" id="loginTabLabel">Login</label>
+      <input type="radio" name="tab" id="Signup" (click)="showSignup()" value="Signup">
+      <label for="Signup">Signup</label>
     </div>
 
+    <!-- Main box in center of screen displaying form for logging in or signing up -->
     <div id="loginSignup">
-
-      <!-- Making buttons to switch between the login vs signup forms, styled to appear as tabs -->
 
       <!-- Login form -->
       <div id="loginDiv" *ngIf="isLogin">
@@ -47,4 +47,6 @@
     </div>
   </div>
 </div>
+
+<!-- Footer giving credit to developers -->
 <footer><a href="https://harrisonschultz.github.io/">H</a><a href="https://aadwilli.github.io/">A</a><a href="https://jwuestef.github.io/">J</a> Studio -2017 </footer>

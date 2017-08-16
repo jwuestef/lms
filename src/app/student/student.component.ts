@@ -22,6 +22,7 @@ export class StudentComponent {
   constructor(public router: Router, public events: EventService, public as: AuthService) {
     // See if the user is even logged in first, if not, direct them to login screen
     if (!this.as.isAuthed()) {
+      localStorage.clear();
       this.router.navigateByUrl('/');
     }
   }

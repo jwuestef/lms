@@ -34,6 +34,7 @@ export class AdminComponent {
   ) {
     // See if the user is even logged in first, if not, direct them to login screen
     if (!this.as.isAuthed()) {
+      localStorage.clear();
       this.router.navigateByUrl('/');
     }
     // Immediately query the isAdmin table on Firebase to check if the user is authorized to access this route.
@@ -47,6 +48,7 @@ export class AdminComponent {
       const isAdmin = arrayOfAdmins.hasOwnProperty(userToCheckIfAdmin);
       // If isAdmin is false (the user isn't a white-listed admin) then re-route to login
       if (!isAdmin) {
+        localStorage.clear();
         thisSaved.router.navigateByUrl('/');
       }
     });

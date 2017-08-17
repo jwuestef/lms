@@ -10,9 +10,9 @@
 
     <!-- Buttons (styled to appear as tabs) to switch between the student management tab and the event management tab -->
     <div id="buttons" class="fakeTabs" *ngIf="es.currentCalender !== null">
-      <input type="radio" name="tab" id="Students" (click)="showStudentForm()" value="Students">
+      <input type="radio" name="tab" id="Students" (click)="showStudentForm()" value="Students" [checked]="isEventForm">
       <label for="Students" id="studentsTabLabel">Students</label>
-      <input type="radio" name="tab" id="Events" (click)="showEventForm()" value="Events" checked>
+      <input type="radio" name="tab" id="Events" (click)="showEventForm()" value="Events" [checked]="isStudentForm">
       <label for="Events">Events</label>
     </div>
 

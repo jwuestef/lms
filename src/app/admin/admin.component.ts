@@ -23,6 +23,8 @@ export class AdminComponent {
   @ViewChild('studentManagement') studentManagement: StudentManagementComponent;
   hideShowEvent = 'showThis';
   hideShowStudent = 'hideThis';
+  isEventForm = false;
+  isStudentForm = true;
 
   // The contructor function runs automatically on component load, each and every time it's called
   constructor(
@@ -112,10 +114,15 @@ export class AdminComponent {
   showEventForm() {
     this.hideShowEvent = 'showThis';
     this.hideShowStudent = 'hideThis';
+    this.isEventForm = false;
+    this.isStudentForm = true;
   }
   showStudentForm() {
     this.hideShowStudent = 'showThis';
     this.hideShowEvent = 'hideThis';
+    const radioButton = document.getElementById('Students');
+    this.isEventForm = true;
+    this.isStudentForm = false;
   }
 
 

@@ -28,6 +28,28 @@ The relevant commands are:
      - You will have to login with your Firebase credentials, and choose/create a Firebase project
      - Choose the `Hosting` option
      - When it asks about the `public`, enter `dist` instead
+ - Edit the firebase.json file to include the '*rewrites*' section:
+     - ``` {
+        {
+          "hosting": {
+            "public": "dist",
+            "ignore": [
+              "firebase.json",
+              "**/.*",
+              "**/node_modules/**"
+            ],
+            "rewrites": [
+              {
+                "source": "/dist/**",
+                "destination": "/index.html"
+              },
+              {
+                "source": "**",
+                "destination": "/index.html"
+              }
+            ]
+          }
+        }
  - `firebase deploy`
 
 # .

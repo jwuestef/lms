@@ -30,6 +30,7 @@
         <span class='glyphicon glyphicon-question-sign' id='help'></span>
       </p>
     </div>
+
     <!-- Display the current user's username, clicking this will log them out -->
     <ul class="nav navbar-nav pull-right">
       <li class="nav-item" (click)="signout()"><a href="#">Logged in as <em>{{navbarUsername}}</em>&nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;Logout</a></li>
@@ -39,7 +40,7 @@
       <p><span class='glyphicon glyphicon-stop' id='red'></span> is an Assignment</p>
       <p><span class='glyphicon glyphicon-stop' id='blue'></span> is a Topic</p>
       <p><span class='glyphicon glyphicon-stop' id='green'></span> is a Workshop</p>
-      <hr/>
+      <hr>
       <p>Ctrl+click or cmd+click to complete events</p>
     </div>
 
@@ -51,20 +52,75 @@
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
+      <div class="row">
 
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Add New Calendar</h4>
-      </div>
+        <!-- Create a new empty calendar -->
+        <div class="col-xs-5">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Empty Calendar</h4>
+          </div>
+          <div class="modal-body">
+            <label for="newCalendarTitleInput">New calendar's title will be: </label>
+            <input type="text" id="newCalendarTitleInput" [(ngModel)]="newCalendarTitle">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="createNewCalendar()">Create</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+        </div>
 
-      <div class="modal-body">
-        <label for="newCalendarTitleInput">New calendar's title will be: </label>
-        <input type="text" id="newCalendarTitleInput" [(ngModel)]="newCalendarTitle">
-      </div>
+        <div class="col-xs-1">
+          <!-- Adds spacing between columns -->
+        </div>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-success" data-dismiss="modal" (click)="createNewCalendar()">Create</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <div class="col-xs-6">
+          <div class="modal-header">
+            <h4 class="modal-title">Duplicate Existing Calendar</h4>
+          </div>
+
+          <div class="modal-body">
+            <label for="duplicateCalendarTitleInput">New calendar's title will be: </label>
+            <input type="text" id="duplicateCalendarTitleInput" [(ngModel)]="duplicateCalendarTitle">
+
+            <br>
+            <br>
+
+            <label for="selectCalendarToDuplicate">Calendar To Duplicate: </label>
+            <select id="selectCalendarToDuplicate" [(ngModel)]="calendarToDuplicate">
+              <option *ngFor="let calendar of arrayOfCalendars" [value]="calendar.title">{{calendar.title}}</option>
+            </select>
+
+            <br>
+            <br>
+
+            <label for="duplicateStartDate">Start Date: </label>
+            <input type="date" id="duplicateStartDate" [(ngModel)]="duplicateStartDate">
+
+            <br>
+            <br>
+
+            <input type="checkbox" id="skipWeekends" [(ngModel)]="skipWeekends">
+            <label for="skipWeekends">Skip Weekends?</label>
+
+            <br>
+            <br>
+
+            <label for="optionalSkipDates">
+              Optional Skip Dates:
+              <br>
+              (<em>Enter July 04, 2017 as: 2017-07-14</em>)
+            </label>
+            <br>
+            <textarea type="date" id="optionalSkipDates" [(ngModel)]="optionalSkipDates" rows=8 placeholder="2017-12-25 &#10;2017-12-31 &#10;2018-02-14"></textarea>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" data-dismiss="modal" (click)="duplicateNewCalendar()">Duplicate</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+          </div>
+
+        </div>
       </div>
 
     </div>

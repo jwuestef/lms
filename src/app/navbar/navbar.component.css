@@ -26,6 +26,14 @@ nav {
   margin-bottom: 0px;
 }
 
+.modal-dialog {
+  width: 125rem;
+}
+
+
+
+
+
 #help{
   color:white;
 }

@@ -18,8 +18,8 @@
 
       <!-- Login form -->
       <div id="loginDiv" *ngIf="isLogin">
-        <h5><strong>HAJENDAR</strong></h5>
-        <input class="form-control" id="loginUsername" type="text" placeholder="Username" (keydown.enter)="onLogin()" [(ngModel)]="loginModel.username">
+        <h5><strong>EFA CALENDAR</strong></h5>
+        <input class="form-control" id="loginUsername" type="text" placeholder="Username" (keydown.enter)="onLogin()" [(ngModel)]="loginModel.username" autofocus>
         <p *ngIf="loginErrors.username" class="validation">{{loginErrors.username}}</p>
         <br>
         <input class="form-control" id="loginPassword" type="password" placeholder="Password" (keydown.enter)="onLogin()" [(ngModel)]="loginModel.pass">

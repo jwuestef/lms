@@ -21,6 +21,11 @@ export class NavbarComponent {
   user: User;
   navbarUsername: string;
   newCalendarTitle: string;
+  duplicateCalendarTitle: string;
+  calendarToDuplicate;
+  duplicateStartDate;
+  skipWeekends = true;
+  optionalSkipDates;
   listOfCalendarsAsObject;
   arrayOfCalendars = [];
   isAdmin: boolean;
@@ -129,6 +134,109 @@ export class NavbarComponent {
 
 
 
+  // Duplicates an existing calendar per selected options
+  duplicateNewCalendar() {
+    // Pulls current user out of authentication data, sets as the creator for this calendar
+    const creatorWithAtSign = this.afa.auth.currentUser.email;
+    const atSign = creatorWithAtSign.search('@');
+    const creator = creatorWithAtSign.slice(0, atSign);
+    // Parse textarea content into array of dates to be skipped
+    if (this.optionalSkipDates) {
+      this.optionalSkipDates = this.optionalSkipDates.split(/\r?\n/);
+    } else {
+      this.optionalSkipDates = [];
+    }
+    const thisSaved = this;
+    // Get contents of the old calendar
+    this.afd.database.ref('/calendars/' + this.calendarToDuplicate).once('value').then(function (duplicateContents) {
+      // Save those contents under the new name
+      thisSaved.afd.database.ref('/calendars/' + thisSaved.duplicateCalendarTitle).set(duplicateContents.val());
+      // Update the 'creator' and 'title' fields
+      thisSaved.afd.database.ref('/calendars/' + thisSaved.duplicateCalendarTitle).update({
+        title: thisSaved.duplicateCalendarTitle,
+        creator: creator
+      }).then(function () {
+        // Now we need to loop over events and pull out list of all dates
+        let arrayOfDates = [];
+        // Iterate over the returned object and pull out the dates for each event
+        let counterOfDates = 0;
+        Object.keys(duplicateContents.val().events).forEach(function (key) {
+          arrayOfDates[counterOfDates] = duplicateContents.val().events[key].start;
+          counterOfDates++;
+        });
+        // Sort this array of dates and filter out duplicates
+        arrayOfDates = arrayOfDates.sort().filter(function (item, pos, ary) {
+          return !pos || item !== ary[pos - 1];
+        });
+        // Loop over that array of dates, updating based on this value
+        for (let i = 0; i < arrayOfDates.length; i++) {
+          // Loop over the calendar's events
+          counterOfDates = 0;
+          Object.keys(duplicateContents.val().events).forEach(function (key) {
+            // For each event, if the start date matches the date we're updating
+            if (duplicateContents.val().events[key].start === arrayOfDates[i]) {
+              // We need to update that event in the DB then, with the new starting date
+              thisSaved.afd.database.ref('/calendars/' + thisSaved.duplicateCalendarTitle + '/events/' + key).update({
+                start: thisSaved.duplicateStartDate.toString()
+              }).then(function () {
+                // console.log('Should be updated!');
+              });
+              // If the dates don't match
+            } else {
+              // console.log('No match using event date:');
+              // console.log(duplicateContents.val().events[key].start);
+            }
+            // Increment the variable we use to iterate over the events object
+            counterOfDates++;
+          });
+          // Update duplicateStartDate to next day
+          // Convert the date into a computer-friendly date variable
+          const newDate = new Date(
+            Number(thisSaved.duplicateStartDate.substring(0, 4)),
+            Number(thisSaved.duplicateStartDate.substring(5, 7)) - 1,
+            Number(thisSaved.duplicateStartDate.substring(8, 10))
+          );
+          // Add 1 day to the date
+          newDate.setDate(newDate.getDate() + 1);
+          // If this new date is on the optionalSkipDates or a weekend (if option chosen) then we need to keep adding 1 until fixed
+          // If we are skipping weekends, then filter like such:
+          if (thisSaved.skipWeekends) {
+            while (
+              thisSaved.optionalSkipDates.includes(newDate.toJSON().substring(0, 10)) ||
+              newDate.getDay() === 0 ||
+              newDate.getDay() === 6
+            ) {
+              // console.log('BANNED DATE FOUND! We should skip it, add one to the date!');
+              newDate.setDate(newDate.getDate() + 1);
+            }
+          } else {
+            // Otherwise, if we aren't skipping weekends, just filter based on optionalSkipDates
+            while (
+              thisSaved.optionalSkipDates.includes(newDate.toJSON().substring(0, 10))
+            ) {
+              // console.log('BANNED DATE FOUND! We should skip it, add one to the date!');
+              newDate.setDate(newDate.getDate() + 1);
+            }
+          }
+          // Convert date back to YYYY-MM-DD format
+          thisSaved.duplicateStartDate = newDate.toJSON().substring(0, 10);
+        } // End of For loop, going over arrayOfDates
+        // Query database for all calendars, so the dropdown menu will populate with this new calendar
+        thisSaved.afd.database.ref('/calendars').once('value').then(function (listOfCalendarsFromDB) {
+          thisSaved.listOfCalendarsAsObject = listOfCalendarsFromDB.val();
+          // Iterate over the returned object and turn it into an array of calendars
+          let counterOfCalendars = 0;
+          Object.keys(thisSaved.listOfCalendarsAsObject).forEach(function (key) {
+            thisSaved.arrayOfCalendars[counterOfCalendars] = thisSaved.listOfCalendarsAsObject[key];
+            counterOfCalendars++;
+          });
+        });
+      });
+    });
+  }
+
+
+
   // Signs user out by clearing the local storage, then navigates back to login
   signout() {
     this.as.signout();
@@ -136,12 +244,12 @@ export class NavbarComponent {
 
 
 
-  showHelp(){
+  showHelp() {
     this.help = true;
   }
 
 
-   hideHelp(){
+  hideHelp() {
     this.help = false;
   }
 
